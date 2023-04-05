@@ -24,9 +24,7 @@ export class HeaderComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    console.log(typeof event);
-    
+  onResize(event: any) {  
     if (event.target.innerWidth > 1024) {
       this.showBurgerMenu = false;
     }

@@ -20,6 +20,7 @@ import * as fromRecipesReducer from './store/recipes/recipes.reducers'
 import { BarEffects } from './store/bar/bar.effects';
 import { IngredientsEffects } from './store/ingredients/ingredients.effects';
 import { RecipesEffects } from './store/recipes/recipes.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -43,7 +44,10 @@ import { RecipesEffects } from './store/recipes/recipes.effects';
     StoreModule.forFeature(fromBarReducer.featureKey, fromBarReducer.reducer),
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
     StoreModule.forFeature(fromRecipesReducer.featureKey, fromRecipesReducer.reducer),
-    EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects])
+    EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

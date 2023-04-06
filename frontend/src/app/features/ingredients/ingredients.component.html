@@ -1,53 +1,190 @@
 <div class="sm:px-6 w-full">
   <!-- Headline -->
   <div class="px-4 md:px-10 py-4 md:py-7">
-    <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Ingredients - Master</p>
+    <p
+      class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"
+    >
+      Ingredients
+    </p>
   </div>
 
   <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
     <app-table-header></app-table-header>
     <div class="mt-7 overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
-        <tbody>
-          <tr 
-            *ngFor="let ingredientGroup of ingredientGroup$ | async | sortIngredientGroupsByAlphabet"
-            tabindex="0" 
-            class="focus:outline-none h-16 border border-gray-100 rounded px-4" 
-            (onclick)="selectIngredientGroup('a')">
-            <td class="pl-5">
-              <p class="text-base font-bold leading-none text-gray-700">{{ ingredientGroup.name }}</p>
-            </td>
-            <td class="pl-5">
-              <div class="flex items-center">
-                <img src="assets/cup-measurement.svg" class="w-4 h-4">
-                <p class="text-sm leading-none text-gray-600 ml-2">{{ ingredientGroup.ingredients | reduceIngredientsAmmount }}</p>
-              </div>
-            </td>
-            <td class="pl-5">
-              <div class="flex items-center">
-                <p class="text-sm leading-none text-gray-600 ml-2">{{ unitOfMeasurement[ingredientGroup.unitOfMeasurement] }}</p>
-              </div>
-            </td>
-            <td class="pl-5">
-              <button class="py-3 px-3 text-sm focus:outline-none leading-none text-red-700 bg-red-100 rounded">{{ ingredientGroup.ingredients | countIngredientsGreaterZero }}/{{ ingredientGroup.ingredients.length }}</button>
-            </td>
-            <td class="pl-5">
-              <button class="focus:ring-2 rounded-md focus:outline-none" onclick="dropdownFunction(this)" role="button" aria-label="option">
-                <img src="assets/horizontal-dots.svg"  class="w-4 h-4">
-              </button>
-              <div class="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 hidden">
-                <div tabindex="0" class="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
-                  <p>Edit</p>
+      <div class="pb-4 border-b-2 border-gray-100">
+        <table
+          *ngIf="
+            (ingredientGroup$ | async) &&
+              (ingredientGroup$ | async).length !== 0;
+            else noIngredientGroups
+          "
+          class="w-full whitespace-nowrap"
+        >
+          <tbody>
+            <tr
+              *ngFor="
+                let ingredientGroup of ingredientGroup$
+                  | async
+                  | sortIngredientGroupsByAlphabet
+              "
+              tabindex="0"
+              class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+              (click)="selectIngredientGroup(ingredientGroup.id)"
+            >
+              <td class="pl-5">
+                <p class="text-base font-bold leading-none text-gray-700">
+                  {{ ingredientGroup.name }}
+                </p>
+              </td>
+              <td class="pl-5 text-center">
+                <div class="flex items-center">
+                  <img src="assets/cup-measurement.svg" class="w-4 h-4" />
+                  <p class="text-sm leading-none text-gray-600 ml-2">
+                    {{ ingredientGroup.ingredients | reduceIngredientsAmmount }}
+                  </p>
                 </div>
-                <div tabindex="0" class="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
-                  <p>Delete</p>
+              </td>
+              <td class="pl-5 text-center">
+                <div class="flex items-center">
+                  <p class="text-sm leading-none text-gray-600 ml-2">
+                    {{ unitOfMeasurement[ingredientGroup.unitOfMeasurement] }}
+                  </p>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr class="h-3"></tr>
-        </tbody>
-      </table>
+              </td>
+              <td class="pl-5 text-center">
+                <span
+                  class="py-3 px-3 text-sm focus:outline-none leading-none rounded"
+                  [ngClass]="{
+                    'text-red-700 bg-red-100':
+                      (ingredientGroup.ingredients
+                        | countIngredientsGreaterZero) /
+                        ingredientGroup.ingredients.length <
+                      0.3,
+                    'text-orange-700 bg-orange-100':
+                      (ingredientGroup.ingredients
+                        | countIngredientsGreaterZero) /
+                        ingredientGroup.ingredients.length >=
+                        0.3 &&
+                      (ingredientGroup.ingredients
+                        | countIngredientsGreaterZero) /
+                        ingredientGroup.ingredients.length <=
+                        0.7,
+                    'text-green-700 bg-green-100':
+                      (ingredientGroup.ingredients
+                        | countIngredientsGreaterZero) /
+                        ingredientGroup.ingredients.length >
+                      0.7
+                  }"
+                >
+                  {{
+                    ingredientGroup.ingredients | countIngredientsGreaterZero
+                  }}/{{ ingredientGroup.ingredients.length }}
+                </span>
+              </td>
+              <td class="pl-5 text-center">
+                <button
+                  class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  (click)="
+                    editIngredientGroup(ingredientGroup.id);
+                    $event.stopPropagation()
+                  "
+                  role="button"
+                >
+                  <img src="assets/edit.svg" class="w-8 h-8" />
+                </button>
+                <button
+                  class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+                  (click)="
+                    deleteIngredientGroup(ingredientGroup.id);
+                    $event.stopPropagation()
+                  "
+                  role="button"
+                >
+                  <img src="assets/delete.svg" class="w-8 h-8" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="m-4">
+        <table
+          *ngIf="
+            selectedIngredientGroup$ | async;
+            else noSelectedIngredientGroup
+          "
+          class="w-full whitespace-nowrap"
+        >
+          <tbody>
+            <tr
+              *ngFor="
+                let ingredient of selectedIngredientGroup$
+                  | async
+                  | sortIngredientGroupsByAlphabet
+              "
+              tabindex="0"
+              class="focus:outline-none h-16 border border-gray-100 rounded px-4 hover:bg-gray-200"
+            >
+              <td class="pl-5">
+                <p class="text-base font-bold leading-none text-gray-700">
+                  {{ ingredient.name }}
+                </p>
+              </td>
+              <td class="pl-5 text-center">
+                <div class="flex items-center">
+                  <img src="assets/cup-measurement.svg" class="w-4 h-4" />
+                  <p class="text-sm leading-none text-gray-600 ml-2">
+                    {{ ingredient.ammount }}
+                  </p>
+                </div>
+              </td>
+              <td class="pl-5 text-center">
+                <div class="flex items-center">
+                  <p class="text-sm leading-none text-gray-600 ml-2">
+                    {{ ingredient.description }}
+                  </p>
+                </div>
+              </td>
+              <td class="pl-5 text-center">
+                <button
+                  class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  (click)="editIngredient(ingredient.id)"
+                  role="button"
+                >
+                  <img src="assets/edit.svg" class="w-8 h-8" />
+                </button>
+                <button
+                  class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+                  (click)="deleteIngredient(ingredient.id)"
+                  role="button"
+                >
+                  <img src="assets/delete.svg" class="w-8 h-8" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #noIngredientGroups>
+  <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
+    <img src="assets/404.svg" class="w-32 h-32" />
+    <p class="text-xl text-bold leading-none text-gray-600 ml-2">
+      There is a problem loading the ingredients. Please try again later.
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #noSelectedIngredientGroup>
+  <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
+    <img src="assets/404.svg" class="w-32 h-32" />
+    <p class="text-xl text-bold leading-none text-gray-600 ml-2">
+      No ingredient group selected or the selected group was not found. Please
+      try again later.
+    </p>
+  </div>
+</ng-template>

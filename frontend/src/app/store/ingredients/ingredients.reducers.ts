@@ -2,11 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import * as IngredientsActions from './ingredients.actions';
 import { IngredientGroup } from 'src/app/shared/models/ingredients';
 
-export const featureKey = 'ingredients'
+export const featureKey = 'ingredients';
 
 export interface IState {
   ingredients: IngredientGroup[];
   shownIngredients: IngredientGroup[];
+  selectedIngredientGroup?: IngredientGroup;
   loading: boolean;
   selectedIngredients: 'all' | 'available' | 'unavailable';
 }
@@ -14,37 +15,109 @@ export interface IState {
 export const initialState: IState = {
   ingredients: [],
   shownIngredients: [],
+  selectedIngredientGroup: undefined,
   loading: false,
-  selectedIngredients: 'all'
+  selectedIngredients: 'all',
 };
 
 export const reducer = createReducer(
   initialState,
-  on(IngredientsActions.loadIngredients, state => ({ ...state, loading: true })),
-  on(IngredientsActions.loadIngredientsSuccess, (state, action) => ({ ...state, ingredients: action.ingredients, shownIngredients: action.ingredients, loading: false })),
-  on(IngredientsActions.loadIngredientsFailure, state => ({ ...state, ingredients: [], loading: false })),
+  on(IngredientsActions.loadIngredients, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.loadIngredientsSuccess, (state, action) => ({
+    ...state,
+    ingredients: action.ingredients,
+    shownIngredients: action.ingredients,
+    loading: false,
+  })),
+  on(IngredientsActions.loadIngredientsFailure, (state) => ({
+    ...state,
+    ingredients: [],
+    loading: false,
+  })),
 
-  on(IngredientsActions.showAllIngredients, state => ({ 
-    ...state, 
-    selectedIngredients: 'all', 
-    shownIngredients: state.ingredients
+  on(IngredientsActions.showAllIngredientsGroups, (state) => ({
+    ...state,
+    selectedIngredients: 'all',
+    shownIngredients: state.ingredients,
   })),
-  on(IngredientsActions.showAvailableIngredients, state => ({ 
-    ...state, 
-    selectedIngredients: 'available', 
+  on(IngredientsActions.showAvailableIngredientsGroups, (state) => ({
+    ...state,
+    selectedIngredients: 'available',
     shownIngredients: state.ingredients.filter(
-      (ingredient) => ingredient.ingredients.reduce(
-        (acc, value) => acc + value.ammount, 0
-      ) > 0
-    )
+      (ingredient) =>
+        ingredient.ingredients.reduce((acc, value) => acc + value.ammount, 0) >
+        0
+    ),
   })),
-  on(IngredientsActions.showUnavailableIngredients, state => ({ 
-    ...state, 
-    selectedIngredients: 'unavailable', 
+  on(IngredientsActions.showUnavailableIngredientsGroups, (state) => ({
+    ...state,
+    selectedIngredients: 'unavailable',
     shownIngredients: state.ingredients.filter(
-      (ingredient) => ingredient.ingredients.reduce(
-        (acc, value) => acc + value.ammount, 0
-      ) === 0
-    )
+      (ingredient) =>
+        ingredient.ingredients.reduce(
+          (acc, value) => acc + value.ammount,
+          0
+        ) === 0
+    ),
   })),
+
+  on(IngredientsActions.selectSingleIngredientGroup, (state, action) => ({
+    ...state,
+    selectedIngredientGroup: state.ingredients.find(
+      (value) => value.id === action.ingredientGroupId
+    ),
+  })),
+  on(IngredientsActions.resetSelectSingleIngredientGroup, (state) => ({
+    ...state,
+    selectedIngredientGroup: undefined,
+  })),
+
+  on(IngredientsActions.deleteIngredientGroup, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.deleteIngredient, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.deleteIngredientGroupSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: action.ingredients,
+    shownIngredients: action.ingredients,
+    selectedIngredients: 'all',
+  })),
+  on(IngredientsActions.deleteIngredientSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: action.ingredients,
+    shownIngredients: action.ingredients,
+    selectedIngredients: 'all',
+  })),
+
+  on(IngredientsActions.editIngredientGroup, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.editIngredient, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.editIngredientGroupSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: action.ingredients,
+    shownIngredients: action.ingredients,
+    selectedIngredients: 'all',
+  })),
+  on(IngredientsActions.editIngredientSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: action.ingredients,
+    shownIngredients: action.ingredients,
+    selectedIngredients: 'all',
+  }))
 );

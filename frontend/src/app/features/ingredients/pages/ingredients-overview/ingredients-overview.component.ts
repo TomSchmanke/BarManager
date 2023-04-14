@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
-import { IngredientGroup, Ingredient } from 'src/app/shared/models/ingredients';
-import { UnitOfMeasurement } from 'src/app/shared/models/unit-of-measurement';
+import { IngredientGroup, Ingredient, UnitOfMeasurement } from '@bar-manager/api';
 import {
   loadIngredients,
   loadIngredientsSuccess,
@@ -29,8 +28,8 @@ export class IngredientsOverviewComponent {
   ingredientGroup$: Observable<IngredientGroup[]>;
   selectedIngredientGroup$: Observable<Ingredient[] | undefined>;
 
-  ingredientGroupToDeleteId?: string;
-  ingredientToDeleteId?: string;
+  ingredientGroupToDeleteId?: number;
+  ingredientToDeleteId?: number;
 
   constructor(private readonly store: Store) {
     this.store.dispatch(loadIngredients());
@@ -38,45 +37,45 @@ export class IngredientsOverviewComponent {
       loadIngredientsSuccess({
         ingredients: [
           {
-            id: '1',
+            id: 1,
             name: 'Gin',
             unitOfMeasurement: UnitOfMeasurement.ML,
             ingredients: [
               {
-                id: '1',
+                id: 1,
                 name: 'Gin de Cologne',
                 description: '',
-                ammount: 700,
+                amount: 700,
               },
               {
-                id: '2',
+                id: 2,
                 name: 'Gin de Cologne - Orange',
                 description: 'Jummy Orange',
-                ammount: 700,
+                amount: 700,
               },
               {
-                id: '3',
+                id: 3,
                 name: 'Bombay Saphire',
-                ammount: 0,
+                amount: 0,
               },
             ],
           },
           {
-            id: '2',
+            id: 2,
             name: 'Wodka',
             unitOfMeasurement: UnitOfMeasurement.ML,
             ingredients: [
               {
-                id: '4',
+                id: 4,
                 name: 'Absolut Wodka',
                 description: '',
-                ammount: 0,
+                amount: 0,
               },
               {
-                id: '2',
+                id: 2,
                 name: 'Wodka Grobatschow',
                 description: '',
-                ammount: 0,
+                amount: 0,
               },
             ],
           },
@@ -89,18 +88,18 @@ export class IngredientsOverviewComponent {
       .pipe(map((value) => (value ? value.ingredients : undefined)));
   }
 
-  selectIngredientGroup(ingredientGroupId: string) {
+  selectIngredientGroup(ingredientGroupId: number) {
     this.store.dispatch(selectSingleIngredientGroup({ ingredientGroupId }));
     console.log('Select ingredient group', ingredientGroupId);
   }
 
   // Edit ingredient group and ingredient
 
-  editIngredientGroup(ingredientGroupId: string) {
+  editIngredientGroup(ingredientGroupId: number) {
     this.store.dispatch(selectSingleIngredientGroup({ ingredientGroupId }));
   }
 
-  editIngredient(ingredientId: string) {
+  editIngredient(ingredientId: number) {
     this.store.dispatch(selectSingleIngredient({ ingredientId }));
   }
 
@@ -116,7 +115,7 @@ export class IngredientsOverviewComponent {
 
   // Delete ingredient group
 
-  openDeleteIngredientGroupModal(ingredientGroupId: string) {
+  openDeleteIngredientGroupModal(ingredientGroupId: number) {
     this.ingredientGroupToDeleteId = ingredientGroupId;
   }
 
@@ -135,7 +134,7 @@ export class IngredientsOverviewComponent {
 
   // Delete ingredient
 
-  openDeleteIngredientModal(ingredientId: string) {
+  openDeleteIngredientModal(ingredientId: number) {
     this.ingredientToDeleteId = ingredientId;
   }
 

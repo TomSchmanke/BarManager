@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Ingredient } from 'src/app/shared/models/ingredients';
+import { Ingredient } from '@bar-manager/api';
 
 @Pipe({
   name: 'countIngredientsGreaterZero',
 })
 export class CountIngredientsGreaterZeroPipe implements PipeTransform {
   transform(value: Ingredient[]): number {
-    return value.filter((value) => value.ammount > 0).length;
+    return value.filter((value) => value.amount > 0).length;
   }
 }

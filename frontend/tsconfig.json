@@ -22,7 +22,8 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": { "@bar-manager/api": ["src/app/util/index.ts"] },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

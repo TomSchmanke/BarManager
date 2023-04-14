@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as IngredientsActions from './ingredients.actions';
-import { Ingredient, IngredientGroup } from 'src/app/shared/models/ingredients';
+import { Ingredient, IngredientGroup } from '@bar-manager/api';
 
 export const featureKey = 'ingredients';
 
@@ -50,7 +50,7 @@ export const reducer = createReducer(
     selectedIngredients: 'available',
     shownIngredients: state.ingredients.filter(
       (ingredient) =>
-        ingredient.ingredients.reduce((acc, value) => acc + value.ammount, 0) >
+        ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) >
         0
     ),
   })),
@@ -60,7 +60,7 @@ export const reducer = createReducer(
     shownIngredients: state.ingredients.filter(
       (ingredient) =>
         ingredient.ingredients.reduce(
-          (acc, value) => acc + value.ammount,
+          (acc, value) => acc + value.amount,
           0
         ) === 0
     ),

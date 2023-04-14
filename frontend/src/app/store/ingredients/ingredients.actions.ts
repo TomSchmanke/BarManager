@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Ingredient, IngredientGroup } from 'src/app/shared/models/ingredients';
+import { Ingredient, IngredientGroup } from '@bar-manager/api';
 
 export const loadIngredients = createAction('[ingredients] load ingredients');
 
@@ -27,7 +27,7 @@ export const showUnavailableIngredientsGroups = createAction(
 
 export const selectSingleIngredientGroup = createAction(
   '[ingredients] select single ingredient group',
-  props<{ ingredientGroupId?: string }>()
+  props<{ ingredientGroupId?: number }>()
 );
 
 export const resetSelectSingleIngredientGroup = createAction(
@@ -36,7 +36,7 @@ export const resetSelectSingleIngredientGroup = createAction(
 
 export const selectSingleIngredient = createAction(
   '[ingredients] select single ingredient',
-  props<{ ingredientId?: string }>()
+  props<{ ingredientId?: number }>()
 );
 
 export const resetSelectSingleIngredient = createAction(
@@ -56,7 +56,7 @@ export const editIngredientGroupSuccess = createAction(
 
 export const editIngredient = createAction(
   '[ingredients] edit ingredient',
-  props<{ ingredientGroupId: string, ingredient: Ingredient }>()
+  props<{ ingredientGroupId: number, ingredient: Ingredient }>()
 );
 
 export const editIngredientSuccess = createAction(
@@ -66,7 +66,7 @@ export const editIngredientSuccess = createAction(
 
 export const deleteIngredientGroup = createAction(
   '[ingredients] delete ingredient group',
-  props<{ ingredientGroupId: string }>()
+  props<{ ingredientGroupId: number }>()
 );
 
 export const deleteIngredientGroupSuccess = createAction(
@@ -76,7 +76,7 @@ export const deleteIngredientGroupSuccess = createAction(
 
 export const deleteIngredient = createAction(
   '[ingredients] delete ingredient',
-  props<{ ingredientId: string }>()
+  props<{ ingredientId: number }>()
 );
 
 export const deleteIngredientSuccess = createAction(
@@ -96,7 +96,7 @@ export const addIngredientGroupSuccess = createAction(
 
 export const addIngredient = createAction(
   '[ingredients] add ingredient',
-  props<{ ingredientGroupId: string, ingredient: Ingredient }>()
+  props<{ ingredientGroupId: number, ingredient: Ingredient }>()
 );
 
 export const addIngredientSuccess = createAction(

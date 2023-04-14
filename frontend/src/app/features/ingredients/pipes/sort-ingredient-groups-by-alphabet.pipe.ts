@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IngredientGroup } from 'src/app/shared/models/ingredients';
+import { IngredientGroup } from '@bar-manager/api';
 
 @Pipe({
   name: 'sortIngredientGroupsByAlphabet',

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs';
-import { Ingredient, IngredientGroup } from 'src/app/shared/models/ingredients';
-import { UnitOfMeasurement } from 'src/app/shared/models/unit-of-measurement';
+import { Ingredient, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { addIngredientGroup, editIngredientGroup } from 'src/app/store/ingredients/ingredients.actions';
 import { selectSelectedIngredientGroup } from 'src/app/store/ingredients/ingredients.selectors';
 
@@ -39,7 +38,7 @@ export class IngredientsGroupEditComponent {
       if (this.newOrExisitingIngredientGroup === 'existing') {
         this.ingredientsGroupEditForm?.setValue({
           name: ingredientGroup?.name ? ingredientGroup.name : '',
-          ammount: ingredientGroup?.unitOfMeasurement ? ingredientGroup.unitOfMeasurement : UnitOfMeasurement.G,
+          unitOfMeasurement: ingredientGroup?.unitOfMeasurement ? ingredientGroup.unitOfMeasurement : UnitOfMeasurement.G,
         });
         this.selectedIngredientGroupIngredients = ingredientGroup?.ingredients;
       }
@@ -48,7 +47,7 @@ export class IngredientsGroupEditComponent {
 
   onSubmit() {
     const newIngredientGroup: IngredientGroup = {
-      id: '',
+      id: 0,
       name: this.ingredientsGroupEditForm?.get('name')?.value,
       unitOfMeasurement: this.ingredientsGroupEditForm?.get('unitOfMeasurement')?.value,
       ingredients: this.selectedIngredientGroupIngredients!

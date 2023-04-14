@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IngredientsRoutingModule } from './ingredients-routing.module';
 import { TableHeaderComponent } from './components/table-header/table-header.component';
-import { ReduceIngredientsAmmountPipe } from './pipes/reduce-ingredients-ammount.pipe';
+import { ReduceIngredientsAmountPipe } from './pipes/reduce-ingredients-amount.pipe';
 import { SortIngredientGroupsByAlphabetPipe } from './pipes/sort-ingredient-groups-by-alphabet.pipe';
 import { CountIngredientsGreaterZeroPipe } from './pipes/count-ingredients-greater-zero.pipe';
 import { IngredientsOverviewComponent } from './pages/ingredients-overview/ingredients-overview.component';
@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     TableHeaderComponent,
-    ReduceIngredientsAmmountPipe,
+    ReduceIngredientsAmountPipe,
     SortIngredientGroupsByAlphabetPipe,
     CountIngredientsGreaterZeroPipe,
     IngredientsOverviewComponent,

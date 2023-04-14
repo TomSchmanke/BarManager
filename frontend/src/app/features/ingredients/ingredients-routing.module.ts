@@ -7,20 +7,20 @@ import { IngredientsGroupEditComponent } from './pages/ingredients-group-edit/in
 const routes: Routes = [
   {
     path: '',
-    component: IngredientsOverviewComponent
+    component: IngredientsOverviewComponent,
   },
   {
     path: 'edit',
-    component: IngredientsEditComponent
+    component: IngredientsEditComponent,
   },
   {
     path: 'group-edit',
-    component: IngredientsGroupEditComponent
+    component: IngredientsGroupEditComponent,
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class IngredientsRoutingModule {}

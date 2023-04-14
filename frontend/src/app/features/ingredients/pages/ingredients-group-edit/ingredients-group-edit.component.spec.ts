@@ -8,9 +8,8 @@ describe('IngredientsGroupEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IngredientsGroupEditComponent ]
-    })
-    .compileComponents();
+      declarations: [IngredientsGroupEditComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IngredientsGroupEditComponent);
     component = fixture.componentInstance;

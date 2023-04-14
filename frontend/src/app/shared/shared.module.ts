@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 @NgModule({
-  declarations: [
-    DeleteModalComponent
-  ],
+  declarations: [DeleteModalComponent],
   imports: [CommonModule],
-  exports: [DeleteModalComponent]
+  exports: [DeleteModalComponent],
 })
 export class SharedModule {}

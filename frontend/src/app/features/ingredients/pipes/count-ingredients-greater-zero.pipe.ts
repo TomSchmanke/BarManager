@@ -6,6 +6,6 @@ import { Ingredient } from '@bar-manager/api';
 })
 export class CountIngredientsGreaterZeroPipe implements PipeTransform {
   transform(value: Ingredient[]): number {
-    return value.filter((value) => value.amount > 0).length;
+    return value.filter(value => value.amount > 0).length;
   }
 }

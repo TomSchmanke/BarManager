@@ -24,7 +24,7 @@ export const initialState: IState = {
 
 export const reducer = createReducer(
   initialState,
-  on(IngredientsActions.loadIngredients, (state) => ({
+  on(IngredientsActions.loadIngredients, state => ({
     ...state,
     loading: true,
   })),
@@ -34,65 +34,55 @@ export const reducer = createReducer(
     shownIngredients: action.ingredients,
     loading: false,
   })),
-  on(IngredientsActions.loadIngredientsFailure, (state) => ({
+  on(IngredientsActions.loadIngredientsFailure, state => ({
     ...state,
     ingredients: [],
     loading: false,
   })),
 
-  on(IngredientsActions.showAllIngredientsGroups, (state) => ({
+  on(IngredientsActions.showAllIngredientsGroups, state => ({
     ...state,
     selectedIngredients: 'all',
     shownIngredients: state.ingredients,
   })),
-  on(IngredientsActions.showAvailableIngredientsGroups, (state) => ({
+  on(IngredientsActions.showAvailableIngredientsGroups, state => ({
     ...state,
     selectedIngredients: 'available',
     shownIngredients: state.ingredients.filter(
-      (ingredient) =>
-        ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) >
-        0
+      ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) > 0
     ),
   })),
-  on(IngredientsActions.showUnavailableIngredientsGroups, (state) => ({
+  on(IngredientsActions.showUnavailableIngredientsGroups, state => ({
     ...state,
     selectedIngredients: 'unavailable',
     shownIngredients: state.ingredients.filter(
-      (ingredient) =>
-        ingredient.ingredients.reduce(
-          (acc, value) => acc + value.amount,
-          0
-        ) === 0
+      ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) === 0
     ),
   })),
 
   on(IngredientsActions.selectSingleIngredientGroup, (state, action) => ({
     ...state,
-    selectedIngredientGroup: state.ingredients.find(
-      (value) => value.id === action.ingredientGroupId
-    ),
+    selectedIngredientGroup: state.ingredients.find(value => value.id === action.ingredientGroupId),
   })),
-  on(IngredientsActions.resetSelectSingleIngredientGroup, (state) => ({
+  on(IngredientsActions.resetSelectSingleIngredientGroup, state => ({
     ...state,
     selectedIngredientGroup: undefined,
   })),
 
   on(IngredientsActions.selectSingleIngredient, (state, action) => ({
     ...state,
-    selectedIngredient: state.selectedIngredientGroup!.ingredients.find(
-      (value) => value.id === action.ingredientId
-    ),
+    selectedIngredient: state.selectedIngredientGroup!.ingredients.find(value => value.id === action.ingredientId),
   })),
-  on(IngredientsActions.resetSelectSingleIngredient, (state) => ({
+  on(IngredientsActions.resetSelectSingleIngredient, state => ({
     ...state,
     selectedIngredient: undefined,
   })),
 
-  on(IngredientsActions.deleteIngredientGroup, (state) => ({
+  on(IngredientsActions.deleteIngredientGroup, state => ({
     ...state,
     loading: true,
   })),
-  on(IngredientsActions.deleteIngredient, (state) => ({
+  on(IngredientsActions.deleteIngredient, state => ({
     ...state,
     loading: true,
   })),
@@ -111,11 +101,11 @@ export const reducer = createReducer(
     selectedIngredients: 'all',
   })),
 
-  on(IngredientsActions.editIngredientGroup, (state) => ({
+  on(IngredientsActions.editIngredientGroup, state => ({
     ...state,
     loading: true,
   })),
-  on(IngredientsActions.editIngredient, (state) => ({
+  on(IngredientsActions.editIngredient, state => ({
     ...state,
     loading: true,
   })),

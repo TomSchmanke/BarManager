@@ -8,11 +8,11 @@ import { RecipesModule } from './features/recipes/recipes.module';
 import { StartModule } from './features/start/start.module';
 import { SharedModule } from './shared/shared.module';
 import { BarEffects } from './store/bar/bar.effects';
-import * as fromBarReducer from './store/bar/bar.reducers'
+import * as fromBarReducer from './store/bar/bar.reducers';
 import { IngredientsEffects } from './store/ingredients/ingredients.effects';
-import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers'
+import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers';
 import { RecipesEffects } from './store/recipes/recipes.effects';
-import * as fromRecipesReducer from './store/recipes/recipes.reducers'
+import * as fromRecipesReducer from './store/recipes/recipes.reducers';
 import { ApiModule } from './util';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -25,9 +25,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -52,9 +50,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
-    })
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

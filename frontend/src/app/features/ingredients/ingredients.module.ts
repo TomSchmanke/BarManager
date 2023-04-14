@@ -11,8 +11,6 @@ import { IngredientsEditComponent } from './pages/ingredients-edit/ingredients-e
 import { IngredientsGroupEditComponent } from './pages/ingredients-group-edit/ingredients-group-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     TableHeaderComponent,
@@ -21,13 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CountIngredientsGreaterZeroPipe,
     IngredientsOverviewComponent,
     IngredientsEditComponent,
-    IngredientsGroupEditComponent
+    IngredientsGroupEditComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    IngredientsRoutingModule,
-    ReactiveFormsModule,
-  ]
+  imports: [CommonModule, SharedModule, IngredientsRoutingModule, ReactiveFormsModule],
 })
-export class IngredientsModule { }
+export class IngredientsModule {}

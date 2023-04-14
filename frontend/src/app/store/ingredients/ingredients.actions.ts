@@ -8,41 +8,27 @@ export const loadIngredientsSuccess = createAction(
   props<{ ingredients: IngredientGroup[] }>()
 );
 
-export const loadIngredientsFailure = createAction(
-  '[ingredients] load ingredients failure',
-  props<{ error: any }>()
-);
+export const loadIngredientsFailure = createAction('[ingredients] load ingredients failure', props<{ error: any }>());
 
-export const showAllIngredientsGroups = createAction(
-  '[ingredients] show all ingredients groups'
-);
+export const showAllIngredientsGroups = createAction('[ingredients] show all ingredients groups');
 
-export const showAvailableIngredientsGroups = createAction(
-  '[ingredients] show available ingredients groups'
-);
+export const showAvailableIngredientsGroups = createAction('[ingredients] show available ingredients groups');
 
-export const showUnavailableIngredientsGroups = createAction(
-  '[ingredients] show unavailable ingredients groups'
-);
+export const showUnavailableIngredientsGroups = createAction('[ingredients] show unavailable ingredients groups');
 
 export const selectSingleIngredientGroup = createAction(
   '[ingredients] select single ingredient group',
   props<{ ingredientGroupId?: number }>()
 );
 
-export const resetSelectSingleIngredientGroup = createAction(
-  '[ingredients] reset select single ingredient group'
-);
+export const resetSelectSingleIngredientGroup = createAction('[ingredients] reset select single ingredient group');
 
 export const selectSingleIngredient = createAction(
   '[ingredients] select single ingredient',
   props<{ ingredientId?: number }>()
 );
 
-export const resetSelectSingleIngredient = createAction(
-  '[ingredients] reset select single ingredient'
-);
-
+export const resetSelectSingleIngredient = createAction('[ingredients] reset select single ingredient');
 
 export const editIngredientGroup = createAction(
   '[ingredients] edit ingredient group',
@@ -56,7 +42,7 @@ export const editIngredientGroupSuccess = createAction(
 
 export const editIngredient = createAction(
   '[ingredients] edit ingredient',
-  props<{ ingredientGroupId: number, ingredient: Ingredient }>()
+  props<{ ingredientGroupId: number; ingredient: Ingredient }>()
 );
 
 export const editIngredientSuccess = createAction(
@@ -74,10 +60,7 @@ export const deleteIngredientGroupSuccess = createAction(
   props<{ ingredients: IngredientGroup[] }>()
 );
 
-export const deleteIngredient = createAction(
-  '[ingredients] delete ingredient',
-  props<{ ingredientId: number }>()
-);
+export const deleteIngredient = createAction('[ingredients] delete ingredient', props<{ ingredientId: number }>());
 
 export const deleteIngredientSuccess = createAction(
   '[ingredients] delete ingredient success',
@@ -96,7 +79,7 @@ export const addIngredientGroupSuccess = createAction(
 
 export const addIngredient = createAction(
   '[ingredients] add ingredient',
-  props<{ ingredientGroupId: number, ingredient: Ingredient }>()
+  props<{ ingredientGroupId: number; ingredient: Ingredient }>()
 );
 
 export const addIngredientSuccess = createAction(

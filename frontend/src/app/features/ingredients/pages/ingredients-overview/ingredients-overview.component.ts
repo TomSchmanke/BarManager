@@ -85,7 +85,7 @@ export class IngredientsOverviewComponent {
     this.ingredientGroup$ = this.store.select(selectShowIngredientsContent);
     this.selectedIngredientGroup$ = this.store
       .select(selectSelectedIngredientGroup)
-      .pipe(map((value) => (value ? value.ingredients : undefined)));
+      .pipe(map(value => (value ? value.ingredients : undefined)));
   }
 
   selectIngredientGroup(ingredientGroupId: number) {
@@ -139,9 +139,7 @@ export class IngredientsOverviewComponent {
   }
 
   confirmDeleteIngredient() {
-    this.store.dispatch(
-      deleteIngredient({ ingredientId: this.ingredientToDeleteId! })
-    );
+    this.store.dispatch(deleteIngredient({ ingredientId: this.ingredientToDeleteId! }));
     this.ingredientToDeleteId = undefined;
   }
 

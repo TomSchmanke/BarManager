@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as IngredientsActions from './ingredients.actions';
-import { IngredientGroup } from 'src/app/shared/models/ingredients';
+import { Ingredient, IngredientGroup } from 'src/app/shared/models/ingredients';
 
 export const featureKey = 'ingredients';
 
@@ -8,6 +8,7 @@ export interface IState {
   ingredients: IngredientGroup[];
   shownIngredients: IngredientGroup[];
   selectedIngredientGroup?: IngredientGroup;
+  selectedIngredient?: Ingredient;
   loading: boolean;
   selectedIngredients: 'all' | 'available' | 'unavailable';
 }
@@ -16,6 +17,7 @@ export const initialState: IState = {
   ingredients: [],
   shownIngredients: [],
   selectedIngredientGroup: undefined,
+  selectedIngredient: undefined,
   loading: false,
   selectedIngredients: 'all',
 };
@@ -73,6 +75,17 @@ export const reducer = createReducer(
   on(IngredientsActions.resetSelectSingleIngredientGroup, (state) => ({
     ...state,
     selectedIngredientGroup: undefined,
+  })),
+
+  on(IngredientsActions.selectSingleIngredient, (state, action) => ({
+    ...state,
+    selectedIngredient: state.selectedIngredientGroup!.ingredients.find(
+      (value) => value.id === action.ingredientId
+    ),
+  })),
+  on(IngredientsActions.resetSelectSingleIngredient, (state) => ({
+    ...state,
+    selectedIngredient: undefined,
   })),
 
   on(IngredientsActions.deleteIngredientGroup, (state) => ({

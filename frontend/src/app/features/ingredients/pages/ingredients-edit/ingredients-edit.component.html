@@ -1,0 +1,68 @@
+<div class="m-8">
+  <h2
+    *ngIf="newOrExisitingIngredient === 'existing'"
+    class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"
+  >
+    Edit ingredient
+  </h2>
+  <h2
+    *ngIf="newOrExisitingIngredient === 'new'"
+    class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"
+  >
+    New ingredient
+  </h2>
+
+  <form [formGroup]="ingredientsEditForm" (ngSubmit)="onSubmit()">
+    <div class="my-6">
+      <label
+        for="ingredient-name"
+        class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+        >Ingredient name</label
+      >
+      <input
+        type="text"
+        id="ingredient-name"
+        formControlName="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Wodka Gorbatschow Citron"
+      />
+    </div>
+    <div class="my-6">
+      <label
+        for="ingredient-description"
+        class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+        >Ingredient description</label
+      >
+      <input
+        type="text"
+        id="ingredient-description"
+        formControlName="description"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Healthy sweet alcohol, perfect for dumb persons"
+      />
+    </div>
+    <div class="my-6">
+      <label
+        for="ingredient-ammount"
+        class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+        >Ingredient ammount</label
+      >
+      <input
+        type="number"
+        id="ingredient-ammount"
+        formControlName="ammount"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="1000"
+      />
+    </div>
+    <div class="my-6">
+      <button
+        type="submit"
+        [disabled]="ingredientsEditForm?.invalid"
+        class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 my-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded text-sm font-medium leading-none text-white disabled:opacity-50 "
+      >
+        Add new ingredient
+      </button>
+    </div>
+  </form>
+</div>

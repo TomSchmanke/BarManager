@@ -27,16 +27,26 @@ export const showUnavailableIngredientsGroups = createAction(
 
 export const selectSingleIngredientGroup = createAction(
   '[ingredients] select single ingredient group',
-  props<{ ingredientGroupId: string }>()
+  props<{ ingredientGroupId?: string }>()
 );
 
 export const resetSelectSingleIngredientGroup = createAction(
   '[ingredients] reset select single ingredient group'
 );
 
+export const selectSingleIngredient = createAction(
+  '[ingredients] select single ingredient',
+  props<{ ingredientId?: string }>()
+);
+
+export const resetSelectSingleIngredient = createAction(
+  '[ingredients] reset select single ingredient'
+);
+
+
 export const editIngredientGroup = createAction(
   '[ingredients] edit ingredient group',
-  props<{ ingredientGroupId: string }>()
+  props<{ ingredientGroup: IngredientGroup }>()
 );
 
 export const editIngredientGroupSuccess = createAction(
@@ -46,7 +56,7 @@ export const editIngredientGroupSuccess = createAction(
 
 export const editIngredient = createAction(
   '[ingredients] edit ingredient',
-  props<{ ingredientId: string }>()
+  props<{ ingredientGroupId: string, ingredient: Ingredient }>()
 );
 
 export const editIngredientSuccess = createAction(
@@ -71,5 +81,25 @@ export const deleteIngredient = createAction(
 
 export const deleteIngredientSuccess = createAction(
   '[ingredients] delete ingredient success',
+  props<{ ingredients: IngredientGroup[] }>()
+);
+
+export const addIngredientGroup = createAction(
+  '[ingredients] add ingredient group',
+  props<{ ingredientGroup: IngredientGroup }>()
+);
+
+export const addIngredientGroupSuccess = createAction(
+  '[ingredients] add ingredient group success',
+  props<{ ingredients: IngredientGroup[] }>()
+);
+
+export const addIngredient = createAction(
+  '[ingredients] add ingredient',
+  props<{ ingredientGroupId: string, ingredient: Ingredient }>()
+);
+
+export const addIngredientSuccess = createAction(
+  '[ingredients] add ingredient success',
   props<{ ingredients: IngredientGroup[] }>()
 );

@@ -14,6 +14,7 @@ import { RecipesModule } from './features/recipes/recipes.module';
 import { StartModule } from './features/start/start.module';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as fromBarReducer from './store/bar/bar.reducers'
 import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers'
 import * as fromRecipesReducer from './store/recipes/recipes.reducers'
@@ -32,6 +33,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     CoreModule,
     SharedModule,
     DashboardModule,

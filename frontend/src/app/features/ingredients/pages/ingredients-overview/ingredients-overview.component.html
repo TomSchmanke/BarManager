@@ -84,6 +84,7 @@
               <td class="pl-5 text-center">
                 <button
                   class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  [routerLink]="'/ingredients/group-edit'"
                   (click)="
                     editIngredientGroup(ingredientGroup.id);
                     $event.stopPropagation()
@@ -94,8 +95,9 @@
                 </button>
                 <button
                   class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+                  [routerLink]="'/ingredients/group-edit'"
                   (click)="
-                    deleteIngredientGroup(ingredientGroup.id);
+                    openDeleteIngredientGroupModal(ingredientGroup.id);
                     $event.stopPropagation()
                   "
                   role="button"
@@ -103,12 +105,31 @@
                   <img src="assets/delete.svg" class="w-8 h-8" />
                 </button>
               </td>
+
+              <app-delete-modal
+                [ngClass]="{ 'hidden': ingredientGroupToDeleteId !== ingredientGroup.id }"
+                [a11yModalId]="'delete-ingredient-group' + ingredientGroup.name + '-modal'"
+                [nameOfItemToDelete]="ingredientGroup.name + '(s)'"
+                (cancelDialog)="cancelDeleteIngredientGroup()"
+                (declineDialog)="cancelDeleteIngredientGroup()"
+                (acceptDialog)="confirmDeleteIngredientGroup()"
+              ></app-delete-modal>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="m-4">
+        <div class="w-full flex flex-row-reverse">
+          <button
+          *ngIf="selectedIngredientGroup$ | async"
+          (click)="addIngredient()"
+          [routerLink]="'/ingredients/edit'"
+          class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 my-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded text-sm font-medium leading-none text-white"
+        >
+          Add ingredient
+        </button>
+        </div>
         <table
           *ngIf="
             selectedIngredientGroup$ | async;
@@ -149,6 +170,7 @@
               <td class="pl-5 text-center">
                 <button
                   class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  [routerLink]="'/ingredients/edit'"
                   (click)="editIngredient(ingredient.id)"
                   role="button"
                 >
@@ -156,12 +178,23 @@
                 </button>
                 <button
                   class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
-                  (click)="deleteIngredient(ingredient.id)"
+                  (click)="openDeleteIngredientModal(ingredient.id)"
                   role="button"
+                  data-modal-target="popup-modal"
+                  data-modal-toggle="popup-modal"
                 >
                   <img src="assets/delete.svg" class="w-8 h-8" />
                 </button>
               </td>
+
+              <app-delete-modal
+                [ngClass]="{ 'hidden': ingredientToDeleteId !== ingredient.id }"
+                [a11yModalId]="'delete-ingredient-' + ingredient.name + '-modal'"
+                [nameOfItemToDelete]="ingredient.name"
+                (cancelDialog)="cancelDeleteIngredient()"
+                (declineDialog)="cancelDeleteIngredient()"
+                (acceptDialog)="confirmDeleteIngredient()"
+              ></app-delete-modal>
             </tr>
           </tbody>
         </table>

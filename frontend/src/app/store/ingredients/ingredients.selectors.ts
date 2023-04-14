@@ -18,6 +18,10 @@ export const selectSelectedIngredientGroup = createSelector(
   selectIngredientsState,
   (state) => state.selectedIngredientGroup
 );
+export const selectSelectedIngredient = createSelector(
+  selectIngredientsState,
+  (state) => state.selectedIngredient
+);
 export const selectIngredientsLoadingStatus = createSelector(
   selectIngredientsState,
   (state) => state.loading

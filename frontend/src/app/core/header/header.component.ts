@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +25,8 @@ export class HeaderComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
+    console.log(typeof event);
+    
     if (event.target.innerWidth > 1024) {
       this.showBurgerMenu = false;
     }

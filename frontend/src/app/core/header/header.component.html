@@ -1,26 +1,38 @@
 <nav class="flex justify-between flex-wrap bg-red-400 p-6">
   <div class="flex items-center text-white mr-6">
-    <img src="assets/simple-cocktail-white.svg" class="fill-current h-8 w-8 mr-4">
+    <img src="assets/simple-cocktail-white.svg" class="fill-current h-8 w-8 mr-4" />
     <span class="font-semibold text-2xl">Bar-Manager</span>
   </div>
   <div class="block lg:hidden">
     <button (click)="toggleBurgerMenu()">
-      <img src="assets/burger-menu.svg" class="h-12 w-12">
+      <img src="assets/burger-menu.svg" class="h-12 w-12" />
     </button>
   </div>
 
   <div class="flex w-auto hidden lg:block">
     <div class="text-lg text-white">
-      <a routerLink="/dashboard" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Drinks
       </a>
-      <a routerLink="/orders" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/orders"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Orders
       </a>
-      <a routerLink="/ingredients" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/ingredients"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Ingredients
       </a>
-      <a routerLink="/recipes" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4">
+      <a
+        routerLink="/recipes"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4">
         Recipes
       </a>
     </div>
@@ -28,16 +40,28 @@
 
   <div class="block w-full mt-4 pt-4 border-t-2 border-white lg:hidden" *ngIf="showBurgerMenu" [@onOff]>
     <div class="text-lg text-white flex flex-col gap-y-2">
-      <a routerLink="/dashboard" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Drinks
       </a>
-      <a routerLink="/orders" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/orders"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Orders
       </a>
-      <a routerLink="/ingredients" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
+      <a
+        routerLink="/ingredients"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
         Ingredients
       </a>
-      <a routerLink="/recipes" routerLinkActive="text-gray-600 underline" class="hover:text-gray-600 hover:underline underline-offset-4">
+      <a
+        routerLink="/recipes"
+        routerLinkActive="text-gray-600 underline"
+        class="hover:text-gray-600 hover:underline underline-offset-4">
         Recipes
       </a>
     </div>

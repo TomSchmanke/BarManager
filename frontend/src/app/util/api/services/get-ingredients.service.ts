@@ -15,10 +15,7 @@ import { IngredientsResponse } from '../models/ingredients-response';
   providedIn: 'root',
 })
 export class GetIngredientsService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -37,32 +34,34 @@ export class GetIngredientsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getIngredients$Response(params: {
-
-    /**
-     * Unique id to identify bar
-     */
-    bar_id: number;
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<IngredientsResponse>> {
-
+  getIngredients$Response(
+    params: {
+      /**
+       * Unique id to identify bar
+       */
+      bar_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<IngredientsResponse>> {
     const rb = new RequestBuilder(this.rootUrl, GetIngredientsService.GetIngredientsPath, 'get');
     if (params) {
       rb.query('bar_id', params.bar_id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<IngredientsResponse>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<IngredientsResponse>;
+        })
+      );
   }
 
   /**
@@ -75,20 +74,17 @@ export class GetIngredientsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getIngredients(params: {
-
-    /**
-     * Unique id to identify bar
-     */
-    bar_id: number;
-  },
-  context?: HttpContext
-
-): Observable<IngredientsResponse> {
-
-    return this.getIngredients$Response(params,context).pipe(
+  getIngredients(
+    params: {
+      /**
+       * Unique id to identify bar
+       */
+      bar_id: number;
+    },
+    context?: HttpContext
+  ): Observable<IngredientsResponse> {
+    return this.getIngredients$Response(params, context).pipe(
       map((r: StrictHttpResponse<IngredientsResponse>) => r.body as IngredientsResponse)
     );
   }
-
 }

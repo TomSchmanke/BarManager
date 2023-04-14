@@ -7,16 +7,16 @@ import { trigger, style, animate, transition } from '@angular/animations';
   styleUrls: ['./header.component.css'],
   animations: [
     trigger('onOff', [
-      transition(':enter', [style({
-        opacity: 0,
-      }),
-      animate(300)
-    ])
-    ])
- ]
+      transition(':enter', [
+        style({
+          opacity: 0,
+        }),
+        animate(300),
+      ]),
+    ]),
+  ],
 })
 export class HeaderComponent {
-
   showBurgerMenu = false;
 
   toggleBurgerMenu() {
@@ -25,11 +25,8 @@ export class HeaderComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    console.log(typeof event);
-    
     if (event.target.innerWidth > 1024) {
       this.showBurgerMenu = false;
     }
-}
-
+  }
 }

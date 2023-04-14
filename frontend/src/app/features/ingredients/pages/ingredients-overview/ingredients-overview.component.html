@@ -1,7 +1,7 @@
 <div class="sm:px-6 w-full">
   <!-- Headline -->
   <div class="px-4 md:px-10 py-4 md:py-7">
-    <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Ingredients</p>
+    <h2>Ingredients</h2>
   </div>
 
   <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
@@ -62,7 +62,9 @@
               </td>
               <td class="pl-5 text-center">
                 <button
-                  class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  barButton
+                  [buttonType]="'edit'"
+                  class="p-1 mr-2"
                   [routerLink]="'/ingredients/group-edit'"
                   (click)="editIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
                   role="button">
@@ -92,10 +94,10 @@
       <div class="m-4">
         <div class="w-full flex flex-row-reverse">
           <button
+            barButton
             *ngIf="selectedIngredientGroup$ | async"
             (click)="addIngredient()"
-            [routerLink]="'/ingredients/edit'"
-            class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 my-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded text-sm font-medium leading-none text-white">
+            [routerLink]="'/ingredients/edit'">
             Add ingredient
           </button>
         </div>
@@ -129,14 +131,18 @@
               </td>
               <td class="pl-5 text-center">
                 <button
-                  class="p-1 mr-2 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none"
+                  barButton
+                  [buttonType]="'edit'"
+                  class="p-1 mr-2"
                   [routerLink]="'/ingredients/edit'"
                   (click)="editIngredient(ingredient.id)"
                   role="button">
                   <img src="assets/edit.svg" class="w-8 h-8" />
                 </button>
                 <button
-                  class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+                  barButton
+                  [buttonType]="'delete'"
+                  class="p-1"
                   (click)="openDeleteIngredientModal(ingredient.id)"
                   role="button"
                   data-modal-target="popup-modal"

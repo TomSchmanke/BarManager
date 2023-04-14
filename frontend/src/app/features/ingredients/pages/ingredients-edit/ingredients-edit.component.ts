@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Ingredient } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { first, map } from 'rxjs';
-import { Ingredient } from '@bar-manager/api';
 import { addIngredient, editIngredient } from 'src/app/store/ingredients/ingredients.actions';
 import {
   selectSelectedIngredient,

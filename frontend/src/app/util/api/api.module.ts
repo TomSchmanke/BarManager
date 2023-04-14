@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { GetIngredientsService } from './services/get-ingredients.service';

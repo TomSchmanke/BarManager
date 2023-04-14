@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
+import { Ingredient, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
-import { IngredientGroup, Ingredient, UnitOfMeasurement } from '@bar-manager/api';
 import {
+  deleteIngredient,
+  deleteIngredientGroup,
   loadIngredients,
   loadIngredientsSuccess,
-  selectSingleIngredientGroup,
-  editIngredientGroup,
-  deleteIngredientGroup,
-  editIngredient,
-  deleteIngredient,
   selectSingleIngredient,
+  selectSingleIngredientGroup,
 } from 'src/app/store/ingredients/ingredients.actions';
 import {
-  selectShowIngredientsContent,
   selectSelectedIngredientGroup,
+  selectShowIngredientsContent,
 } from 'src/app/store/ingredients/ingredients.selectors';
 
 @Component({

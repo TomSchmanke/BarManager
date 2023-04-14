@@ -1,6 +1,6 @@
+import { Ingredient, IngredientGroup } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
 import * as IngredientsActions from './ingredients.actions';
-import { Ingredient, IngredientGroup } from '@bar-manager/api';
 
 export const featureKey = 'ingredients';
 

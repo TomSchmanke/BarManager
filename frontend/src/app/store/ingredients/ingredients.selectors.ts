@@ -1,5 +1,5 @@
-import * as fromIngredientsReducer from './ingredients.reducers';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromIngredientsReducer from './ingredients.reducers';
 
 export const selectIngredientsState = createFeatureSelector<fromIngredientsReducer.IState>(
   fromIngredientsReducer.featureKey

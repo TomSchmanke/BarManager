@@ -1,13 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { ApiConfiguration } from '../api-configuration';
+import { BaseService } from '../base-service';
+import { RequestBuilder } from '../request-builder';
+import { StrictHttpResponse } from '../strict-http-response';
 
 import { IngredientsResponse } from '../models/ingredients-response';
 

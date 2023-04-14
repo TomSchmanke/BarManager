@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { ApiConfiguration } from './api-configuration';
 
 /**

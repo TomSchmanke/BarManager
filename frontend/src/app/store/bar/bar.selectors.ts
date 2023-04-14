@@ -1,5 +1,5 @@
-import * as fromBarReducer from './bar.reducers';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromBarReducer from './bar.reducers';
 
 export const selectBarState = createFeatureSelector<fromBarReducer.IState>(fromBarReducer.featureKey);
 

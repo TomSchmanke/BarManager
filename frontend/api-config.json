@@ -1,0 +1,7 @@
+{
+  "schema": "./node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "../api-definition.openapi.yml",
+  "output": "src/app/util/api",
+  "ignoreUnusedModels": false,
+  "enumStyle": "upper"
+}

@@ -4,22 +4,29 @@
 
   <form [formGroup]="ingredientsGroupEditForm" (ngSubmit)="onSubmit()">
     <div class="my-6">
-      <label for="ingredient-name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+      <label for="ingredient-group-name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
         >Ingredient group name</label
       >
-      <input barInput type="text" id="ingredient-name" formControlName="name" placeholder="Wodka Gorbatschow Citron" />
+      <input
+        class="default-input"
+        type="text"
+        id="ingredient-group-name"
+        formControlName="name"
+        placeholder="Wodka Gorbatschow Citron" />
     </div>
     <div class="mb-6">
-      <div *ngFor="let unit of unitOfMeasurement" class="flex items-center mb-4">
+      <div *ngFor="let unit of unitOfMeasurement; index as i" class="flex items-center mb-4">
         <input
-          id="default-radio-1"
+          id="ingredient-group-measurement-option-{{ i }}"
           type="radio"
-          value=""
-          name="default-radio"
+          name="ingredient-group-measurement-option"
+          value="{{ unit }}"
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{
-          unit
-        }}</label>
+        <label
+          for="ingredient-group-measurement-option-{{ i }}"
+          class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >{{ unit }}</label
+        >
       </div>
     </div>
     <div class="my-6">

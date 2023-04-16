@@ -12,8 +12,7 @@ import { selectSelectedIngredientGroup } from 'src/app/store/ingredients/ingredi
   styleUrls: ['./ingredients-group-edit.component.css'],
 })
 export class IngredientsGroupEditComponent {
-  uOfMKeys = Object.keys(UnitOfMeasurement);
-  unitOfMeasurement = this.uOfMKeys.slice(this.uOfMKeys.length / 2, this.uOfMKeys.length);
+  unitOfMeasurement = Object.keys(UnitOfMeasurement);
 
   newOrExisitingIngredientGroup?: 'new' | 'existing';
   ingredientsGroupEditForm?: FormGroup;

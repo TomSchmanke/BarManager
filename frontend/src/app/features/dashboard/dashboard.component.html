@@ -1,1 +1,35 @@
-<h1>DASHBOARD</h1>
+<div class="sm:px-6 w-full">
+  <!-- Headline -->
+  <div class="px-4 md:px-10 py-4 md:py-7">
+    <h2>Ingredients</h2>
+  </div>
+
+  <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+    <app-table-header></app-table-header>
+    <div class="mt-7 overflow-x-auto">
+      <div class="pb-4 border-b-2 border-gray-100">
+        <table class="w-full whitespace-nowrap">
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noIngredientGroups>
+    <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
+      <img src="assets/404.svg" class="w-32 h-32" />
+      <p class="text-xl text-bold leading-none text-gray-600 ml-2">
+        There is a problem loading the ingredients. Please try again later.
+      </p>
+    </div>
+  </ng-template>
+
+  <ng-template #noSelectedIngredientGroup>
+    <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
+      <img src="assets/404.svg" class="w-32 h-32" />
+      <p class="text-xl text-bold leading-none text-gray-600 ml-2">
+        No ingredient group selected or the selected group was not found. Please try again later.
+      </p>
+    </div>
+  </ng-template>
+</div>

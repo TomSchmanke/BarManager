@@ -8,7 +8,7 @@ info:
 servers:
   - url: https://localhost:8080
 paths:
-  /bar:
+  /bars/{bar-id}:
     get:
       tags:
         - get Bar
@@ -16,15 +16,297 @@ paths:
       operationId: getBar
       parameters:
         - in: path
-          name: bar_id
+          name: bar-id
           description: Unique id to identify bar
           required: true
           schema:
             type: integer
       responses:
         '200':
-        description:
-  /ingredients:
+          description: bar id and name
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_basic_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+  /bars/bar:
+    post:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: postBar
+      requestBody:
+        description: bar body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bar'
+      responses:
+        '200':
+          description: bar id and name
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_basic_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+                  
+  /bars/{bar-id}/cocktails:
+    get:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: getBarAndCocktails
+      parameters:
+        - in: query
+          name: check-if-available
+          schema:
+            type: boolean
+            default: false
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+
+                  
+  /bars/{bar-id}/orders:
+    get:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: getOrders
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem' 
+  
+  /bars/{bar-id}/orders/{order-id}:
+    delete:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: deleteOrder
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: order-id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: check-if-available
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem' 
+  
+  /bars/{bar-id}/orders/order:
+    post:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: postOrder
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem' 
+
+            
+  /bars/{bar-id}/cocktails/{cocktail-id}:
+    get:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: getCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+    put:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: putCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'     
+    delete:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: deleteCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'          
+  /bars/{bar-id}/cocktails/cocktail:
+   post:
+      tags:
+        - get Bar
+      summary: get bar with given id
+      operationId: postCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar_response'
+        '404':
+           description: Not Found
+           content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'             
+  /bar/{bar_id}/ingredients:
     get:
       tags:
         - get Ingredients
@@ -64,6 +346,7 @@ components:
         - id
         - name
         - owner
+        - barCode
       properties:
         id:
           type: integer
@@ -73,8 +356,15 @@ components:
           type: string
           example: Toms coole Bar
         owner:
-          type: object
           $ref: '#/components/schemas/owner'
+        barCode:
+          type: string
+          minLength: 6
+          maxLength: 6
+        availableCocktails:
+          type: array
+          items:
+            $ref: '#/components/schemas/cocktails'
     owner:
       type: object
       required:
@@ -102,11 +392,6 @@ components:
         name:
           type: string
           example: Awesome mega Cocktail
-        availableAt:
-          type: array
-          items:
-            $ref: '#/components/schemas/bar'
-          example: Toms coole bar
         ingredients:
           type: array
           items:
@@ -171,5 +456,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/ingredientGroup'
-    
-      
+    bar_basic_response:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Toms awesome Bar
+    bar_response:
+      type: array
+      items: 
+        $ref: '#/components/schemas/cocktails'
+     

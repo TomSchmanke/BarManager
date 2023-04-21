@@ -4,14 +4,16 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.0 
+security:
+  - NONE: []    
 servers:
   - url: https://localhost:8080
 paths:
   /bars/{bar-id}:
     get:
       tags:
-        - get Bar
+        - Login
       summary: get bar with given id
       operationId: getBar
       parameters:
@@ -37,8 +39,8 @@ paths:
   /bars/bar:
     post:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Login
+      summary: login
       operationId: postBar
       requestBody:
         description: bar body
@@ -59,14 +61,14 @@ paths:
            content:
               application/problem+json:
                 schema:
-                  $ref: '#/components/schemas/problem'
-                  
+                  $ref: '#/components/schemas/problem'            
   /bars/{bar-id}/cocktails:
     get:
       tags:
-        - get Bar
+        - Dashboard
+        - Cocktails
       summary: get bar with given id
-      operationId: getBarAndCocktails
+      operationId: geCocktails
       parameters:
         - in: query
           name: check-if-available
@@ -97,8 +99,8 @@ paths:
   /bars/{bar-id}/orders:
     get:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Orders
+      summary: get orders from a bar
       operationId: getOrders
       parameters:
         - in: path
@@ -124,8 +126,8 @@ paths:
   /bars/{bar-id}/orders/{order-id}:
     delete:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Orders
+      summary: delete Order from a bar
       operationId: deleteOrder
       parameters:
         - in: path
@@ -161,8 +163,9 @@ paths:
   /bars/{bar-id}/orders/order:
     post:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Dashboard
+        - Orders
+      summary: Add Order to orders of a bar
       operationId: postOrder
       parameters:
         - in: path
@@ -183,14 +186,13 @@ paths:
            content:
               application/problem+json:
                 schema:
-                  $ref: '#/components/schemas/problem' 
-
-            
+                  $ref: '#/components/schemas/problem'             
   /bars/{bar-id}/cocktails/{cocktail-id}:
     get:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Cocktails
+        - Dashboard
+      summary: get cocktail with more information from a specific bar
       operationId: getCocktail
       parameters:
         - in: path
@@ -220,8 +222,8 @@ paths:
                   $ref: '#/components/schemas/problem'
     put:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Cocktails
+      summary: Update a cocktail in a specific bar
       operationId: putCocktail
       parameters:
         - in: path
@@ -251,8 +253,8 @@ paths:
                   $ref: '#/components/schemas/problem'     
     delete:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Cocktails
+      summary: Delete a Cocktail from a specific bar 
       operationId: deleteCocktail
       parameters:
         - in: path
@@ -283,8 +285,8 @@ paths:
   /bars/{bar-id}/cocktails/cocktail:
    post:
       tags:
-        - get Bar
-      summary: get bar with given id
+        - Cocktails
+      summary: Add a cocktail to a specific bar
       operationId: postCocktail
       parameters:
         - in: path
@@ -305,16 +307,17 @@ paths:
            content:
               application/problem+json:
                 schema:
-                  $ref: '#/components/schemas/problem'             
-  /bar/{bar_id}/ingredients:
+                  $ref: '#/components/schemas/problem' 
+        
+  /bar/{bar-id}/ingredients:
     get:
       tags:
-        - get Ingredients
-      summary: Get all ingredients
+        - Ingredients
+      summary: Get all ingredients of a specific bar
       operationId: getIngredients
       parameters:
         - in: path
-          name: bar_id
+          name: bar-id
           description: Unique id to identify bar
           required: true
           schema:
@@ -337,8 +340,286 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/problem'      
+                $ref: '#/components/schemas/problem'
+  /bar/{bar-id}/ingredient-groups/{ingredient-id}:
+    get:
+      tags:
+        - Ingredients
+      summary: Get a specific ingredients of a specific bar
+      operationId: getIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+            description: Not Found
+            content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+    put:
+      tags:
+        - Ingredients
+      summary: Update ingredient of a specific bar
+      operationId: putIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+    delete:
+      tags:
+        - Ingredients
+      summary: delete ingredient of a specific bar
+      operationId: deleteIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+  /bar/{bar-id}/ingredient-groups/ingredient:
+    post:
+      tags:
+        - Ingredients
+      summary: add ingrdient to a specific bar
+      operationId:  postIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+            description: Not Found
+            content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+  /bar/{bar-id}/ingredient-groups:
+      get:
+        tags:
+          - IngredientGroups
+        summary: Get all ingredient-groups of a specific bar
+        operationId: getIngredientGroups
+        parameters:
+          - in: path
+            name: bar-id
+            description: Unique id to identify bar
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Ingredients retrived
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ingredients_response'
+          '404':
+              description: Not Found
+              content:
+                application/problem+json:
+                  schema:
+                    $ref: '#/components/schemas/problem'
+          '500':
+            description: Internal Server Error
+            content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
+    get:
+      tags:
+        - IngredientGroups
+      summary: Get a specific ingredient-group of a specific bar
+      operationId: getIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+            description: Not Found
+            content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
+    put:
+      tags:
+        - IngredientGroups
+      summary: Update ingredient-group of a specific bar
+      operationId: putIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+    delete:
+      tags:
+        - IngredientGroups
+      summary: delete ingredient-group of a specific bar
+      operationId: deleteIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+  /bar/{bar-id}/ingredient-groups/ingredient-group:
+    post:
+      tags:
+        - IngredientGroups
+      summary: add ingredient-group to a specific bar
+      operationId:  postIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredients_response'
+        '404':
+            description: Not Found
+            content:
+              application/problem+json:
+                schema:
+                  $ref: '#/components/schemas/problem'
 components:
+  securitySchemes:
+    NONE:
+      type: apiKey
+      name: key
+      in: cookie 
+      
   schemas:
     bar:
       type: object

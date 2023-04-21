@@ -1,5 +1,8 @@
 {
     "files.autoSave": "onFocusChange",
     "editor.formatOnSave": true,
-    "formatFiles.runOrganizeImports": true
+    "formatFiles.runOrganizeImports": true,
+    "yaml.schemas": {
+        "openapi:v3": "file:///c%3A/Users/jonas.knebel/OneDrive%20-%20Accenture/Desktop/Uni/BarManager/api-definition.openapi.yml"
+    }
 }

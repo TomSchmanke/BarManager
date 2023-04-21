@@ -82,7 +82,9 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/cocktails-response'
+                type: array
+                items:
+                  $ref: '#/components/schemas/cocktail'
         '404':
            description: Not Found               
   /bars/{bar-id}/orders:
@@ -104,7 +106,9 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/orders-response'
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
         '404':
            description: Not Found
   /bars/{bar-id}/orders/{order-id}:
@@ -167,7 +171,7 @@ paths:
       tags:
         - Cocktails
         - Dashboard
-      summary: get cocktail and its recipe from a specific bar
+      summary: get cocktail and its cocktail from a specific bar
       operationId: getCocktail
       parameters:
         - in: path
@@ -188,7 +192,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/recipe'
+                $ref: '#/components/schemas/cocktail'
         '404':
            description: Not Found
     put:
@@ -215,14 +219,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/recipe'
+              $ref: '#/components/schemas/cocktail'
       responses:
         '200':
           description: bar 
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/recipe'
+                $ref: '#/components/schemas/cocktail'
         '404':
            description: Not Found      
     delete:
@@ -249,7 +253,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/recipe'
+              $ref: '#/components/schemas/cocktail'
       responses:
         '201':
           description: deletion succesful 
@@ -294,15 +298,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredient-response'
+                 type: array
+                 items:
+                  $ref: '#/components/schemas/ingredient'
         '404':
           description: Not Found
-        '500':
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
+       
   /bar/{bar-id}/ingredients/{ingredient-id}:
     put:
       tags:
@@ -402,16 +403,11 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/ingredientGroups-response'
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ingredientGroup'
           '404':
             description: Not Found
-
-          '500':
-            description: Internal Server Error
-            content:
-              application/problem+json:
-                schema:
-                  $ref: '#/components/schemas/problem'
   /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
     get:
       tags:
@@ -548,62 +544,6 @@ components:
       in: cookie 
       
   schemas:
-    bar:
-      type: object
-      required:
-        - id
-        - name
-        - owner
-        - barCode
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Toms coole Bar
-        owner:
-          $ref: '#/components/schemas/owner'
-        barCode:
-          type: string
-          minLength: 6
-          maxLength: 6
-        availableCocktails:
-          type: array
-          items:
-            $ref: '#/components/schemas/cocktail'
-    owner:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Tom fucking Schmanke
-    cocktail:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Awesome mega Cocktail
-        ingredientGroups:
-          type: array
-          maximum: 50
-          items:
-            $ref: '#/components/schemas/ingredientGroup'
     ingredientGroup:
       type: object
       required:
@@ -624,7 +564,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ingredient'
-    recipe:
+    cocktail:
       type: object
       required:
         - id
@@ -638,20 +578,25 @@ components:
         name:
           type: string
           example: Gin Tonic
-        recipe-ingredients:
+        recipeIngredient:
           type: array
-          maxItems: 30
           items:
-            type: object
-            properties:
-              unitOfMeasurement:
-                 $ref: '#/components/schemas/unitOfMeasurement'
-              ingredientGroupName:
-                type: string
-                example: Gin
-              amount: 
-                type: number
-                example: 500
+              $ref: '#/components/schemas/recipeIngredient'
+    recipeIngredient:
+      type: object
+      required:
+        - unitOfMeasurement
+        - amount
+        - ingredientGroupName
+      properties:
+        unitOfMeasurement:
+          $ref: '#/components/schemas/unitOfMeasurement'
+        ingredientGroupName:
+          type: string
+          example: Gin
+        amount: 
+          type: number
+          example: 500          
     ingredient:
       type: object
       required:
@@ -680,16 +625,18 @@ components:
         - ML
         - G
         - PIECE
-    problem:
-      type: object
-      properties:
-        type: 
-          type: string
-          format: uri
-          description: ahahhahahahaha
     order: 
       type: object
+      required:
+        - orderId
+        - cocktailId
+        - customerName
+        - timestamp
       properties:
+        orderId:
+          type: integer
+          format: int64
+          example: 1 
         cocktailId: 
           type: integer
           format: int64
@@ -699,16 +646,12 @@ components:
           example: Tom Awesome
         timestamp:
           type: string
-    login-request:
-      type: object
-      properties:
-        barCode:
-          type: string
-          example: 123abc
-          minLength: 6
-          maxLength: 6
+   
     bar-creation-request:
       type: object
+      required:
+        - barName
+        - ownerName
       properties:
         barName:
           type: string
@@ -722,6 +665,10 @@ components:
           maxLength: 20
     bar-creation-response:
       type: object
+      required:
+        - barName
+        - ownerName
+        - barId
       properties:
         barId:
           type: integer
@@ -737,8 +684,22 @@ components:
           example: Tom
           minLength: 1
           maxLength: 20
+    login-request:
+      type: object
+      required:
+        - barCode
+      properties:
+        barCode:
+          type: string
+          example: 123abc
+          minLength: 6
+          maxLength: 6
     login-response:
       type: object
+      required:
+        - barId
+        - barName
+        - ownerName
       properties:
         barId:
             type: integer
@@ -753,23 +714,12 @@ components:
           type: string
           example: Tom
           minLength: 1
-          maxLength: 20
-    login:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Toms awesome Bar
-    cocktails-response:
-      type: array
-      items:
-        $ref: '#/components/schemas/cocktail'
+          maxLength: 20      
     order-creation-request:
       type: object
+      required:
+        - cocktailId
+        - customerName
       properties:
         cocktailId: 
           type: integer
@@ -780,6 +730,10 @@ components:
           example: Tom Awesome
     order-creation-response:
       type: object
+      required:
+      - cocktailId
+      - customerName
+      - orderId
       properties:
         cocktailId: 
           type: integer
@@ -792,15 +746,3 @@ components:
           type: integer
           format: int64
           example: 1
-    orders-response:
-      type: array
-      items:
-         $ref: '#/components/schemas/order'
-    ingredientGroups-response:
-      type: array
-      items:
-        $ref: '#/components/schemas/ingredientGroup'
-    ingredient-response:
-      type: array
-      items:
-        $ref: '#/components/schemas/ingredient'

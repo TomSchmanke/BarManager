@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Ingredient, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs';
-import { Ingredient, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { addIngredientGroup, editIngredientGroup } from 'src/app/store/ingredients/ingredients.actions';
 import { selectSelectedIngredientGroup } from 'src/app/store/ingredients/ingredients.selectors';
 
@@ -12,8 +12,7 @@ import { selectSelectedIngredientGroup } from 'src/app/store/ingredients/ingredi
   styleUrls: ['./ingredients-group-edit.component.css'],
 })
 export class IngredientsGroupEditComponent {
-  uOfMKeys = Object.keys(UnitOfMeasurement);
-  unitOfMeasurement = this.uOfMKeys.slice(this.uOfMKeys.length / 2, this.uOfMKeys.length);
+  unitOfMeasurement = Object.keys(UnitOfMeasurement);
 
   newOrExisitingIngredientGroup?: 'new' | 'existing';
   ingredientsGroupEditForm?: FormGroup;

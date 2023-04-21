@@ -1,5 +1,5 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-header',

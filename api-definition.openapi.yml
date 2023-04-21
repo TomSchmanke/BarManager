@@ -4,104 +4,552 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.0 
+security:
+  - NONE: []    
+
+
 servers:
   - url: https://localhost:8080
+
 paths:
-  /ingredients:
+  /login/{bar-code}:
     get:
       tags:
-        - get Ingredients
-      summary: Get all ingredients
-      operationId: getIngredients
+        - Login
+      summary: login to existing bar
+      operationId: login
+      parameters:
+        - in: path
+          name: bar-code
+          description: Unique Code to identify the bar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: bar id, name and owner
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login-response'
+        '404':
+           description: Not Found
+  /bars/bar:
+    post:
+      tags:
+        - Login
+      summary: login
+      operationId: postBar
+      requestBody:
+        description: bar body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bar-creation-request'
+      responses:
+        '200':
+          description: bar id and name
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bar-creation-response'
+        '404':
+           description: Not Found         
+  /bars/{bar-id}/cocktails:
+    get:
+      tags:
+        - Dashboard
+        - Cocktails
+      summary: get cocktails of specific bar
+      operationId: getCocktails
       parameters:
         - in: query
-          name: bar_id
+          name: check-if-available
+          schema:
+            type: boolean
+            default: false
+        - in: path
+          name: bar-id
           description: Unique id to identify bar
           required: true
           schema:
             type: integer
       responses:
         '200':
-          description: Ingredients retried
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/cocktail'
+        '404':
+           description: Not Found               
+  /bars/{bar-id}/orders:
+    get:
+      tags:
+        - Orders
+      summary: get orders from a bar
+      operationId: getOrders
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+        '404':
+           description: Not Found
+  /bars/{bar-id}/orders/{order-id}:
+    delete:
+      tags:
+        - Orders
+      summary: delete Order from a bar
+      operationId: deleteOrder
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: order-id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: deletion of order succesful 
+        '404':
+           description: Not Found
+  /bars/{bar-id}/orders/order:
+    post:
+      tags:
+        - Dashboard
+        - Orders
+      summary: Add Order to orders of a bar
+      operationId: postOrder
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: order request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order-creation-request'
+      responses:
+        '201':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order-creation-response'
+        '400':
+           description: Bad request
+        '404':
+           description: Not Found               
+  /bars/{bar-id}/cocktails/{cocktail-id}:
+    get:
+      tags:
+        - Cocktails
+        - Dashboard
+      summary: get cocktail and its cocktail from a specific bar
+      operationId: getCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cocktail'
+        '404':
+           description: Not Found
+    put:
+      tags:
+        - Cocktails
+      summary: Update a cocktail in a specific bar
+      operationId: putCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: cocktail body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cocktail'
+      responses:
+        '200':
+          description: bar 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cocktail'
+        '404':
+           description: Not Found      
+    delete:
+      tags:
+        - Cocktails
+      summary: Delete a Cocktail from a specific bar 
+      operationId: deleteCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: cocktail-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: cocktail body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cocktail'
+      responses:
+        '201':
+          description: deletion succesful 
+        '404':
+           description: Not Found
+  /bars/{bar-id}/cocktails/cocktail:
+   post:
+      tags:
+        - Cocktails
+      summary: Add a cocktail to a specific bar
+      operationId: postCocktail
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: cocktail added
+         
+        '404':
+           description: Not Found
+        
+  /bar/{bar-id}/ingredients:
+    get:
+      tags:
+        - Ingredients
+      summary: Get all ingredients of a specific bar
+      operationId: getIngredients
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredients_response'
+                 type: array
+                 items:
+                  $ref: '#/components/schemas/ingredient'
+        '404':
+          description: Not Found
+       
+  /bar/{bar-id}/ingredients/{ingredient-id}:
+    put:
+      tags:
+        - Ingredients
+      summary: Update ingredient of a specific bar
+      operationId: putIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: bar body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ingredient'
+      responses:
+        '200':
+          description: Ingredient updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredient'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Ingredients
+      summary: delete ingredient of a specific bar
+      operationId: deleteIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredient deleted
+        '404':
+          description: Not Found
+  /bar/{bar-id}/ingredient-groups/ingredient:
+    post:
+      tags:
+        - Ingredients
+      summary: add ingrdient to a specific bar
+      operationId:  postIngredient
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order-creation-response'
         '404':
             description: Not Found
+  /bar/{bar-id}/ingredient-groups:
+      get:
+        tags:
+          - IngredientGroups
+        summary: Get all ingredient-groups of a specific bar
+        operationId: getIngredientGroups
+        parameters:
+          - in: path
+            name: bar-id
+            description: Unique id to identify bar
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: IngredientGroups retrived
             content:
-              application/problem+json:
+              application/json:
                 schema:
-                  $ref: '#/components/schemas/problem'
-        '500':
-          description: Internal Server Error
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ingredientGroup'
+          '404':
+            description: Not Found
+  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
+    get:
+      tags:
+        - IngredientGroups
+      summary: Get a specific ingredient-group of a specific bar
+      operationId: getIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingredients retrived
           content:
-            application/problem+json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/problem'      
+                $ref: '#/components/schemas/ingredientGroup'
+        '404':
+            description: Not Found
+    put:
+      tags:
+        - IngredientGroups
+      summary: Update ingredient-group of a specific bar
+      operationId: putIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify the ingredient
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: bar body
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  example: Gin
+                unitOfMeasurement: 
+                  $ref: '#/components/schemas/unitOfMeasurement'
+                  example: ML
+      responses:
+        '200':
+          description: IngredientGroup updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredientGroup'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - IngredientGroups
+      summary: delete ingredient-group of a specific bar
+      operationId: deleteIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify the ingredientGroup
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: IngredientGroup deleted
+        '404':
+          description: Not Found
+  /bar/{bar-id}/ingredient-groups/ingredient-group:
+    post:
+      tags:
+        - IngredientGroups
+      summary: add ingredient-group to a specific bar
+      operationId:  postIngredientGroup
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: ingredient-group body
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  example: Gin
+                unitOfMeasurement: 
+                  $ref: '#/components/schemas/ingredientGroup'
+                  example: ML
+      responses:
+        '201':
+          description: IngredientGroup added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ingredientGroup'
+        '404':
+            description: Not Found
 components:
+  securitySchemes:
+    NONE:
+      type: apiKey
+      name: key
+      in: cookie 
+      
   schemas:
-    bar:
-      type: object
-      required:
-        - id
-        - name
-        - owner
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Toms coole Bar
-        owner:
-          type: object
-          $ref: '#/components/schemas/owner'
-    owner:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Tom fucking Schmanke
-    cocktails:
-      type: object
-      required:
-        - id
-        - name
-        - ingredients
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Awesome mega Cocktail
-        availableAt:
-          type: array
-          items:
-            $ref: '#/components/schemas/bar'
-          example: Toms coole bar
-        ingredients:
-          type: array
-          items:
-            $ref: '#/components/schemas/ingredientGroup'
     ingredientGroup:
       type: object
       required:
         - id
         - name
         - unitOfMeasurement
-        - ingredients
       properties:
         id:
           type: integer
@@ -109,13 +557,46 @@ components:
           example: 1
         name:
           type: string
-          example: Gin de Cologne
+          example: Gin
         unitOfMeasurement:
           $ref: '#/components/schemas/unitOfMeasurement'
         ingredients:
           type: array
           items:
             $ref: '#/components/schemas/ingredient'
+    cocktail:
+      type: object
+      required:
+        - id
+        - name
+        - ingredientGroup
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Gin Tonic
+        recipeIngredient:
+          type: array
+          items:
+              $ref: '#/components/schemas/recipeIngredient'
+    recipeIngredient:
+      type: object
+      required:
+        - unitOfMeasurement
+        - amount
+        - ingredientGroupName
+      properties:
+        unitOfMeasurement:
+          $ref: '#/components/schemas/unitOfMeasurement'
+        ingredientGroupName:
+          type: string
+          example: Gin
+        amount: 
+          type: number
+          example: 500          
     ingredient:
       type: object
       required:
@@ -129,14 +610,14 @@ components:
           example: 1
         name:
           type: string
-          example: Awesome mega ingredient
+          example: Gin de Cologne
         amount:
           type: integer
           format: int64
           example: 500
         description:
           type: string
-          example: Cola mit iceee
+          example: use for shots
     unitOfMeasurement:
       type: string
       example: ml
@@ -144,16 +625,124 @@ components:
         - ML
         - G
         - PIECE
-    problem:
+    order: 
       type: object
+      required:
+        - orderId
+        - cocktailId
+        - customerName
+        - timestamp
       properties:
-        type: 
+        orderId:
+          type: integer
+          format: int64
+          example: 1 
+        cocktailId: 
+          type: integer
+          format: int64
+          example: 1
+        customerName: 
           type: string
-          format: uri
-          description: ahahhahahahahah
-    ingredients_response:
-      type: array
-      items:
-        $ref: '#/components/schemas/ingredientGroup'
-    
-      
+          example: Tom Awesome
+        timestamp:
+          type: string
+   
+    bar-creation-request:
+      type: object
+      required:
+        - barName
+        - ownerName
+      properties:
+        barName:
+          type: string
+          example: Bar Name
+          minLength: 1
+          maxLength: 20
+        ownerName:
+          type: string
+          example: Tom
+          minLength: 1
+          maxLength: 20
+    bar-creation-response:
+      type: object
+      required:
+        - barName
+        - ownerName
+        - barId
+      properties:
+        barId:
+          type: integer
+          example: 1
+          minLength: 1
+        barName:
+          type: string
+          example: Bar Name
+          minLength: 1
+          maxLength: 20
+        ownerName:
+          type: string
+          example: Tom
+          minLength: 1
+          maxLength: 20
+    login-request:
+      type: object
+      required:
+        - barCode
+      properties:
+        barCode:
+          type: string
+          example: 123abc
+          minLength: 6
+          maxLength: 6
+    login-response:
+      type: object
+      required:
+        - barId
+        - barName
+        - ownerName
+      properties:
+        barId:
+            type: integer
+            example: 1
+            minLength: 1
+        barName:
+          type: string
+          example: Bar Name
+          minLength: 1
+          maxLength: 20
+        ownerName:
+          type: string
+          example: Tom
+          minLength: 1
+          maxLength: 20      
+    order-creation-request:
+      type: object
+      required:
+        - cocktailId
+        - customerName
+      properties:
+        cocktailId: 
+          type: integer
+          format: int64
+          example: 1
+        customerName: 
+          type: string
+          example: Tom Awesome
+    order-creation-response:
+      type: object
+      required:
+      - cocktailId
+      - customerName
+      - orderId
+      properties:
+        cocktailId: 
+          type: integer
+          format: int64
+          example: 1
+        customerName: 
+          type: string
+          example: Tom Awesome 
+        orderId:
+          type: integer
+          format: int64
+          example: 1

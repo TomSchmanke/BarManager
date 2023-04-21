@@ -1,8 +1,12 @@
-export { Bar } from './models/bar';
-export { Owner } from './models/owner';
-export { Cocktails } from './models/cocktails';
 export { IngredientGroup } from './models/ingredient-group';
+export { Cocktail } from './models/cocktail';
+export { RecipeIngredient } from './models/recipe-ingredient';
 export { Ingredient } from './models/ingredient';
 export { UnitOfMeasurement } from './models/unit-of-measurement';
-export { Problem } from './models/problem';
-export { IngredientsResponse } from './models/ingredients-response';
+export { Order } from './models/order';
+export { BarCreationRequest } from './models/bar-creation-request';
+export { BarCreationResponse } from './models/bar-creation-response';
+export { LoginRequest } from './models/login-request';
+export { LoginResponse } from './models/login-response';
+export { OrderCreationRequest } from './models/order-creation-request';
+export { OrderCreationResponse } from './models/order-creation-response';

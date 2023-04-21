@@ -1,5 +1,5 @@
-import { createAction, props } from '@ngrx/store';
 import { Ingredient, IngredientGroup } from '@bar-manager/api';
+import { createAction, props } from '@ngrx/store';
 
 export const loadIngredients = createAction('[ingredients] load ingredients');
 

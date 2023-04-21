@@ -1,1 +1,54 @@
-<h1>ORDERS</h1>
+<div class="sm:px-6 w-full">
+  <!-- Headline -->
+  <div class="px-4 md:px-10 py-4 md:py-7">
+    <h2>Orders</h2>
+  </div>
+
+  <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+    <!-- <table *ngIf="(orders$ | async) && (orders$ | async).length !== 0; else noOrders" class="whitespace-nowrap">
+      <tbody>
+        <tr
+          *ngFor="let order of orders$ | async"
+          tabindex="0"
+          class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+          (click)="selectOrder(order.id)">
+          <td class="pl-5">
+            <p class="text-sm leading-none text-gray-600 ml-2">
+              {{ order.dateOfOrder | date : 'medium' }}
+            </p>
+          </td>
+          <td class="pl-5 text-center">
+            <p class="text-base font-bold leading-none text-gray-700">
+              {{ order.cocktail.name }}
+            </p>
+          </td>
+          <td class="pl-5 text-center">
+            <button
+              barButton
+              [buttonType]="'edit'"
+              class="p-1 mr-2"
+              [routerLink]="'/ingredients/group-edit'"
+              (click)="editIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
+              role="button">
+              <img src="assets/edit.svg" class="w-8 h-8" />
+            </button>
+            <button
+              class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+              [routerLink]="'/ingredients/group-edit'"
+              (click)="openDeleteIngredientGroupModal(ingredientGroup.id); $event.stopPropagation()"
+              role="button">
+              <img src="assets/delete.svg" class="w-8 h-8" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+  </div>
+</div>
+
+<ng-template #noOrders>
+  <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
+    <img src="assets/404.svg" class="w-32 h-32" />
+    <p class="text-xl text-bold leading-none text-gray-600 ml-2">There are currently no active orders</p>
+  </div>
+</ng-template>

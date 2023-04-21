@@ -13,6 +13,8 @@ import { IngredientsEffects } from './store/ingredients/ingredients.effects';
 import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers';
 import { RecipesEffects } from './store/recipes/recipes.effects';
 import * as fromRecipesReducer from './store/recipes/recipes.reducers';
+import { OrdersEffects } from './store/orders/orders.effects';
+import * as fromOrdersReducer from './store/orders/orders.reducers';
 import { ApiModule } from './util';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -47,7 +49,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forFeature(fromBarReducer.featureKey, fromBarReducer.reducer),
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
     StoreModule.forFeature(fromRecipesReducer.featureKey, fromRecipesReducer.reducer),
-    EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects]),
+    StoreModule.forFeature(fromOrdersReducer.featureKey, fromOrdersReducer.reducer),
+    EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects, OrdersEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),

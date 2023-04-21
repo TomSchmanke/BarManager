@@ -5,7 +5,7 @@
   </div>
 
   <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
-    <table *ngIf="(orders$ | async) && (orders$ | async).length !== 0; else noOrders" class="whitespace-nowrap">
+    <!-- <table *ngIf="(orders$ | async) && (orders$ | async).length !== 0; else noOrders" class="whitespace-nowrap">
       <tbody>
         <tr
           *ngFor="let order of orders$ | async"
@@ -42,7 +42,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </div>
 

@@ -11,7 +11,7 @@ import { Order } from 'src/app/util/api/models/orders';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent {
-  orders$: Observable<Order[]>;
+  //orders$: Observable<Order[]>;
 
   constructor(private readonly store: Store) {
     this.store.dispatch(loadOrders());
@@ -31,7 +31,7 @@ export class OrdersComponent {
         ],
       })
     );
-    this.orders$ = this.store.select(selectOrderContent);
+    //this.orders$ = this.store.select(selectOrderContent);
   }
 
   selectOrder(orderId: number) {

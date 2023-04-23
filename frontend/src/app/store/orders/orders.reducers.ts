@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { Order } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
-import { Order } from 'src/app/util/api/models/orders';
 
 import * as OrdersActions from './orders.actions';
 
@@ -67,7 +67,7 @@ export const reducer = createReducer(
 
   on(OrdersActions.selectSingleOrder, (state, action) => ({
     ...state,
-    selectedOrder: state.orders.content.find(value => value.id === action.orderId),
+    selectedOrder: state.orders.content.find(value => value.orderId === action.orderId),
   })),
   on(OrdersActions.resetSelectSingleOrder, state => ({
     ...state,

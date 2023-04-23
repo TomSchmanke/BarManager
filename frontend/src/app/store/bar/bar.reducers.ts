@@ -1,23 +1,25 @@
 import { createReducer, on } from '@ngrx/store';
+
 import * as BarActions from './bar.actions';
-import { Bar } from '@bar-manager/api';
+
+//import { Bar } from '@bar-manager/api';
 
 export const featureKey = 'bar';
 
 export interface IState {
-  bar: Bar;
+//  bar: Bar;
   loading: boolean;
 }
 
 export const initialState: IState = {
-  bar: {
-    id: 1,
-    name: 'Hello world',
-    owner: {
-      id: 1,
-      name: 'Init',
-    },
-  },
+  // bar: {
+  //   id: 1,
+  //   name: 'Hello world',
+  //   owner: {
+  //     id: 1,
+  //     name: 'Init',
+  //   },
+  // },
   loading: false,
 };
 

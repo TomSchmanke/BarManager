@@ -1,5 +1,6 @@
 import { Ingredient, IngredientGroup } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
+
 import * as IngredientsActions from './ingredients.actions';
 
 export const featureKey = 'ingredients';
@@ -45,20 +46,20 @@ export const reducer = createReducer(
     selectedIngredients: 'all',
     shownIngredients: state.ingredients,
   })),
-  on(IngredientsActions.showAvailableIngredientsGroups, state => ({
-    ...state,
-    selectedIngredients: 'available',
-    shownIngredients: state.ingredients.filter(
-      ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) > 0
-    ),
-  })),
-  on(IngredientsActions.showUnavailableIngredientsGroups, state => ({
-    ...state,
-    selectedIngredients: 'unavailable',
-    shownIngredients: state.ingredients.filter(
-      ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) === 0
-    ),
-  })),
+  // on(IngredientsActions.showAvailableIngredientsGroups, state => ({
+  //   ...state,
+  //   selectedIngredients: 'available',
+  //   shownIngredients: state.ingredients.filter(
+  //     ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) > 0
+  //   ),
+  // })),
+  // on(IngredientsActions.showUnavailableIngredientsGroups, state => ({
+  //   ...state,
+  //   selectedIngredients: 'unavailable',
+  //   shownIngredients: state.ingredients.filter(
+  //     ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) === 0
+  //   ),
+  // })),
 
   on(IngredientsActions.selectSingleIngredientGroup, (state, action) => ({
     ...state,
@@ -69,10 +70,10 @@ export const reducer = createReducer(
     selectedIngredientGroup: undefined,
   })),
 
-  on(IngredientsActions.selectSingleIngredient, (state, action) => ({
-    ...state,
-    selectedIngredient: state.selectedIngredientGroup!.ingredients.find(value => value.id === action.ingredientId),
-  })),
+  // on(IngredientsActions.selectSingleIngredient, (state, action) => ({
+  //   ...state,
+  //   selectedIngredient: state.selectedIngredientGroup!.ingredients.find(value => value.id === action.ingredientId),
+  // })),
   on(IngredientsActions.resetSelectSingleIngredient, state => ({
     ...state,
     selectedIngredient: undefined,

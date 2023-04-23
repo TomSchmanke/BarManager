@@ -11,10 +11,11 @@
 }
 
 .edit-button {
-  @apply bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none;
+  @apply p-1 bg-green-200 hover:bg-green-300 focus:ring-2 rounded-md focus:outline-none;
 }
+
 .delete-button {
-  @apply bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none;
+  @apply p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none;
 }
 
 .default-input {

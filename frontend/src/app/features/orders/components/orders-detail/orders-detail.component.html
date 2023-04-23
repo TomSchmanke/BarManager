@@ -1,0 +1,18 @@
+<ng-container *ngIf="currentlySelectedCocktail$ | async as cocktail">
+  <ng-container *ngIf="cocktail.id !== undefined else cocktailNotFound">
+    <h3 class="text-lg font-bold">Selected Cocktail - {{ cocktail.name }}</h3>
+    <div class="px-4 py-2">
+      <h4 class="font-bold">Ingredients:</h4>
+      <ul class="px-6 py-2 list-disc">
+        <li *ngFor="let ingredient of cocktail.recipeIngredient">{{ ingredient.amount }}{{ ingredient.unitOfMeasurement }} {{ ingredient.ingredientGroupName }}</li>
+      </ul>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #cocktailNotFound>
+  <app-not-found-widget
+    headline="Selected cocktail not found"
+    message="The system was unable to load the selected cocktail. That could be, because there is no selected cocktail or because of an error in the system">
+  </app-not-found-widget>
+</ng-template>

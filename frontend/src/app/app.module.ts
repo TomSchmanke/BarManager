@@ -11,8 +11,8 @@ import { BarEffects } from './store/bar/bar.effects';
 import * as fromBarReducer from './store/bar/bar.reducers';
 import { IngredientsEffects } from './store/ingredients/ingredients.effects';
 import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers';
-import { RecipesEffects } from './store/recipes/recipes.effects';
-import * as fromRecipesReducer from './store/recipes/recipes.reducers';
+import { CocktailsEffects } from './store/recipes/cocktails.effects';
+import * as fromCocktailsReducer from './store/recipes/cocktails.reducers';
 import { OrdersEffects } from './store/orders/orders.effects';
 import * as fromOrdersReducer from './store/orders/orders.reducers';
 import { ApiModule } from './util';
@@ -48,9 +48,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     EffectsModule.forRoot(),
     StoreModule.forFeature(fromBarReducer.featureKey, fromBarReducer.reducer),
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
-    StoreModule.forFeature(fromRecipesReducer.featureKey, fromRecipesReducer.reducer),
+    StoreModule.forFeature(fromCocktailsReducer.featureKey, fromCocktailsReducer.reducer),
     StoreModule.forFeature(fromOrdersReducer.featureKey, fromOrdersReducer.reducer),
-    EffectsModule.forFeature([BarEffects, IngredientsEffects, RecipesEffects, OrdersEffects]),
+    EffectsModule.forFeature([BarEffects, IngredientsEffects, CocktailsEffects, OrdersEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),

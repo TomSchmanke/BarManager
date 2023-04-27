@@ -1,60 +1,66 @@
-<table *ngIf="(orders$ | async) && (orders$ | async).length !== 0; else noOrders" class="w-full">
-  <tbody>
-    <tr
-      *ngFor="let order of orders$ | async"
-      tabindex="0"
-      class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
-      (click)="selectOrder(order.orderId)">
-      <td class="pl-5">
-        <p class="text-sm leading-none text-gray-600 ml-2">
-          {{ order.orderId }}
-        </p>
-      </td>
+<ng-container *ngIf="(loading$ | async) === false; else loading">
+  <table *ngIf="(orders$ | async) && (orders$ | async).length !== 0; else noOrders" class="w-full">
+    <tbody>
+      <tr
+        *ngFor="let order of orders$ | async"
+        tabindex="0"
+        class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+        (click)="selectOrder(order.orderId)">
+        <td class="pl-5">
+          <p class="text-sm leading-none text-gray-600 ml-2">
+            {{ order.orderId }}
+          </p>
+        </td>
 
-      <td class="pl-5">
-        <p class="text-sm leading-none text-gray-600 ml-2">
-          {{ order.timestamp }}
-        </p>
-      </td>
+        <td class="pl-5">
+          <p class="text-sm leading-none text-gray-600 ml-2">
+            {{ order.timestamp }}
+          </p>
+        </td>
 
-      <td class="pl-5">
-        <p class="text-base font-bold leading-none text-gray-700">
-          {{ order.cocktailName }}
-        </p>
-      </td>
+        <td class="pl-5">
+          <p class="text-base font-bold leading-none text-gray-700">
+            {{ order.cocktailName }}
+          </p>
+        </td>
 
-      <td class="pl-5 text-center">
-        <button
-          barButton
-          [buttonType]="'edit'"
-          class="mr-2"
-          (click)="openAcceptOrderModal(order.orderId); $event.stopPropagation()"
-          role="button">
-          <img src="assets/accept.svg" class="w-8 h-8" />
-        </button>
+        <td class="pl-5 text-center">
+          <button
+            barButton
+            [buttonType]="'edit'"
+            class="mr-2"
+            (click)="openAcceptOrderModal(order.orderId); $event.stopPropagation()"
+            role="button">
+            <img src="assets/accept.svg" class="w-8 h-8" />
+          </button>
 
-        <!-- ToDo: Implement accept dialog with functionality -->
+          <!-- ToDo: Implement accept dialog with functionality -->
 
-        <button
-          barButton
-          [buttonType]="'delete'"
-          (click)="openDeclineOrderModal(order.orderId); $event.stopPropagation()"
-          role="button">
-          <img src="assets/close.svg" class="w-8 h-8" />
-        </button>
+          <button
+            barButton
+            [buttonType]="'delete'"
+            (click)="openDeclineOrderModal(order.orderId); $event.stopPropagation()"
+            role="button">
+            <img src="assets/close.svg" class="w-8 h-8" />
+          </button>
 
-        <app-delete-modal
-          [ngClass]="{ hidden: orderToDelete !== order.orderId }"
-          [a11yModalId]="'decline-order' + order.orderId + '-modal'"
-          [nameOfItemToDelete]="'order with the order id ' + order.orderId + ' for ' + order.cocktailName"
-          (cancelDialog)="cancelDeclineOrderModal()"
-          (declineDialog)="cancelDeclineOrderModal()"
-          (acceptDialog)="confirmDeclineOrderModal()">
-        </app-delete-modal>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          <app-delete-modal
+            [ngClass]="{ hidden: orderToDelete !== order.orderId }"
+            [a11yModalId]="'decline-order' + order.orderId + '-modal'"
+            [nameOfItemToDelete]="'order with the order id ' + order.orderId + ' for ' + order.cocktailName"
+            (cancelDialog)="cancelDeclineOrderModal()"
+            (declineDialog)="cancelDeclineOrderModal()"
+            (acceptDialog)="confirmDeclineOrderModal()">
+          </app-delete-modal>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
 
 <ng-template #noOrders>
   <app-not-found-widget

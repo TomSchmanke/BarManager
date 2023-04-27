@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, delay, from, of } from 'rxjs';
 import { declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
-import { selectOrderContent } from 'src/app/store/orders/orders.selectors';
+import { selectOrderContent, selectOrdersLoadingStatus } from 'src/app/store/orders/orders.selectors';
 
 @Component({
   selector: 'app-orders-overview',
@@ -11,14 +11,17 @@ import { selectOrderContent } from 'src/app/store/orders/orders.selectors';
   styleUrls: ['./orders-overview.component.css'],
 })
 export class OrdersOverviewComponent {
+  loading$: Observable<boolean>;
   orders$: Observable<Order[]>;
   orderToDelete?: number;
 
-  // ToDo: Loading screen
-
   constructor(private readonly store: Store) {
+    this.loading$ = this.store.select(selectOrdersLoadingStatus);
+    // ToDo: Remove mock data
+    this.loading$ = from([true, false]).pipe(delay(3000));
+
     this.orders$ = this.store.select(selectOrderContent);
-    // ToDo: Remove mock data and maybe update api to get cocktail name and real timestamp
+    // ToDo: Remove mock data
     this.orders$ = of([
       {
         cocktailId: 1,

@@ -5,20 +5,24 @@
       tabindex="0"
       class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
       (click)="selectOrder(order.orderId)">
+      <td class="pl-5">
+        <p class="text-sm leading-none text-gray-600 ml-2">
+          {{ order.orderId }}
+        </p>
+      </td>
 
       <td class="pl-5">
         <p class="text-sm leading-none text-gray-600 ml-2">
           {{ order.timestamp }}
         </p>
       </td>
-      
-      <td class="pl-5 text-center">
+
+      <td class="pl-5">
         <p class="text-base font-bold leading-none text-gray-700">
-          <!-- ToDo: Change to cocktail name -->
-          {{ order.cocktailId }}
+          {{ order.cocktailName }}
         </p>
       </td>
-      
+
       <td class="pl-5 text-center">
         <button
           barButton
@@ -30,7 +34,7 @@
         </button>
 
         <!-- ToDo: Implement accept dialog with functionality -->
-        
+
         <button
           barButton
           [buttonType]="'delete'"
@@ -39,11 +43,10 @@
           <img src="assets/close.svg" class="w-8 h-8" />
         </button>
 
-        <!-- ToDo: Change to cocktail name -->
         <app-delete-modal
           [ngClass]="{ hidden: orderToDelete !== order.orderId }"
           [a11yModalId]="'decline-order' + order.orderId + '-modal'"
-          [nameOfItemToDelete]="'order with the order id ' + order.orderId"
+          [nameOfItemToDelete]="'order with the order id ' + order.orderId + ' for ' + order.cocktailName"
           (cancelDialog)="cancelDeclineOrderModal()"
           (declineDialog)="cancelDeclineOrderModal()"
           (acceptDialog)="confirmDeclineOrderModal()">

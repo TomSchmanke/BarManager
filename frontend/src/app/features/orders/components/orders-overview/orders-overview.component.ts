@@ -20,9 +20,27 @@ export class OrdersOverviewComponent {
     this.orders$ = this.store.select(selectOrderContent);
     // ToDo: Remove mock data and maybe update api to get cocktail name and real timestamp
     this.orders$ = of([
-      { cocktailId: 1, customerName: 'Tom Schmanke', orderId: 1, timestamp: '27. Februar 2001  - 15:00:00' },
-      { cocktailId: 2, customerName: 'Tom', orderId: 2, timestamp: '27. Februar 2001  - 14:30:00' },
-      { cocktailId: 1, customerName: 'Tom Alexander Schmanke', orderId: 3, timestamp: '27. Februar 2001 - 14:00:00' },
+      {
+        cocktailId: 1,
+        cocktailName: 'Mojito',
+        customerName: 'Tom Schmanke',
+        orderId: 1,
+        timestamp: '27. Februar 2001  - 15:00:00',
+      },
+      {
+        cocktailId: 2,
+        cocktailName: 'Gin Tonic',
+        customerName: 'Tom',
+        orderId: 2,
+        timestamp: '27. Februar 2001  - 14:30:00',
+      },
+      {
+        cocktailId: 1,
+        cocktailName: 'Sex on the beach',
+        customerName: 'Tom Alexander Schmanke',
+        orderId: 3,
+        timestamp: '27. Februar 2001 - 14:00:00',
+      },
     ]);
   }
 

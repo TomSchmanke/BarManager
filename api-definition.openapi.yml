@@ -4,10 +4,9 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0 
+  version: 1.0.0
 security:
-  - NONE: []    
-
+  - NONE: []
 
 servers:
   - url: https://localhost:8080
@@ -27,14 +26,14 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: bar id, name and owner
-          content: 
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/login-response'
-        '404':
-           description: Not Found
+                $ref: "#/components/schemas/login-response"
+        "404":
+          description: Not Found
   /bars/bar:
     post:
       tags:
@@ -47,16 +46,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/bar-creation-request'
+              $ref: "#/components/schemas/bar-creation-request"
       responses:
-        '200':
+        "200":
           description: bar id and name
-          content: 
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bar-creation-response'
-        '404':
-           description: Not Found         
+                $ref: "#/components/schemas/bar-creation-response"
+        "404":
+          description: Not Found
   /bars/{bar-id}/cocktails:
     get:
       tags:
@@ -77,16 +76,16 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
-          description: bar 
-          content: 
+        "200":
+          description: bar
+          content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/cocktail'
-        '404':
-           description: Not Found               
+                  $ref: "#/components/schemas/cocktail"
+        "404":
+          description: Not Found
   /bars/{bar-id}/orders:
     get:
       tags:
@@ -101,16 +100,16 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
-          description: bar 
-          content: 
+        "200":
+          description: bar
+          content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/order'
-        '404':
-           description: Not Found
+                  $ref: "#/components/schemas/order"
+        "404":
+          description: Not Found
   /bars/{bar-id}/orders/{order-id}:
     delete:
       tags:
@@ -130,10 +129,10 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
-          description: deletion of order succesful 
-        '404':
-           description: Not Found
+        "200":
+          description: deletion of order succesful
+        "404":
+          description: Not Found
   /bars/{bar-id}/orders/order:
     post:
       tags:
@@ -154,18 +153,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/order-creation-request'
+              $ref: "#/components/schemas/order-creation-request"
       responses:
-        '201':
-          description: bar 
-          content: 
+        "201":
+          description: bar
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/order-creation-response'
-        '400':
-           description: Bad request
-        '404':
-           description: Not Found               
+                $ref: "#/components/schemas/order-creation-response"
+        "400":
+          description: Bad request
+        "404":
+          description: Not Found
   /bars/{bar-id}/cocktails/{cocktail-id}:
     get:
       tags:
@@ -187,14 +186,14 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
-          description: bar 
-          content: 
+        "200":
+          description: bar
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/cocktail'
-        '404':
-           description: Not Found
+                $ref: "#/components/schemas/cocktail"
+        "404":
+          description: Not Found
     put:
       tags:
         - Cocktails
@@ -219,20 +218,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/cocktail'
+              $ref: "#/components/schemas/cocktail"
       responses:
-        '200':
-          description: bar 
-          content: 
+        "200":
+          description: bar
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/cocktail'
-        '404':
-           description: Not Found      
+                $ref: "#/components/schemas/cocktail"
+        "404":
+          description: Not Found
     delete:
       tags:
         - Cocktails
-      summary: Delete a Cocktail from a specific bar 
+      summary: Delete a Cocktail from a specific bar
       operationId: deleteCocktail
       parameters:
         - in: path
@@ -253,14 +252,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/cocktail'
+              $ref: "#/components/schemas/cocktail"
       responses:
-        '201':
-          description: deletion succesful 
-        '404':
-           description: Not Found
+        "201":
+          description: deletion succesful
+        "404":
+          description: Not Found
   /bars/{bar-id}/cocktails/cocktail:
-   post:
+    post:
       tags:
         - Cocktails
       summary: Add a cocktail to a specific bar
@@ -273,12 +272,12 @@ paths:
           schema:
             type: integer
       responses:
-        '201':
+        "201":
           description: cocktail added
-         
-        '404':
-           description: Not Found
-        
+
+        "404":
+          description: Not Found
+
   /bar/{bar-id}/ingredients:
     get:
       tags:
@@ -293,17 +292,17 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Ingredients retrived
           content:
             application/json:
               schema:
-                 type: array
-                 items:
-                  $ref: '#/components/schemas/ingredient'
-        '404':
+                type: array
+                items:
+                  $ref: "#/components/schemas/ingredient"
+        "404":
           description: Not Found
-       
+
   /bar/{bar-id}/ingredients/{ingredient-id}:
     put:
       tags:
@@ -329,15 +328,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ingredient'
+              $ref: "#/components/schemas/ingredient"
       responses:
-        '200':
+        "200":
           description: Ingredient updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredient'
-        '404':
+                $ref: "#/components/schemas/ingredient"
+        "404":
           description: Not Found
     delete:
       tags:
@@ -358,16 +357,16 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Ingredient deleted
-        '404':
+        "404":
           description: Not Found
   /bar/{bar-id}/ingredient-groups/ingredient:
     post:
       tags:
         - Ingredients
       summary: add ingrdient to a specific bar
-      operationId:  postIngredient
+      operationId: postIngredient
       parameters:
         - in: path
           name: bar-id
@@ -376,38 +375,38 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Ingredients retrived
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/order-creation-response'
-        '404':
-            description: Not Found
+                $ref: "#/components/schemas/order-creation-response"
+        "404":
+          description: Not Found
   /bar/{bar-id}/ingredient-groups:
-      get:
-        tags:
-          - IngredientGroups
-        summary: Get all ingredient-groups of a specific bar
-        operationId: getIngredientGroups
-        parameters:
-          - in: path
-            name: bar-id
-            description: Unique id to identify bar
-            required: true
-            schema:
-              type: integer
-        responses:
-          '200':
-            description: IngredientGroups retrived
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ingredientGroup'
-          '404':
-            description: Not Found
+    get:
+      tags:
+        - IngredientGroups
+      summary: Get all ingredient-groups of a specific bar
+      operationId: getIngredientGroups
+      parameters:
+        - in: path
+          name: bar-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: IngredientGroups retrived
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ingredientGroup"
+        "404":
+          description: Not Found
   /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
     get:
       tags:
@@ -428,14 +427,14 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Ingredients retrived
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredientGroup'
-        '404':
-            description: Not Found
+                $ref: "#/components/schemas/ingredientGroup"
+        "404":
+          description: Not Found
     put:
       tags:
         - IngredientGroups
@@ -462,20 +461,20 @@ paths:
             schema:
               type: object
               properties:
-                name: 
+                name:
                   type: string
                   example: Gin
-                unitOfMeasurement: 
-                  $ref: '#/components/schemas/unitOfMeasurement'
+                unitOfMeasurement:
+                  $ref: "#/components/schemas/unitOfMeasurement"
                   example: ML
       responses:
-        '200':
+        "200":
           description: IngredientGroup updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredientGroup'
-        '404':
+                $ref: "#/components/schemas/ingredientGroup"
+        "404":
           description: Not Found
     delete:
       tags:
@@ -496,16 +495,16 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: IngredientGroup deleted
-        '404':
+        "404":
           description: Not Found
   /bar/{bar-id}/ingredient-groups/ingredient-group:
     post:
       tags:
         - IngredientGroups
       summary: add ingredient-group to a specific bar
-      operationId:  postIngredientGroup
+      operationId: postIngredientGroup
       parameters:
         - in: path
           name: bar-id
@@ -521,28 +520,28 @@ paths:
             schema:
               type: object
               properties:
-                name: 
+                name:
                   type: string
                   example: Gin
-                unitOfMeasurement: 
-                  $ref: '#/components/schemas/ingredientGroup'
+                unitOfMeasurement:
+                  $ref: "#/components/schemas/ingredientGroup"
                   example: ML
       responses:
-        '201':
+        "201":
           description: IngredientGroup added
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ingredientGroup'
-        '404':
-            description: Not Found
+                $ref: "#/components/schemas/ingredientGroup"
+        "404":
+          description: Not Found
 components:
   securitySchemes:
     NONE:
       type: apiKey
       name: key
-      in: cookie 
-      
+      in: cookie
+
   schemas:
     ingredientGroup:
       type: object
@@ -559,11 +558,11 @@ components:
           type: string
           example: Gin
         unitOfMeasurement:
-          $ref: '#/components/schemas/unitOfMeasurement'
+          $ref: "#/components/schemas/unitOfMeasurement"
         ingredients:
           type: array
           items:
-            $ref: '#/components/schemas/ingredient'
+            $ref: "#/components/schemas/ingredient"
     cocktail:
       type: object
       required:
@@ -581,7 +580,7 @@ components:
         recipeIngredient:
           type: array
           items:
-              $ref: '#/components/schemas/recipeIngredient'
+            $ref: "#/components/schemas/recipeIngredient"
     recipeIngredient:
       type: object
       required:
@@ -590,13 +589,13 @@ components:
         - ingredientGroupName
       properties:
         unitOfMeasurement:
-          $ref: '#/components/schemas/unitOfMeasurement'
+          $ref: "#/components/schemas/unitOfMeasurement"
         ingredientGroupName:
           type: string
           example: Gin
-        amount: 
+        amount:
           type: number
-          example: 500          
+          example: 500
     ingredient:
       type: object
       required:
@@ -625,28 +624,32 @@ components:
         - ML
         - G
         - PIECE
-    order: 
+    order:
       type: object
       required:
         - orderId
         - cocktailId
+        - cocktailName
         - customerName
         - timestamp
       properties:
         orderId:
           type: integer
           format: int64
-          example: 1 
-        cocktailId: 
+          example: 1
+        cocktailId:
           type: integer
           format: int64
           example: 1
-        customerName: 
+        cocktailName:
+          type: string
+          example: Mojito
+        customerName:
           type: string
           example: Tom Awesome
         timestamp:
           type: string
-   
+
     bar-creation-request:
       type: object
       required:
@@ -702,9 +705,9 @@ components:
         - ownerName
       properties:
         barId:
-            type: integer
-            example: 1
-            minLength: 1
+          type: integer
+          example: 1
+          minLength: 1
         barName:
           type: string
           example: Bar Name
@@ -714,34 +717,34 @@ components:
           type: string
           example: Tom
           minLength: 1
-          maxLength: 20      
+          maxLength: 20
     order-creation-request:
       type: object
       required:
         - cocktailId
         - customerName
       properties:
-        cocktailId: 
+        cocktailId:
           type: integer
           format: int64
           example: 1
-        customerName: 
+        customerName:
           type: string
           example: Tom Awesome
     order-creation-response:
       type: object
       required:
-      - cocktailId
-      - customerName
-      - orderId
+        - cocktailId
+        - customerName
+        - orderId
       properties:
-        cocktailId: 
+        cocktailId:
           type: integer
           format: int64
           example: 1
-        customerName: 
+        customerName:
           type: string
-          example: Tom Awesome 
+          example: Tom Awesome
         orderId:
           type: integer
           format: int64

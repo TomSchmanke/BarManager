@@ -1,5 +1,6 @@
 package de.fhswf.barmanager.backend.api
 
+import de.fhswf.barmanager.backend.service.IngredientsService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -9,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/bars/{barId}/ingredients")
 @RestController
-class IngredientsController {
+class IngredientsController(private val ingredientsService: IngredientsService) {
 
     @GetMapping
     fun getAllIngredients(@PathVariable barId: String) {
-        println("called GET /bars/$barId/ingredients")
+        ingredientsService.getAllIngredients(barId)
     }
 
     @DeleteMapping("/{ingredientsId}")
     fun deleteIngredient(@PathVariable barId: String, @PathVariable ingredientsId: String) {
-        println("called DELETE /bars/$barId/ingredients/$ingredientsId")
+        ingredientsService.deleteIngredient(barId, ingredientsId)
     }
 
     @PutMapping("/{ingredientsId}")
     fun updateIngredient(@PathVariable barId: String, @PathVariable ingredientsId: String) {
-        println("called PUT /bars/$barId/ingredients/$ingredientsId")
+        ingredientsService.updateIngredient(barId, ingredientsId)
     }
 }

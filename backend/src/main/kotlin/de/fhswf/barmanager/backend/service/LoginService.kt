@@ -1,7 +1,7 @@
 package de.fhswf.barmanager.backend.service
 
-import org.springframework.web.context.annotation.ApplicationScope
+import org.springframework.stereotype.Service
 
-@ApplicationScope
+@Service
 class LoginService {
 }

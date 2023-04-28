@@ -1,5 +1,6 @@
 package de.fhswf.barmanager.backend.api
 
+import de.fhswf.barmanager.backend.service.CocktailService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -11,30 +12,30 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/bars/{barId}/cocktails")
 @RestController
-class CocktailController {
+class CocktailController(private val cocktailService: CocktailService) {
 
     @GetMapping
     fun getAllCocktails(@PathVariable barId: String, @RequestParam checkAvailability: String?) {
-        println("called GET /bars/$barId/cocktails checkAvailability: $checkAvailability")
+        cocktailService.getAllCocktails(barId, checkAvailability)
     }
 
     @GetMapping("/{cocktailId}")
     fun getSpecificCocktails(@PathVariable barId: String, @PathVariable cocktailId: String) {
-        println("called GET /bars/$barId/cocktails/$cocktailId")
+        cocktailService.getCocktail(barId, cocktailId)
     }
 
-    @PostMapping("/ingredient-group")
+    @PostMapping("/cocktail")
     fun createCocktail(@PathVariable barId: String) {
-        println("called POST /bars/$barId/cocktails/cocktail")
+        cocktailService.createCocktail(barId)
     }
 
     @DeleteMapping("/{cocktailId}")
     fun deleteCocktail(@PathVariable barId: String, @PathVariable cocktailId: String) {
-        println("called DELETE /bars/$barId/cocktails/$cocktailId")
+        cocktailService.deleteCocktail(barId, cocktailId)
     }
 
     @PutMapping("/{cocktailId}")
     fun updateCocktail(@PathVariable barId: String, @PathVariable cocktailId: String) {
-        println("called PUT /bars/$barId/cocktails/$cocktailId")
+        cocktailService.updateCocktail(barId, cocktailId)
     }
 }

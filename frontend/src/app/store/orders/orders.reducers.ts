@@ -6,7 +6,7 @@ import * as OrdersActions from './orders.actions';
 
 export const featureKey = 'orders';
 
-export interface IState {
+export interface OrderState {
   orders: {
     content: Order[];
     loading: boolean;
@@ -21,7 +21,7 @@ export interface IState {
   selectedOrder?: Order;
 }
 
-export const initialState: IState = {
+export const initialState: OrderState = {
   orders: {
     content: [],
     loading: false,
@@ -97,7 +97,7 @@ export const reducer = createReducer(
       ...state.orders,
       content: [],
       loading: false,
-      error: action.response,
+      error: action.error,
     },
   }))
 );

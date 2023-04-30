@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromIngredientsReducer from './ingredient-groups.reducers';
+import * as fromIngredientsReducer from './ingredient-group.reducers';
 
-export const selectIngredientGroupState = createFeatureSelector<fromIngredientsReducer.IState>(
+export const selectIngredientGroupState = createFeatureSelector<fromIngredientsReducer.IngredientGroupState>(
   fromIngredientsReducer.featureKey
 );
 

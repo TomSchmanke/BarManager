@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { withLatestFrom, switchMap, map, catchError, of } from 'rxjs';
 import { selectBarId } from '../bar/bar.selectors';
-import * as fromIngredientsActions from './ingredient-groups.actions';
+import * as fromIngredientsActions from './ingredient-group.actions';
 import { IngredientGroupsService, IngredientsService } from '@bar-manager/api';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -12,7 +12,6 @@ export class IngredientsEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
   private ingredientGroupsService = inject(IngredientGroupsService);
-  private ingredientsService = inject(IngredientsService);
 
   private loadIngredientGroups$ = createEffect(() =>
     this.actions$.pipe(

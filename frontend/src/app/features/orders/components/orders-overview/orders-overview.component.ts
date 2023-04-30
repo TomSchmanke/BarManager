@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable, delay, from, of, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { selectBarId } from 'src/app/store/bar/bar.selectors';
 import { declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
 import { selectOrderContent, selectOrdersLoadingStatus } from 'src/app/store/orders/orders.selectors';
@@ -34,7 +34,7 @@ export class OrdersOverviewComponent {
 
   confirmDeclineOrderModal() {
     // ToDo: Get barId from bar store
-    this.store.dispatch(declineSingleOrder({ barId: 1, orderId: this.orderToDelete! }));
+    this.store.dispatch(declineSingleOrder({ orderId: this.orderToDelete! }));
     this.orderToDelete = undefined;
   }
 }

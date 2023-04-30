@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { showAllIngredientsGroups } from 'src/app/store/ingredients/ingredients.actions';
 
 @Component({
   selector: 'app-table-header',

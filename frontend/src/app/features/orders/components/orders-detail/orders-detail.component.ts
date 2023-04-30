@@ -3,7 +3,7 @@ import { Cocktail, Order, UnitOfMeasurement } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable, delay, filter, from, of, switchMap } from 'rxjs';
 import { selectSelectedOrder } from 'src/app/store/orders/orders.selectors';
-import { loadSingleCocktail } from 'src/app/store/recipes/cocktails.actions';
+import { loadCocktail } from 'src/app/store/recipes/cocktails.actions';
 import {
   selectSelectedCocktail,
   selectSelectedCocktailsLoadingStatus,
@@ -31,7 +31,7 @@ export class OrdersDetailComponent {
     this.currentlySelectedOrder$
       .pipe(
         filter(order => order !== undefined),
-        switchMap(order => of(this.store.dispatch(loadSingleCocktail({ barId: 5, cocktailId: order!.cocktailId }))))
+        switchMap(order => of(this.store.dispatch(loadCocktail({ cocktailId: order!.cocktailId }))))
       )
       .subscribe();
 

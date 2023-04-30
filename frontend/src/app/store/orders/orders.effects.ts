@@ -16,8 +16,8 @@ export class OrdersEffects {
       ofType(fromOrdersActions.loadOrders),
       withLatestFrom(this.store.select(selectBarId)),
       switchMap(([action, barId]) =>
-        this.ordersService.getOrders$Response({ 'bar-id': barId }).pipe(
-          map(orders => fromOrdersActions.loadOrdersSuccess({ orders: orders.body })),
+        this.ordersService.getOrders({ 'bar-id': barId }).pipe(
+          map(orders => fromOrdersActions.loadOrdersSuccess({ orders: orders })),
           catchError(error => of(fromOrdersActions.loadOrdersFailure({ error })))
         )
       )
@@ -30,9 +30,9 @@ export class OrdersEffects {
         ofType(fromOrdersActions.acceptSingleOrder),
         withLatestFrom(this.store.select(selectBarId)),
         switchMap(([action, barId]) =>
-          this.ordersService.deleteOrder$Response({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
+          this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
             map(() => fromOrdersActions.acceptSingleOrderSuccess()),
-            catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ response: error })))
+            catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ error: error })))
           )
         )
       ),
@@ -47,7 +47,7 @@ export class OrdersEffects {
         switchMap(([action, barId]) =>
           this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
             map(() => fromOrdersActions.declineSingleOrderSuccess()),
-            catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ response: error })))
+            catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ error: error })))
           )
         )
       ),

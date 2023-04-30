@@ -11,7 +11,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class IngredientsEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
-  private ingredientGroupsService = inject(IngredientGroupsService);
   private ingredientsService = inject(IngredientsService);
 
   private loadIngredients$ = createEffect(() =>

@@ -3,16 +3,15 @@ import { Ingredient, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import {
-  deleteIngredient,
   deleteIngredientGroup,
   loadIngredientGroups,
-  selectSingleIngredient,
   selectSingleIngredientGroup,
-} from 'src/app/store/ingredients/ingredients.actions';
+} from 'src/app/store/ingredient-group/ingredient-group.actions';
+import { deleteIngredient, selectSingleIngredient } from 'src/app/store/ingredients/ingredients.actions';
 import {
   selectSelectedIngredientGroup,
   selectShowIngredientsContent,
-} from 'src/app/store/ingredients/ingredients.selectors';
+} from 'src/app/store/ingredient-group/ingredient-group.selectors';
 
 @Component({
   selector: 'app-ingredients-overview',

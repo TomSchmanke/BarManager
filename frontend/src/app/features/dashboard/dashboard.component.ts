@@ -36,8 +36,8 @@ export class DashboardComponent {
     this.store.dispatch(loadBar({ barCode: this.loginForm.controls['barCode'].value }));
     this.barState$.subscribe((state: BarState) => {
       if (state.bar && state.bar?.barId) {
-        this.store.dispatch(loadOrders({ barId: state.bar?.barId }));
-        this.store.dispatch(loadCocktails({ barId: state.bar?.barId }));
+        this.store.dispatch(loadOrders());
+        this.store.dispatch(loadCocktails({}));
       }
     });
   }

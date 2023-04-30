@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Ingredient, IngredientGroup } from '@bar-manager/api';
+import { Ingredient } from '@bar-manager/api';
 import { createAction, props } from '@ngrx/store';
 
 export const loadIngredients = createAction('[ingredients] load ingredients');
@@ -42,22 +42,9 @@ export const deleteIngredientSuccess = createAction(
   props<{ ingredientId: number }>()
 );
 export const deleteIngredientFailure = createAction(
-  '[ingredients] delete ingredient success',
+  '[ingredients] delete ingredient failure',
   props<{ error: HttpErrorResponse }>()
 );
-
-export const showAllIngredientsGroups = createAction('[ingredients] show all ingredients groups');
-
-export const showAvailableIngredientsGroups = createAction('[ingredients] show available ingredients groups');
-
-export const showUnavailableIngredientsGroups = createAction('[ingredients] show unavailable ingredients groups');
-
-export const selectSingleIngredientGroup = createAction(
-  '[ingredients] select single ingredient group',
-  props<{ ingredientGroupId?: number }>()
-);
-
-export const resetSelectSingleIngredientGroup = createAction('[ingredients] reset select single ingredient group');
 
 export const selectSingleIngredient = createAction(
   '[ingredients] select single ingredient',

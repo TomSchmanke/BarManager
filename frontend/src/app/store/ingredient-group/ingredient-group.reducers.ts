@@ -1,18 +1,20 @@
 import { Ingredient, IngredientGroup, IngredientGroupsService } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
 
-import * as IngredientsActions from './ingredient-groups.actions';
+import * as IngredientsActions from './ingredient-group.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const featureKey = 'ingredients-groups';
 
-export interface IState {
+export interface IngredientGroupState {
   ingredientGroups: IngredientGroup[];
   shownIngredientGroups: IngredientGroup[];
   selectedIngredientGroup?: IngredientGroup;
   loading: boolean;
+  error?: HttpErrorResponse;
 }
 
-export const initialState: IState = {
+export const initialState: IngredientGroupState = {
   ingredientGroups: [],
   shownIngredientGroups: [],
   selectedIngredientGroup: undefined,
@@ -30,9 +32,43 @@ export const reducer = createReducer(
     ingredientGroups: action.ingredientGroups,
     loading: false,
   })),
-  on(IngredientsActions.loadIngredientsGroupsFailure, state => ({
+  on(IngredientsActions.loadIngredientsGroupsFailure, (state, action) => ({
     ...state,
-    ingredients: [],
+    error: action.error,
+    loading: false,
+  })),
+
+  on(IngredientsActions.deleteIngredientGroup, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.deleteIngredientGroupSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredientGroups: state.ingredientGroups.filter(ingredientGroup => ingredientGroup.id !== action.ingredientGroupId),
+    selectedIngredients: 'all',
+  })),
+  on(IngredientsActions.deleteIngredientGroupFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false,
+  })),
+
+  on(IngredientsActions.editIngredientGroup, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.editIngredientGroupSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredientsGroups: state.ingredientGroups.map((ingredientGroup: IngredientGroup) => {
+      return ingredientGroup.id === action.ingredientGroup.id ? action.ingredientGroup : ingredientGroup;
+    }),
+    selectedIngredients: 'all',
+  })),
+  on(IngredientsActions.editIngredientGroupFailure, (state, action) => ({
+    ...state,
+    error: action.error,
     loading: false,
   })),
 
@@ -43,34 +79,5 @@ export const reducer = createReducer(
   on(IngredientsActions.resetSelectSingleIngredientGroup, state => ({
     ...state,
     selectedIngredientGroup: undefined,
-  })),
-
-  on(IngredientsActions.deleteIngredientGroup, state => ({
-    ...state,
-    loading: true,
-  })),
-  on(IngredientsActions.deleteIngredient, state => ({
-    ...state,
-    loading: true,
-  })),
-  on(IngredientsActions.deleteIngredientGroupSuccess, (state, action) => ({
-    ...state,
-    loading: false,
-    ingredientGroups: state.ingredientGroups.filter(ingredientGroup => ingredientGroup.id !== action.ingredientGroupId),
-    selectedIngredients: 'all',
-  })),
-
-  on(IngredientsActions.editIngredientGroup, state => ({
-    ...state,
-    loading: true,
-  })),
-
-  on(IngredientsActions.editIngredientGroupSuccess, (state, action) => ({
-    ...state,
-    loading: false,
-    ingredientsGroups: state.ingredientGroups.map((ingredientGroup: IngredientGroup) => {
-      return ingredientGroup.id === action.ingredientGroup.id ? action.ingredientGroup : ingredientGroup;
-    }),
-    selectedIngredients: 'all',
   }))
 );

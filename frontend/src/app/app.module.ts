@@ -15,6 +15,7 @@ import { CocktailsEffects } from './store/recipes/cocktails.effects';
 import * as fromCocktailsReducer from './store/recipes/cocktails.reducers';
 import { OrdersEffects } from './store/orders/orders.effects';
 import * as fromOrdersReducer from './store/orders/orders.reducers';
+import * as fromIngredientsGroupsReducer from './store/ingredient-group/ingredient-group.reducers';
 import { ApiModule } from './util';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -47,6 +48,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
     StoreModule.forFeature(fromBarReducer.featureKey, fromBarReducer.reducer),
+    StoreModule.forFeature(fromIngredientsGroupsReducer.featureKey, fromIngredientsGroupsReducer.reducer),
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
     StoreModule.forFeature(fromCocktailsReducer.featureKey, fromCocktailsReducer.reducer),
     StoreModule.forFeature(fromOrdersReducer.featureKey, fromOrdersReducer.reducer),

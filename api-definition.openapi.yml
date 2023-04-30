@@ -9,7 +9,7 @@ security:
   - NONE: []
 
 servers:
-  - url: https://localhost:8080
+  - url: https://localhost:4010
 
 paths:
   /login/{bar-code}:
@@ -25,6 +25,7 @@ paths:
           required: true
           schema:
             type: string
+      security: []
       responses:
         "200":
           description: bar id, name and owner
@@ -47,6 +48,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/bar-creation-request"
+      security: []
       responses:
         "200":
           description: bar id and name
@@ -75,6 +77,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: bar
@@ -99,6 +102,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: bar
@@ -128,6 +132,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: deletion of order succesful
@@ -154,6 +159,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/order-creation-request"
+      security: []
       responses:
         "201":
           description: bar
@@ -219,6 +225,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/cocktail"
+      security: []
       responses:
         "200":
           description: bar
@@ -246,7 +253,7 @@ paths:
           required: true
           schema:
             type: integer
-    
+      security: []
       responses:
         "200":
           description: deletion succesful
@@ -272,10 +279,10 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/cocktail"
+      security: []
       responses:
         "201":
           description: cocktail added
-
         "404":
           description: Not Found
 
@@ -292,6 +299,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredients retrived
@@ -330,6 +338,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ingredient"
+      security: []
       responses:
         "200":
           description: Ingredient updated
@@ -357,6 +366,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredient deleted
@@ -375,6 +385,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredients retrived
@@ -397,6 +408,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: IngredientGroups retrived
@@ -427,6 +439,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredients retrived
@@ -468,6 +481,7 @@ paths:
                 unitOfMeasurement:
                   $ref: "#/components/schemas/unitOfMeasurement"
                   example: ML
+      security: []
       responses:
         "200":
           description: IngredientGroup updated
@@ -495,6 +509,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: IngredientGroup deleted
@@ -527,6 +542,7 @@ paths:
                 unitOfMeasurement:
                   $ref: "#/components/schemas/ingredientGroup"
                   example: ML
+      security: []
       responses:
         "201":
           description: IngredientGroup added

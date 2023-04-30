@@ -1,5 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
+import { BarCreationResponse, LoginResponse } from '@bar-manager/api';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectBarContent } from 'src/app/store/bar/bar.selectors';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +22,8 @@ import { Component, HostListener } from '@angular/core';
 })
 export class HeaderComponent {
   showBurgerMenu = false;
-
+  private store = inject(Store);
+  barState$: Observable<LoginResponse | BarCreationResponse | undefined> = this.store.select(selectBarContent);
   toggleBurgerMenu() {
     this.showBurgerMenu = !this.showBurgerMenu;
   }

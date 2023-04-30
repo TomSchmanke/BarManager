@@ -6,7 +6,10 @@ export const selectIngredientsState = createFeatureSelector<fromIngredientsReduc
 );
 
 export const selectIngredientsContent = createSelector(selectIngredientsState, state => state.ingredients);
-export const selectShowIngredientsContent = createSelector(selectIngredientsState, state => state.shownIngredients);
+export const selectShowIngredientsContent = createSelector(
+  selectIngredientsState,
+  state => state.shownIngredientGroups
+);
 export const selectSelectedIngredientGroup = createSelector(
   selectIngredientsState,
   state => state.selectedIngredientGroup

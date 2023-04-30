@@ -46,6 +46,56 @@ export const deleteIngredientFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
+export const addIngredientGroup = createAction(
+  '[ingredientGroup] add ingredient group',
+  props<{ ingredientGroup: IngredientGroup }>()
+);
+export const addIngredientGroupSuccess = createAction(
+  '[ingredientGroup] add ingredient group success',
+  props<{ ingredients: IngredientGroup[] }>()
+);
+export const addIngredientGroupFailure = createAction(
+  '[ingredientGroup] add ingredient failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const loadIngredientGroups = createAction('[ingredientGroup] load ingredients');
+export const loadIngredientsGroupsSuccess = createAction(
+  '[ingredientGroup] load ingredients success',
+  props<{ ingredientGroups: IngredientGroup[] }>()
+);
+export const loadIngredientsGroupsFailure = createAction(
+  '[ingredientGroup] load ingredients failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const editIngredientGroup = createAction(
+  '[ingredients] edit ingredient group',
+  props<{ ingredientGroup: IngredientGroup }>()
+);
+export const editIngredientGroupSuccess = createAction(
+  '[ingredientGroup] edit ingredient group success',
+  props<{ ingredientGroup: IngredientGroup }>()
+);
+export const editIngredientGroupFailure = createAction(
+  '[ingredientGroup] edit ingredient group success',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const deleteIngredientGroup = createAction(
+  '[ingredientGroup] delete ingredient group',
+  props<{ ingredientGroupId: number }>()
+);
+
+export const deleteIngredientGroupSuccess = createAction(
+  '[ingredientGroup] delete ingredient group success',
+  props<{ ingredientGroupId: number }>()
+);
+export const deleteIngredientGroupFailure = createAction(
+  '[ingredientGroup] delete ingredient group failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
 export const showAllIngredientsGroups = createAction('[ingredients] show all ingredients groups');
 
 export const showAvailableIngredientsGroups = createAction('[ingredients] show available ingredients groups');

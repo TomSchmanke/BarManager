@@ -5,7 +5,7 @@
   </div>
 
   <ng-container *ngIf="(selectBarLoadingStatus$ | async) === false; else loading">
-    <div class="w-full container flex" *ngIf="!!!(barState$ | async)">
+    <div class="w-full container flex" *ngIf="barState$ | async">
       <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
         <h2>Create Bar</h2>
         <div class="flex gap-4">
@@ -35,7 +35,7 @@
         <button class="pt-2" [disabled]="barCreationForm.invalid" barButton>Create Bar</button>
       </form>
       <form class="w-1/2" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-        <h2>Create Bar</h2>
+        <h2>Join Bar</h2>
         <div class="flex gap-4">
           <span>
             <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Code</label>
@@ -53,7 +53,7 @@
       </form>
     </div>
 
-    <ng-container *ngIf="!!!(barState$ | async); else noBar" #dashBoardTemplate>
+    <ng-container *ngIf="barState$ | async">
       <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
         <app-table-header></app-table-header>
         <div class="mt-7 overflow-x-auto">
@@ -147,13 +147,9 @@
         </div>
       </div>
     </ng-container>
+
     <ng-template *ngIf="error$ | async">
-      <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
-        <img src="assets/404.svg" class="w-32 h-32" />
-        <p class="text-xl text-bold leading-none text-gray-600 ml-2">
-          There is a problem loading the bar. Please try again later.
-        </p>
-      </div>
+      <app-not-found-widget message="There is a problem loading the bar. Please try again later"></app-not-found-widget>
     </ng-template>
   </ng-container>
 

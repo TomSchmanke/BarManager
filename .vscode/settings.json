@@ -9,5 +9,6 @@
     "prettier.bracketSameLine": true,
     "prettier.printWidth": 120,
     "prettier.requireConfig": false,
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "vscOrganizeImports.formatOnSave": true
 }

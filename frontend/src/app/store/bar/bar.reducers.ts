@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export const featureKey = 'bar';
 
 export interface BarState {
-  bar?: BarCreationResponse | LoginResponse;
+  bar: BarCreationResponse | LoginResponse;
   error?: HttpErrorResponse;
   cocktails: Cocktail[];
   orders: Order[];
@@ -18,6 +18,7 @@ export interface BarState {
 
 export const initialState: BarState = {
   loading: false,
+  bar: { barId: 0, barName: '', ownerName: '' },
   cocktails: [],
   orders: [],
 };

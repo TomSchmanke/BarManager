@@ -5,8 +5,7 @@ import { Observable, map } from 'rxjs';
 import {
   deleteIngredient,
   deleteIngredientGroup,
-  loadIngredients,
-  loadIngredientsSuccess,
+  loadIngredientGroups,
   selectSingleIngredient,
   selectSingleIngredientGroup,
 } from 'src/app/store/ingredients/ingredients.actions';
@@ -30,56 +29,7 @@ export class IngredientsOverviewComponent {
   ingredientToDeleteId?: number;
 
   constructor(private readonly store: Store) {
-    this.store.dispatch(loadIngredients());
-    this.store.dispatch(
-      loadIngredientsSuccess({
-        ingredients: [
-          {
-            id: 1,
-            name: 'Gin',
-            unitOfMeasurement: UnitOfMeasurement.ML,
-            ingredients: [
-              {
-                id: 1,
-                name: 'Gin de Cologne',
-                description: '',
-                amount: 700,
-              },
-              {
-                id: 2,
-                name: 'Gin de Cologne - Orange',
-                description: 'Jummy Orange',
-                amount: 700,
-              },
-              {
-                id: 3,
-                name: 'Bombay Saphire',
-                amount: 0,
-              },
-            ],
-          },
-          {
-            id: 2,
-            name: 'Wodka',
-            unitOfMeasurement: UnitOfMeasurement.ML,
-            ingredients: [
-              {
-                id: 4,
-                name: 'Absolut Wodka',
-                description: '',
-                amount: 0,
-              },
-              {
-                id: 2,
-                name: 'Wodka Grobatschow',
-                description: '',
-                amount: 0,
-              },
-            ],
-          },
-        ],
-      })
-    );
+    this.store.dispatch(loadIngredientGroups());
     this.ingredientGroup$ = this.store.select(selectShowIngredientsContent);
     this.selectedIngredientGroup$ = this.store
       .select(selectSelectedIngredientGroup)

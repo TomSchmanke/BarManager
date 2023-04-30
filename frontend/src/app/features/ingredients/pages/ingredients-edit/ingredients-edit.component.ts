@@ -61,13 +61,9 @@ export class IngredientsEditComponent {
       amount: this.ingredientsEditForm?.get('amount')?.value,
     };
     if (this.newOrExisitingIngredient === 'existing') {
-      this.store.dispatch(
-        editIngredient({ ingredientGroupId: this.selectedIngredientGroupId!, ingredient: newIngredient })
-      );
+      this.store.dispatch(editIngredient({ ingredient: newIngredient }));
     } else {
-      this.store.dispatch(
-        addIngredient({ ingredientGroupId: this.selectedIngredientGroupId!, ingredient: newIngredient })
-      );
+      this.store.dispatch(addIngredient({ ingredientGroupId: 1, ingredient: newIngredient }));
     }
   }
 }

@@ -9,7 +9,7 @@ import * as fromCocktailActions from './cocktails.actions';
 export class CocktailsEffects {
   private actions$ = inject(Actions);
   private cocktailsService = inject(CocktailsService);
-  private loadBar$ = createEffect(() =>
+  private loadCocktail$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromCocktailActions.loadCocktails),
       switchMap(action =>

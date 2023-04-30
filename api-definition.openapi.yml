@@ -246,15 +246,9 @@ paths:
           required: true
           schema:
             type: integer
-      requestBody:
-        description: cocktail body
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/cocktail"
+    
       responses:
-        "201":
+        "200":
           description: deletion succesful
         "404":
           description: Not Found
@@ -271,6 +265,13 @@ paths:
           required: true
           schema:
             type: integer
+      requestBody:
+        description: cocktail body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cocktail"
       responses:
         "201":
           description: cocktail added

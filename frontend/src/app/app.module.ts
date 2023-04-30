@@ -36,7 +36,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://localhost:8080/api' }),
+    ApiModule.forRoot({ rootUrl: 'http://localhost:4010' }),
     CoreModule,
     SharedModule,
     DashboardModule,

@@ -5,8 +5,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
-security:
-  - NONE: []
 
 servers:
   - url: https://localhost:4010
@@ -553,12 +551,6 @@ paths:
         "404":
           description: Not Found
 components:
-  securitySchemes:
-    NONE:
-      type: apiKey
-      name: key
-      in: cookie
-
   schemas:
     ingredientGroup:
       type: object

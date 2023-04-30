@@ -1,4 +1,4 @@
-import { BarCreationResponse, Cocktail, LoginResponse } from '@bar-manager/api';
+import { BarCreationResponse, Cocktail, LoginResponse, Order } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
 
 import * as BarActions from './bar.actions';
@@ -8,16 +8,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export const featureKey = 'bar';
 
-export interface IState {
+export interface BarState {
   bar?: BarCreationResponse | LoginResponse;
   error?: HttpErrorResponse;
   cocktails: Cocktail[];
+  orders: Order[];
   loading: boolean;
 }
 
-export const initialState: IState = {
+export const initialState: BarState = {
   loading: false,
   cocktails: [],
+  orders: [],
 };
 
 export const reducer = createReducer(

@@ -56,8 +56,7 @@
               "browserTarget": "bar-manager:build:production"
             },
             "development": {
-              "browserTarget": "bar-manager:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "bar-manager:build:development"
             }
           },
           "defaultConfiguration": "development"

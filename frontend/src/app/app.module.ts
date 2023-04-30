@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IngredientsGroupEffects } from './store/ingredient-group/ingredient-group.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,7 +53,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
     StoreModule.forFeature(fromCocktailsReducer.featureKey, fromCocktailsReducer.reducer),
     StoreModule.forFeature(fromOrdersReducer.featureKey, fromOrdersReducer.reducer),
-    EffectsModule.forFeature([BarEffects, IngredientsEffects, CocktailsEffects, OrdersEffects]),
+    EffectsModule.forFeature([
+      BarEffects,
+      IngredientsEffects,
+      CocktailsEffects,
+      OrdersEffects,
+      IngredientsGroupEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),

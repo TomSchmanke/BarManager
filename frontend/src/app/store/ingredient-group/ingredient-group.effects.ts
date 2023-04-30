@@ -8,7 +8,7 @@ import { IngredientGroupsService, IngredientsService } from '@bar-manager/api';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
-export class IngredientsEffects {
+export class IngredientsGroupEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
   private ingredientGroupsService = inject(IngredientGroupsService);

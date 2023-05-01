@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  showAllIngredientsGroups,
   showAvailableIngredientsGroups,
   showUnavailableIngredientsGroups,
-} from 'src/app/store/ingredients/ingredients.actions';
+  showAllIngredientsGroups,
+} from 'src/app/store/ingredient-group/ingredient-group.actions';
 
 @Component({
   selector: 'app-table-header',

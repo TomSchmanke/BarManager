@@ -374,10 +374,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * ingredient-group body
      */
-    body: {
-'name'?: string;
-'unitOfMeasurement'?: IngredientGroup;
-}
+    body: any
   },
   context?: HttpContext
 
@@ -421,10 +418,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * ingredient-group body
      */
-    body: {
-'name'?: string;
-'unitOfMeasurement'?: IngredientGroup;
-}
+    body: any
   },
   context?: HttpContext
 

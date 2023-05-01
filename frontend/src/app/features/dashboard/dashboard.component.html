@@ -1,35 +1,159 @@
 <div class="sm:px-6 w-full">
   <!-- Headline -->
   <div class="px-4 md:px-10 py-4 md:py-7">
-    <h2>Ingredients</h2>
+    <h2>Dashboard</h2>
   </div>
 
-  <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
-    <app-table-header></app-table-header>
-    <div class="mt-7 overflow-x-auto">
-      <div class="pb-4 border-b-2 border-gray-100">
-        <table class="w-full whitespace-nowrap">
-          <tbody></tbody>
-        </table>
+  <ng-container *ngIf="(selectBarLoadingStatus$ | async) === false; else loading">
+    <div class="w-full container flex" *ngIf="barState$ | async">
+      <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
+        <h2>Create Bar</h2>
+        <div class="flex gap-4">
+          <span>
+            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Name</label>
+            <input
+              barInput
+              formControlName="barName"
+              type="text"
+              minLength="1"
+              maxLength="20"
+              id="barCode-description"
+              placeholder="Bar code" />
+          </span>
+          <span>
+            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Owner Name</label>
+            <input
+              barInput
+              formControlName="ownerName"
+              type="text"
+              minLength="1"
+              maxLength="20"
+              id="barCode-description"
+              placeholder="Bar code" />
+          </span>
+        </div>
+        <button class="pt-2" [disabled]="barCreationForm.invalid" barButton>Create Bar</button>
+      </form>
+      <form class="w-1/2" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <h2>Join Bar</h2>
+        <div class="flex gap-4">
+          <span>
+            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Code</label>
+            <input
+              barInput
+              formControlName="barCode"
+              type="text"
+              minLength="6"
+              maxLength="6"
+              id="barCode-description"
+              placeholder="Bar code" />
+            <button barButton [disabled]="loginForm.invalid" type="submit">Join Bar</button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <ng-container *ngIf="barState$ | async">
+      <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+        <app-table-header></app-table-header>
+        <div class="mt-7 overflow-x-auto">
+          <div class="pb-4 border-b-2 border-gray-100">
+            <div class="pb-4 border-b-2 border-gray-100">
+              <table
+                *ngIf="(ingredientGroup$ | async) && (ingredientGroup$ | async).length !== 0; else noIngredientGroups"
+                class="w-full whitespace-nowrap">
+                <tbody>
+                  <tr
+                    *ngFor="let ingredientGroup of ingredientGroup$ | async | sortIngredientGroupsByAlphabet"
+                    tabindex="0"
+                    class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+                    (click)="selectIngredientGroup(ingredientGroup.id)">
+                    <td class="pl-5">
+                      <p class="text-base font-bold leading-none text-gray-700">
+                        {{ ingredientGroup.name }}
+                      </p>
+                    </td>
+                    <td class="pl-5 text-center">
+                      <div class="flex items-center">
+                        <img src="assets/cup-measurement.svg" class="w-4 h-4" />
+                        <p class="text-sm leading-none text-gray-600 ml-2">
+                          {{ ingredientGroup.ingredients | reduceIngredientsAmount }}
+                        </p>
+                      </div>
+                    </td>
+                    <td class="pl-5 text-center">
+                      <div class="flex items-center">
+                        <p class="text-sm leading-none text-gray-600 ml-2">
+                          {{ unitOfMeasurement[ingredientGroup.unitOfMeasurement] }}
+                        </p>
+                      </div>
+                    </td>
+                    <td class="pl-5 text-center">
+                      <span
+                        class="py-3 px-3 text-sm focus:outline-none leading-none rounded"
+                        [ngClass]="{
+                          'text-red-700 bg-red-100':
+                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
+                              ingredientGroup.ingredients.length <
+                            0.3,
+                          'text-orange-700 bg-orange-100':
+                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
+                              ingredientGroup.ingredients.length >=
+                              0.3 &&
+                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
+                              ingredientGroup.ingredients.length <=
+                              0.7,
+                          'text-green-700 bg-green-100':
+                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
+                              ingredientGroup.ingredients.length >
+                            0.7
+                        }">
+                        {{ ingredientGroup.ingredients | countIngredientsGreaterZero }}/{{
+                          ingredientGroup.ingredients.length
+                        }}
+                      </span>
+                    </td>
+                    <td class="pl-5 text-center">
+                      <button
+                        barButton
+                        [buttonType]="'edit'"
+                        class="p-1 mr-2"
+                        [routerLink]="'/ingredients/group-edit'"
+                        (click)="editIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
+                        role="button">
+                        <img src="assets/edit.svg" class="w-8 h-8" />
+                      </button>
+                      <button
+                        class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
+                        [routerLink]="'/ingredients/group-edit'"
+                        (click)="openDeleteIngredientGroupModal(ingredientGroup.id); $event.stopPropagation()"
+                        role="button">
+                        <img src="assets/delete.svg" class="w-8 h-8" />
+                      </button>
+                    </td>
+
+                    <app-delete-modal
+                      [ngClass]="{ hidden: ingredientGroupToDeleteId !== ingredientGroup.id }"
+                      [a11yModalId]="'delete-ingredient-group' + ingredientGroup.name + '-modal'"
+                      [nameOfItemToDelete]="ingredientGroup.name + '(s)'"
+                      (cancelDialog)="cancelDeleteIngredientGroup()"
+                      (declineDialog)="cancelDeleteIngredientGroup()"
+                      (acceptDialog)="confirmDeleteIngredientGroup()"></app-delete-modal>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </ng-container>
 
-  <ng-template #noIngredientGroups>
-    <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
-      <img src="assets/404.svg" class="w-32 h-32" />
-      <p class="text-xl text-bold leading-none text-gray-600 ml-2">
-        There is a problem loading the ingredients. Please try again later.
-      </p>
-    </div>
-  </ng-template>
+    <ng-template *ngIf="error$ | async">
+      <app-not-found-widget message="There is a problem loading the bar. Please try again later"></app-not-found-widget>
+    </ng-template>
+  </ng-container>
 
-  <ng-template #noSelectedIngredientGroup>
-    <div class="w-full bg-gray-100 px-64 py-16 flex items-center">
-      <img src="assets/404.svg" class="w-32 h-32" />
-      <p class="text-xl text-bold leading-none text-gray-600 ml-2">
-        No ingredient group selected or the selected group was not found. Please try again later.
-      </p>
-    </div>
+  <ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
   </ng-template>
 </div>

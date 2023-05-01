@@ -68,7 +68,7 @@ paths:
           name: check-if-available
           schema:
             type: boolean
-            default: false
+            default: true
         - in: path
           name: bar-id
           description: Unique id to identify bar
@@ -330,7 +330,7 @@ paths:
           schema:
             type: integer
       requestBody:
-        description: bar body
+        description: ingredient body
         required: true
         content:
           application/json:
@@ -370,7 +370,7 @@ paths:
           description: Ingredient deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/ingredient:
+  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
     post:
       tags:
         - Ingredients
@@ -383,14 +383,27 @@ paths:
           required: true
           schema:
             type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
       security: []
+      requestBody:
+        description: ingredient body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ingredient"
       responses:
         "200":
           description: Ingredients retrived
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/order-creation-response"
+                $ref: "#/components/schemas/ingredient"
         "404":
           description: Not Found
   /bar/{bar-id}/ingredient-groups:
@@ -478,7 +491,7 @@ paths:
                   example: Gin
                 unitOfMeasurement:
                   $ref: "#/components/schemas/unitOfMeasurement"
-                  example: ML
+             
       security: []
       responses:
         "200":
@@ -531,15 +544,7 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Gin
-                unitOfMeasurement:
-                  $ref: "#/components/schemas/ingredientGroup"
-                  example: ML
+           $ref: "#/components/schemas/ingredientGroup"
       security: []
       responses:
         "201":
@@ -685,7 +690,7 @@ components:
         barId:
           type: integer
           example: 1
-          minLength: 1
+          min: 1
         barName:
           type: string
           example: Bar Name
@@ -716,7 +721,7 @@ components:
         barId:
           type: integer
           example: 1
-          minLength: 1
+          min: 1
         barName:
           type: string
           example: Bar Name

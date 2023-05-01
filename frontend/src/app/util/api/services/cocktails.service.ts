@@ -278,7 +278,7 @@ export class CocktailsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `deleteCocktail()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   deleteCocktail$Response(params: {
 
@@ -291,11 +291,6 @@ export class CocktailsService extends BaseService {
      * Unique id to identify bar
      */
     'cocktail-id': number;
-
-    /**
-     * cocktail body
-     */
-    body: Cocktail
   },
   context?: HttpContext
 
@@ -305,7 +300,6 @@ export class CocktailsService extends BaseService {
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
       rb.path('cocktail-id', params['cocktail-id'], {});
-      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -328,7 +322,7 @@ export class CocktailsService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteCocktail$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   deleteCocktail(params: {
 
@@ -341,11 +335,6 @@ export class CocktailsService extends BaseService {
      * Unique id to identify bar
      */
     'cocktail-id': number;
-
-    /**
-     * cocktail body
-     */
-    body: Cocktail
   },
   context?: HttpContext
 
@@ -369,7 +358,7 @@ export class CocktailsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `postCocktail()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   postCocktail$Response(params: {
 
@@ -377,6 +366,11 @@ export class CocktailsService extends BaseService {
      * Unique id to identify bar
      */
     'bar-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
   },
   context?: HttpContext
 
@@ -385,6 +379,7 @@ export class CocktailsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.PostCocktailPath, 'post');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -407,7 +402,7 @@ export class CocktailsService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `postCocktail$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   postCocktail(params: {
 
@@ -415,6 +410,11 @@ export class CocktailsService extends BaseService {
      * Unique id to identify bar
      */
     'bar-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
   },
   context?: HttpContext
 

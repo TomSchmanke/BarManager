@@ -23,7 +23,20 @@ export const initialState: IngredientState = {
 
 export const reducer = createReducer(
   initialState,
-
+  on(IngredientsActions.loadIngredients, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.loadIngredientsSuccess, (state, action) => ({
+    ...state,
+    ingredients: action.ingredients,
+    loading: false,
+  })),
+  on(IngredientsActions.loadIngredientsFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false,
+  })),
   // on(IngredientsActions.showAvailableIngredientsGroups, state => ({
   //   ...state,
   //   selectedIngredients: 'available',
@@ -77,6 +90,21 @@ export const reducer = createReducer(
     selectedIngredients: 'all',
   })),
   on(IngredientsActions.editIngredientFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false,
+  })),
+
+  on(IngredientsActions.addIngredient, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(IngredientsActions.addIngredientSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: [...state.ingredients, action.ingredient],
+  })),
+  on(IngredientsActions.addIngredientFailure, (state, action) => ({
     ...state,
     error: action.error,
     loading: false,

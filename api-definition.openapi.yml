@@ -544,14 +544,7 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Gin
-                unitOfMeasurement:
-                  $ref: "#/components/schemas/ingredientGroup" 
+           $ref: "#/components/schemas/ingredientGroup"
       security: []
       responses:
         "201":

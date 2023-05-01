@@ -16,7 +16,6 @@ export class OrdersOverviewComponent {
   loading$: Observable<boolean> = this.store.select(selectOrdersLoadingStatus);
   orders$: Observable<Order[]> = this.store.select(selectOrderContent);
   orderToDelete?: number;
-  private barId$: Observable<number | undefined> = this.store.select(selectBarId);
 
   selectOrder(orderId: number) {
     this.store.dispatch(selectSingleOrder({ orderId }));

@@ -64,5 +64,36 @@ export const reducer = createReducer(
     ...state,
     error: action.error,
     loading: false,
+  })),
+
+  on(CocktailActions.deleteCocktail, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(CocktailActions.deleteCocktailSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: state.cocktails.filter(cocktails => cocktails.id !== action.cocktailId),
+    selectedIngredients: 'all',
+  })),
+  on(CocktailActions.deleteCocktailFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false,
+  })),
+
+  on(CocktailActions.addCocktail, state => ({
+    ...state,
+    loading: true,
+  })),
+  on(CocktailActions.addCocktailSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    ingredients: [...state.cocktails, action.cocktail],
+  })),
+  on(CocktailActions.addCocktailFailure, (state, action) => ({
+    ...state,
+    error: action.error,
+    loading: false,
   }))
 );

@@ -8,6 +8,9 @@ export const loadBarSuccess = createAction('[bar] load bar success', props<{ log
 
 export const loadBarFailure = createAction('[bar] load bar failure', props<{ error: HttpErrorResponse }>());
 
-export const addBar = createAction('[bar] add', props<{ barCreationRequest: BarCreationRequest }>());
-export const addBarSuccess = createAction('[bar] add success', props<{ barCreationReponse: BarCreationResponse }>());
-export const addBarFailure = createAction('[bar] add failure', props<{ error: HttpErrorResponse }>());
+export const addBar = createAction('[bar] add bar', props<{ barCreationRequest: BarCreationRequest }>());
+export const addBarSuccess = createAction(
+  '[bar] add bar success',
+  props<{ barCreationReponse: BarCreationResponse }>()
+);
+export const addBarFailure = createAction('[bar] add bar failure', props<{ error: HttpErrorResponse }>());

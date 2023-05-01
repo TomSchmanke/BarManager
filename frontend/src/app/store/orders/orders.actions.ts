@@ -6,7 +6,7 @@ export const loadOrders = createAction('[orders] load orders');
 export const loadOrdersSuccess = createAction('[orders] load orders success', props<{ orders: Order[] }>());
 export const loadOrdersFailure = createAction('[orders] load orders failure', props<{ error: HttpErrorResponse }>());
 
-export const selectSingleOrder = createAction('[orders] select sin1gle order', props<{ orderId?: number }>());
+export const selectSingleOrder = createAction('[orders] select single order', props<{ orderId?: number }>());
 export const resetSelectSingleOrder = createAction('[orders] reset select single order');
 
 export const acceptSingleOrder = createAction(

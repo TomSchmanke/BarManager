@@ -15,16 +15,10 @@ import { Cocktail } from '../models/cocktail';
   providedIn: 'root',
 })
 export class CocktailsService extends BaseService {
-  getIngredientGroups(arg0: { 'bar-id': any }) {
-    throw new Error('Method not implemented.');
-  }
-  putIngredientGroup(arg0: { 'bar-id': any; 'ingredient-group-id': any; body: any }) {
-    throw new Error('Method not implemented.');
-  }
-  deleteIngredientGroup(arg0: { 'bar-id': any; 'ingredient-group-id': any }) {
-    throw new Error('Method not implemented.');
-  }
-  constructor(config: ApiConfiguration, http: HttpClient) {
+  constructor(
+    config: ApiConfiguration,
+    http: HttpClient
+  ) {
     super(config, http);
   }
 
@@ -43,37 +37,34 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCocktails$Response(
-    params: {
-      'check-if-available'?: boolean;
+  getCocktails$Response(params: {
+    'check-if-available'?: boolean;
 
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<Array<Cocktail>>> {
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<Cocktail>>> {
+
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.GetCocktailsPath, 'get');
     if (params) {
       rb.query('check-if-available', params['check-if-available'], {});
       rb.path('bar-id', params['bar-id'], {});
     }
 
-    return this.http
-      .request(
-        rb.build({
-          responseType: 'json',
-          accept: 'application/json',
-          context: context,
-        })
-      )
-      .pipe(
-        filter((r: any) => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<Array<Cocktail>>;
-        })
-      );
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Cocktail>>;
+      })
+    );
   }
 
   /**
@@ -86,18 +77,19 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCocktails(
-    params: {
-      'check-if-available'?: boolean;
+  getCocktails(params: {
+    'check-if-available'?: boolean;
 
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
-    },
-    context?: HttpContext
-  ): Observable<Array<Cocktail>> {
-    return this.getCocktails$Response(params, context).pipe(
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+  },
+  context?: HttpContext
+
+): Observable<Array<Cocktail>> {
+
+    return this.getCocktails$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<Cocktail>>) => r.body as Array<Cocktail>)
     );
   }
@@ -117,40 +109,38 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCocktail$Response(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  getCocktail$Response(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<Cocktail>> {
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Cocktail>> {
+
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.GetCocktailPath, 'get');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
       rb.path('cocktail-id', params['cocktail-id'], {});
     }
 
-    return this.http
-      .request(
-        rb.build({
-          responseType: 'json',
-          accept: 'application/json',
-          context: context,
-        })
-      )
-      .pipe(
-        filter((r: any) => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<Cocktail>;
-        })
-      );
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Cocktail>;
+      })
+    );
   }
 
   /**
@@ -163,21 +153,23 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCocktail(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  getCocktail(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
-    },
-    context?: HttpContext
-  ): Observable<Cocktail> {
-    return this.getCocktail$Response(params, context).pipe(
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+  },
+  context?: HttpContext
+
+): Observable<Cocktail> {
+
+    return this.getCocktail$Response(params,context).pipe(
       map((r: StrictHttpResponse<Cocktail>) => r.body as Cocktail)
     );
   }
@@ -197,25 +189,27 @@ export class CocktailsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  putCocktail$Response(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  putCocktail$Response(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
 
-      /**
-       * cocktail body
-       */
-      body: Cocktail;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<Cocktail>> {
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Cocktail>> {
+
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.PutCocktailPath, 'put');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
@@ -223,20 +217,16 @@ export class CocktailsService extends BaseService {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http
-      .request(
-        rb.build({
-          responseType: 'json',
-          accept: 'application/json',
-          context: context,
-        })
-      )
-      .pipe(
-        filter((r: any) => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-          return r as StrictHttpResponse<Cocktail>;
-        })
-      );
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Cocktail>;
+      })
+    );
   }
 
   /**
@@ -249,26 +239,28 @@ export class CocktailsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  putCocktail(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  putCocktail(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
 
-      /**
-       * cocktail body
-       */
-      body: Cocktail;
-    },
-    context?: HttpContext
-  ): Observable<Cocktail> {
-    return this.putCocktail$Response(params, context).pipe(
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
+  },
+  context?: HttpContext
+
+): Observable<Cocktail> {
+
+    return this.putCocktail$Response(params,context).pipe(
       map((r: StrictHttpResponse<Cocktail>) => r.body as Cocktail)
     );
   }
@@ -288,40 +280,38 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteCocktail$Response(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  deleteCocktail$Response(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<void>> {
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.DeleteCocktailPath, 'delete');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
       rb.path('cocktail-id', params['cocktail-id'], {});
     }
 
-    return this.http
-      .request(
-        rb.build({
-          responseType: 'text',
-          accept: '*/*',
-          context: context,
-        })
-      )
-      .pipe(
-        filter((r: any) => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-          return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-      );
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
   }
 
   /**
@@ -334,21 +324,25 @@ export class CocktailsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteCocktail(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  deleteCocktail(params: {
 
-      /**
-       * Unique id to identify bar
-       */
-      'cocktail-id': number;
-    },
-    context?: HttpContext
-  ): Observable<void> {
-    return this.deleteCocktail$Response(params, context).pipe(map((r: StrictHttpResponse<void>) => r.body as void));
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'cocktail-id': number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.deleteCocktail$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
   }
 
   /**
@@ -366,40 +360,38 @@ export class CocktailsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  postCocktail$Response(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  postCocktail$Response(params: {
 
-      /**
-       * cocktail body
-       */
-      body: Cocktail;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<void>> {
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
     const rb = new RequestBuilder(this.rootUrl, CocktailsService.PostCocktailPath, 'post');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
       rb.body(params.body, 'application/json');
     }
 
-    return this.http
-      .request(
-        rb.build({
-          responseType: 'text',
-          accept: '*/*',
-          context: context,
-        })
-      )
-      .pipe(
-        filter((r: any) => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-          return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-      );
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
   }
 
   /**
@@ -412,20 +404,25 @@ export class CocktailsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  postCocktail(
-    params: {
-      /**
-       * Unique id to identify bar
-       */
-      'bar-id': number;
+  postCocktail(params: {
 
-      /**
-       * cocktail body
-       */
-      body: Cocktail;
-    },
-    context?: HttpContext
-  ): Observable<void> {
-    return this.postCocktail$Response(params, context).pipe(map((r: StrictHttpResponse<void>) => r.body as void));
+    /**
+     * Unique id to identify bar
+     */
+    'bar-id': number;
+
+    /**
+     * cocktail body
+     */
+    body: Cocktail
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.postCocktail$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
   }
+
 }

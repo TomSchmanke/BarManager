@@ -8,7 +8,7 @@ export const addIngredientGroup = createAction(
 );
 export const addIngredientGroupSuccess = createAction(
   '[ingredientGroup] add ingredient group success',
-  props<{ ingredients: IngredientGroup }>()
+  props<{ ingredientGroup: IngredientGroup }>()
 );
 export const addIngredientGroupFailure = createAction(
   '[ingredientGroup] add ingredient failure',
@@ -34,7 +34,7 @@ export const editIngredientGroupSuccess = createAction(
   props<{ ingredientGroup: IngredientGroup }>()
 );
 export const editIngredientGroupFailure = createAction(
-  '[ingredientGroup] edit ingredient groups success',
+  '[ingredientGroup] edit ingredient groups failure',
   props<{ error: HttpErrorResponse }>()
 );
 

@@ -32,7 +32,6 @@ export class OrdersOverviewComponent {
   }
 
   confirmDeclineOrderModal() {
-    // ToDo: Get barId from bar store
     this.store.dispatch(declineSingleOrder({ orderId: this.orderToDelete! }));
     this.orderToDelete = undefined;
   }

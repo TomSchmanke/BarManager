@@ -26,19 +26,16 @@ export class IngredientsEditComponent {
       description: ['', [Validators.pattern('[a-zA-Z]*')]],
     });
 
-    this.store
-      .select(selectSelectedIngredient)
-      .pipe(first())
-      .subscribe(ingredient => {
-        this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
-        if (this.newOrExisitingIngredient === 'existing') {
-          this.ingredientsEditForm?.setValue({
-            name: ingredient?.name ? ingredient.name : '',
-            amount: ingredient?.amount ? ingredient.amount : 0,
-            description: ingredient?.description ? ingredient.description : '',
-          });
-        }
-      });
+    this.store.select(selectSelectedIngredient).subscribe(ingredient => {
+      this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
+      if (this.newOrExisitingIngredient === 'existing') {
+        this.ingredientsEditForm?.setValue({
+          name: ingredient?.name ? ingredient.name : '',
+          amount: ingredient?.amount ? ingredient.amount : 0,
+          description: ingredient?.description ? ingredient.description : '',
+        });
+      }
+    });
 
     this.store
       .select(selectSelectedIngredientGroup)

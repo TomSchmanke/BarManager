@@ -11,14 +11,12 @@ export interface IngredientState {
   selectedIngredient?: Ingredient;
   loading: boolean;
   error?: HttpErrorResponse;
-  selectedIngredients: 'all' | 'available' | 'unavailable';
 }
 
 export const initialState: IngredientState = {
   ingredients: [],
   selectedIngredient: undefined,
   loading: false,
-  selectedIngredients: 'all',
 };
 
 export const reducer = createReducer(
@@ -37,25 +35,11 @@ export const reducer = createReducer(
     error: action.error,
     loading: false,
   })),
-  // on(IngredientsActions.showAvailableIngredientsGroups, state => ({
-  //   ...state,
-  //   selectedIngredients: 'available',
-  //   shownIngredients: state.ingredients.filter(
-  //     ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) > 0
-  //   ),
-  // })),
-  // on(IngredientsActions.showUnavailableIngredientsGroups, state => ({
-  //   ...state,
-  //   selectedIngredients: 'unavailable',
-  //   shownIngredients: state.ingredients.filter(
-  //     ingredient => ingredient.ingredients.reduce((acc, value) => acc + value.amount, 0) === 0
-  //   ),
-  // })),
 
-  // on(IngredientsActions.selectSingleIngredient, (state, action) => ({
-  //   ...state,
-  //   selectedIngredient: state.selectedIngredientGroup!.ingredients.find(value => value.id === action.ingredientId),
-  // })),
+  on(IngredientsActions.selectSingleIngredient, (state, action) => ({
+    ...state,
+    selectedIngredient: state.ingredients.find(value => value.id === action.ingredientId),
+  })),
   on(IngredientsActions.resetSelectSingleIngredient, state => ({
     ...state,
     selectedIngredient: undefined,

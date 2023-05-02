@@ -51,12 +51,6 @@ export const deleteIngredientGroupFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const showAllIngredientsGroups = createAction('[ingredientGroup] show all ingredients groups');
-
-export const showAvailableIngredientsGroups = createAction('[ingredientGroup] show available ingredients groups');
-
-export const showUnavailableIngredientsGroups = createAction('[ingredientGroup] show unavailable ingredients groups');
-
 export const selectSingleIngredientGroup = createAction(
   '[ingredientGroup] select single ingredient groups',
   props<{ ingredientGroupId?: number }>()

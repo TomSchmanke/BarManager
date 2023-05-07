@@ -1,7 +1,13 @@
 package de.fhswf.barmanager.backend.model
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document("cocktail")
 data class Cocktail(
-    val id: Int,
+    @Id
+    var id: Long? = null,
+    var barId: String? = null,
     val name: String,
     val ingredients: List<CocktailIngredient>
 )

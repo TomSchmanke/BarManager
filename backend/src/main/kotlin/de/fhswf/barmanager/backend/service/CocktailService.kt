@@ -1,7 +1,6 @@
 package de.fhswf.barmanager.backend.service
 
 import de.fhswf.barmanager.backend.model.Cocktail
-import de.fhswf.barmanager.backend.model.CocktailIngredient
 import de.fhswf.barmanager.backend.repository.CocktailRepository
 import org.springframework.stereotype.Service
 

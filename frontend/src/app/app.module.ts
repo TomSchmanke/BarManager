@@ -38,7 +38,7 @@ import { IngredientsGroupEffects } from './store/ingredient-group/ingredient-gro
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://localhost:4010' }),
+    ApiModule.forRoot({ rootUrl: 'http://localhost:8080' }),
     CoreModule,
     SharedModule,
     DashboardModule,

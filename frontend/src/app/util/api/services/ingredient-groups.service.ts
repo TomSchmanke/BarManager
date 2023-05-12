@@ -26,7 +26,7 @@ export class IngredientGroupsService extends BaseService {
   /**
    * Path part for operation getIngredientGroups
    */
-  static readonly GetIngredientGroupsPath = '/bar/{bar-id}/ingredient-groups';
+  static readonly GetIngredientGroupsPath = '/bars/{bar-id}/ingredient-groups';
 
   /**
    * Get all ingredient-groups of a specific bar.
@@ -95,7 +95,7 @@ export class IngredientGroupsService extends BaseService {
   /**
    * Path part for operation getIngredientGroup
    */
-  static readonly GetIngredientGroupPath = '/bar/{bar-id}/ingredient-groups/{ingredient-group-id}';
+  static readonly GetIngredientGroupPath = '/bars/{bar-id}/ingredient-groups/{ingredient-group-id}';
 
   /**
    * Get a specific ingredient-group of a specific bar.
@@ -175,7 +175,7 @@ export class IngredientGroupsService extends BaseService {
   /**
    * Path part for operation putIngredientGroup
    */
-  static readonly PutIngredientGroupPath = '/bar/{bar-id}/ingredient-groups/{ingredient-group-id}';
+  static readonly PutIngredientGroupPath = '/bars/{bar-id}/ingredient-groups/{ingredient-group-id}';
 
   /**
    * Update ingredient-group of a specific bar.
@@ -272,7 +272,7 @@ export class IngredientGroupsService extends BaseService {
   /**
    * Path part for operation deleteIngredientGroup
    */
-  static readonly DeleteIngredientGroupPath = '/bar/{bar-id}/ingredient-groups/{ingredient-group-id}';
+  static readonly DeleteIngredientGroupPath = '/bars/{bar-id}/ingredient-groups/{ingredient-group-id}';
 
   /**
    * delete ingredient-group of a specific bar.
@@ -352,7 +352,7 @@ export class IngredientGroupsService extends BaseService {
   /**
    * Path part for operation postIngredientGroup
    */
-  static readonly PostIngredientGroupPath = '/bar/{bar-id}/ingredient-groups/ingredient-group';
+  static readonly PostIngredientGroupPath = '/bars/{bar-id}/ingredient-groups/ingredient-group';
 
   /**
    * add ingredient-group to a specific bar.

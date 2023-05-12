@@ -284,7 +284,7 @@ paths:
         "404":
           description: Not Found
 
-  /bar/{bar-id}/ingredients:
+  /bars/{bar-id}/ingredients:
     get:
       tags:
         - Ingredients
@@ -310,7 +310,7 @@ paths:
         "404":
           description: Not Found
 
-  /bar/{bar-id}/ingredients/{ingredient-id}:
+  /bars/{bar-id}/ingredients/{ingredient-id}:
     put:
       tags:
         - Ingredients
@@ -370,7 +370,7 @@ paths:
           description: Ingredient deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
+  /bars/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
     post:
       tags:
         - Ingredients
@@ -406,7 +406,7 @@ paths:
                 $ref: "#/components/schemas/ingredient"
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups:
+  /bars/{bar-id}/ingredient-groups:
     get:
       tags:
         - IngredientGroups
@@ -431,7 +431,7 @@ paths:
                   $ref: "#/components/schemas/ingredientGroup"
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
+  /bars/{bar-id}/ingredient-groups/{ingredient-group-id}:
     get:
       tags:
         - IngredientGroups
@@ -526,7 +526,7 @@ paths:
           description: IngredientGroup deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/ingredient-group:
+  /bars/{bar-id}/ingredient-groups/ingredient-group:
     post:
       tags:
         - IngredientGroups

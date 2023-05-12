@@ -686,11 +686,17 @@ components:
         - barName
         - ownerName
         - barId
+        - barCode
       properties:
         barId:
           type: integer
           example: 1
           min: 1
+        barCode:
+          type: string
+          example: 1233da
+          minLength: 6
+          maxLength: 6
         barName:
           type: string
           example: Bar Name
@@ -717,6 +723,7 @@ components:
         - barId
         - barName
         - ownerName
+        - barCode
       properties:
         barId:
           type: integer
@@ -727,6 +734,11 @@ components:
           example: Bar Name
           minLength: 1
           maxLength: 20
+        barCode:
+          type: string
+          example: d2ad12
+          minLength: 6
+          maxLength: 6
         ownerName:
           type: string
           example: Tom

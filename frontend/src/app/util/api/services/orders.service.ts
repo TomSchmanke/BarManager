@@ -44,7 +44,7 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -82,7 +82,7 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -113,8 +113,8 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
-    'order-id': number;
+    'bar-id': string;
+    'order-id': string;
   },
   context?: HttpContext
 
@@ -153,8 +153,8 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
-    'order-id': number;
+    'bar-id': string;
+    'order-id': string;
   },
   context?: HttpContext
 
@@ -185,7 +185,7 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * order request body
@@ -229,7 +229,7 @@ export class OrdersService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * order request body

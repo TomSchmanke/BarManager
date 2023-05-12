@@ -42,7 +42,7 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -80,7 +80,7 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -111,12 +111,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
 
     /**
      * ingredient body
@@ -161,12 +161,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
 
     /**
      * ingredient body
@@ -202,12 +202,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
   },
   context?: HttpContext
 
@@ -246,12 +246,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
   },
   context?: HttpContext
 
@@ -282,12 +282,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * ingredient body
@@ -332,12 +332,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * ingredient body

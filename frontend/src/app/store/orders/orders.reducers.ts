@@ -13,7 +13,7 @@ export interface OrderState {
     error?: HttpErrorResponse;
   };
   modifyOrder: {
-    orderId?: number;
+    orderId?: string;
     mode: 'accept' | 'decline' | 'none';
     loading: boolean;
     error?: HttpErrorResponse;

@@ -45,7 +45,7 @@ export class IngredientsGroupEditComponent {
 
   onSubmit() {
     const newIngredientGroup: IngredientGroup = {
-      id: 0,
+      id: '0',
       name: this.ingredientsGroupEditForm?.get('name')?.value,
       unitOfMeasurement: this.ingredientsGroupEditForm?.get('unitOfMeasurement')?.value,
       ingredients: this.selectedIngredientGroupIngredients!,

@@ -15,7 +15,7 @@ import { selectSelectedIngredient } from 'src/app/store/ingredients/ingredients.
 export class IngredientsEditComponent {
   newOrExisitingIngredient?: 'new' | 'existing';
   ingredientsEditForm?: FormGroup;
-  selectedIngredientGroupId?: number;
+  selectedIngredientGroupId?: string;
 
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
@@ -50,7 +50,7 @@ export class IngredientsEditComponent {
 
   onSubmit() {
     const newIngredient: Ingredient = {
-      id: 0,
+      id: '0',
       name: this.ingredientsEditForm?.get('name')?.value,
       description: this.ingredientsEditForm?.get('description')?.value,
       amount: this.ingredientsEditForm?.get('amount')?.value,

@@ -25,7 +25,7 @@ export class IngredientsDetailComponent implements OnInit {
   private router = inject(Router);
   loading$: Observable<boolean> = this.store.select(selectIngredientsLoadingStatus);
   ingredients$: Observable<Ingredient[]> = this.store.select(selectIngredientsContent);
-  ingredientToDelete?: number;
+  ingredientToDelete?: string;
   selectedIngredientGroup: Observable<IngredientGroup | undefined> = this.store.select(selectSelectedIngredientGroup);
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class IngredientsDetailComponent implements OnInit {
     });
   }
 
-  selectIngredient(ingredientId: number) {
+  selectIngredient(ingredientId: string) {
     this.store.dispatch(selectSingleIngredient({ ingredientId }));
   }
 
@@ -46,7 +46,7 @@ export class IngredientsDetailComponent implements OnInit {
     this.router.navigateByUrl('/ingredients/edit');
   }
 
-  openDeleteIngredientModal(ingredientId: number) {
+  openDeleteIngredientModal(ingredientId: string) {
     this.ingredientToDelete = ingredientId;
   }
 

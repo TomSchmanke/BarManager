@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface Order {
-  cocktailId: number;
+  cocktailId: string;
   cocktailName: string;
   customerName: string;
-  orderId: number;
+  orderId: string;
   timestamp: string;
 }

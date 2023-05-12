@@ -40,11 +40,11 @@ export const editIngredientGroupFailure = createAction(
 
 export const deleteIngredientGroup = createAction(
   '[ingredientGroup] delete ingredient groups',
-  props<{ ingredientGroupId: number }>()
+  props<{ ingredientGroupId: string }>()
 );
 export const deleteIngredientGroupSuccess = createAction(
   '[ingredientGroup] delete ingredient groups success',
-  props<{ ingredientGroupId: number }>()
+  props<{ ingredientGroupId: string }>()
 );
 export const deleteIngredientGroupFailure = createAction(
   '[ingredientGroup] delete ingredient groups failure',
@@ -53,7 +53,7 @@ export const deleteIngredientGroupFailure = createAction(
 
 export const selectSingleIngredientGroup = createAction(
   '[ingredientGroup] select single ingredient groups',
-  props<{ ingredientGroupId?: number }>()
+  props<{ ingredientGroupId?: string }>()
 );
 
 export const resetSelectSingleIngredientGroup = createAction('[ingredientGroup] reset select single ingredient groups');

@@ -43,7 +43,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -81,7 +81,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -112,12 +112,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
   },
   context?: HttpContext
 
@@ -156,12 +156,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
   },
   context?: HttpContext
 
@@ -192,12 +192,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * bar body
@@ -245,12 +245,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * bar body
@@ -289,12 +289,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredientGroup
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
   },
   context?: HttpContext
 
@@ -333,12 +333,12 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredientGroup
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
   },
   context?: HttpContext
 
@@ -369,7 +369,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * ingredient-group body
@@ -413,7 +413,7 @@ export class IngredientGroupsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * ingredient-group body

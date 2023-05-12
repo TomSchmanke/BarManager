@@ -74,7 +74,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -99,7 +99,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -124,12 +124,12 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: order-id
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -149,7 +149,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: order request body
         required: true
@@ -182,13 +182,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         "200":
           description: bar
@@ -209,13 +209,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: cocktail body
         required: true
@@ -244,13 +244,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -269,7 +269,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: cocktail body
         required: true
@@ -296,7 +296,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -322,13 +322,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: ingredient body
         required: true
@@ -357,13 +357,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -382,13 +382,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       requestBody:
         description: ingredient body
@@ -418,7 +418,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -443,13 +443,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -471,13 +471,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: bar body
         required: true
@@ -513,13 +513,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredientGroup
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -538,7 +538,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: ingredient-group body
         required: true
@@ -565,8 +565,7 @@ components:
         - unitOfMeasurement
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
           example: 1
         name:
           type: string
@@ -585,8 +584,7 @@ components:
         - ingredientGroup
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
           example: 1
         name:
           type: string
@@ -618,8 +616,7 @@ components:
         - amount
       properties:
         id:
-          type: integer
-          format: int64
+          type: string         
           example: 1
         name:
           type: string
@@ -648,12 +645,10 @@ components:
         - timestamp
       properties:
         orderId:
-          type: integer
-          format: int64
+          type: string
           example: 1
         cocktailId:
-          type: integer
-          format: int64
+          type: string
           example: 1
         cocktailName:
           type: string
@@ -689,7 +684,7 @@ components:
         - barCode
       properties:
         barId:
-          type: integer
+          type: string
           example: 1
           min: 1
         barCode:
@@ -726,7 +721,7 @@ components:
         - barCode
       properties:
         barId:
-          type: integer
+          type: string
           example: 1
           min: 1
         barName:
@@ -751,8 +746,7 @@ components:
         - customerName
       properties:
         cocktailId:
-          type: integer
-          format: int64
+          type: string          
           example: 1
         customerName:
           type: string
@@ -765,13 +759,12 @@ components:
         - orderId
       properties:
         cocktailId:
-          type: integer
-          format: int64
+          type: string        
           example: 1
         customerName:
           type: string
           example: Tom Awesome
         orderId:
-          type: integer
+          type: string
           format: int64
           example: 1

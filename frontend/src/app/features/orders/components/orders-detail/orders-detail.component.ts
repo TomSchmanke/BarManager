@@ -37,7 +37,7 @@ export class OrdersDetailComponent {
 
     // ToDo: Remove mock data
     this.currentlySelectedCocktail$ = of({
-      id: 1,
+      id: '1',
       name: 'Mojito',
       recipeIngredient: [
         { amount: 60, ingredientGroupName: 'Gin', unitOfMeasurement: UnitOfMeasurement.ML },

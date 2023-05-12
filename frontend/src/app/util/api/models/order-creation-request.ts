@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface OrderCreationRequest {
-  cocktailId: number;
+  cocktailId: string;
   customerName: string;
 }

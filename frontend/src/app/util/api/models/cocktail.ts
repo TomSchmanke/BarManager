@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { RecipeIngredient } from './recipe-ingredient';
 export interface Cocktail {
-  id: number;
+  id: string;
   name: string;
   recipeIngredient?: Array<RecipeIngredient>;
 }

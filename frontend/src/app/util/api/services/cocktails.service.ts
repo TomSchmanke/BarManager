@@ -43,7 +43,7 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -83,7 +83,7 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -114,12 +114,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
   },
   context?: HttpContext
 
@@ -158,12 +158,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
   },
   context?: HttpContext
 
@@ -194,12 +194,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
 
     /**
      * cocktail body
@@ -244,12 +244,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
 
     /**
      * cocktail body
@@ -285,12 +285,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
   },
   context?: HttpContext
 
@@ -329,12 +329,12 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'cocktail-id': number;
+    'cocktail-id': string;
   },
   context?: HttpContext
 
@@ -365,7 +365,7 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * cocktail body
@@ -409,7 +409,7 @@ export class CocktailsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * cocktail body

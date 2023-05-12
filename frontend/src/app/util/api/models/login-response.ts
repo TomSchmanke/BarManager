@@ -2,7 +2,7 @@
 /* eslint-disable */
 export interface LoginResponse {
   barCode: string;
-  barId: number;
+  barId: string;
   barName: string;
   ownerName: string;
 }

@@ -6,12 +6,12 @@ export const loadOrders = createAction('[orders] load orders');
 export const loadOrdersSuccess = createAction('[orders] load orders success', props<{ orders: Order[] }>());
 export const loadOrdersFailure = createAction('[orders] load orders failure', props<{ error: HttpErrorResponse }>());
 
-export const selectSingleOrder = createAction('[orders] select single order', props<{ orderId?: number }>());
+export const selectSingleOrder = createAction('[orders] select single order', props<{ orderId?: string }>());
 export const resetSelectSingleOrder = createAction('[orders] reset select single order');
 
 export const acceptSingleOrder = createAction(
   '[orders] accept single order',
-  props<{ barId: number; orderId: number }>()
+  props<{ barId: string; orderId: string }>()
 );
 export const acceptSingleOrderSuccess = createAction('[orders] accept single order');
 export const acceptSingleOrderFailure = createAction(
@@ -19,7 +19,7 @@ export const acceptSingleOrderFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const declineSingleOrder = createAction('[orders] decline single order', props<{ orderId: number }>());
+export const declineSingleOrder = createAction('[orders] decline single order', props<{ orderId: string }>());
 export const declineSingleOrderSuccess = createAction('[orders] decline single order success');
 export const declineSingleOrderFailure = createAction(
   '[orders] decline single order failure',

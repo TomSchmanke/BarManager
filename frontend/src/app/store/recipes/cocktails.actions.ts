@@ -12,7 +12,7 @@ export const loadCocktailsFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const loadCocktail = createAction('[cocktails] load single cocktail', props<{ cocktailId: number }>());
+export const loadCocktail = createAction('[cocktails] load single cocktail', props<{ cocktailId: string }>());
 
 export const loadCocktailSuccess = createAction(
   '[cocktails] load single cocktail success',
@@ -36,10 +36,10 @@ export const editCocktailFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const deleteCocktail = createAction('[cocktails] delete single cocktail', props<{ cocktailId: number }>());
+export const deleteCocktail = createAction('[cocktails] delete single cocktail', props<{ cocktailId: string }>());
 export const deleteCocktailSuccess = createAction(
   '[cocktails] delete single cocktail success',
-  props<{ cocktailId: number }>()
+  props<{ cocktailId: string }>()
 );
 export const deleteCocktailFailure = createAction(
   '[cocktails] delete single cocktail failure',

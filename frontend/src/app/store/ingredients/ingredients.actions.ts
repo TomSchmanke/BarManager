@@ -25,7 +25,7 @@ export const editIngredientFailure = createAction(
 
 export const addIngredient = createAction(
   '[ingredients] add ingredient',
-  props<{ ingredientGroupId: number; ingredient: Ingredient }>()
+  props<{ ingredientGroupId: string; ingredient: Ingredient }>()
 );
 export const addIngredientSuccess = createAction(
   '[ingredients] add ingredient success',
@@ -36,10 +36,10 @@ export const addIngredientFailure = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const deleteIngredient = createAction('[ingredients] delete ingredient', props<{ ingredientId: number }>());
+export const deleteIngredient = createAction('[ingredients] delete ingredient', props<{ ingredientId: string }>());
 export const deleteIngredientSuccess = createAction(
   '[ingredients] delete ingredient success',
-  props<{ ingredientId: number }>()
+  props<{ ingredientId: string }>()
 );
 export const deleteIngredientFailure = createAction(
   '[ingredients] delete ingredient failure',
@@ -48,7 +48,7 @@ export const deleteIngredientFailure = createAction(
 
 export const selectSingleIngredient = createAction(
   '[ingredients] select single ingredient',
-  props<{ ingredientId?: number }>()
+  props<{ ingredientId?: string }>()
 );
 
 export const resetSelectSingleIngredient = createAction('[ingredients] reset select single ingredient');

@@ -24,13 +24,13 @@ export class IngredientsMasterComponent implements OnInit {
   private router = inject(Router);
   loading$: Observable<boolean> = this.store.select(selectIngredientGroupLoadingStatus);
   ingredientGroups$: Observable<IngredientGroup[]> = this.store.select(selectIngredientGroups);
-  ingredientGroupToDelete?: number;
+  ingredientGroupToDelete?: string;
 
   ngOnInit(): void {
     this.store.dispatch(loadIngredientGroups());
   }
 
-  selectIngredientGroup(ingredientGroupId: number) {
+  selectIngredientGroup(ingredientGroupId: string) {
     this.store.dispatch(selectSingleIngredientGroup({ ingredientGroupId }));
   }
 
@@ -39,7 +39,7 @@ export class IngredientsMasterComponent implements OnInit {
     this.router.navigateByUrl('/ingredients/group-edit');
   }
 
-  openDeleteIngredientGroupModal(ingredientGroupId: number) {
+  openDeleteIngredientGroupModal(ingredientGroupId: string) {
     this.ingredientGroupToDelete = ingredientGroupId;
   }
 

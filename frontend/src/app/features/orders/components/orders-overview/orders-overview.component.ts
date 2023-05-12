@@ -15,15 +15,15 @@ export class OrdersOverviewComponent {
   private store = inject(Store);
   loading$: Observable<boolean> = this.store.select(selectOrdersLoadingStatus);
   orders$: Observable<Order[]> = this.store.select(selectOrderContent);
-  orderToDelete?: number;
+  orderToDelete?: string;
 
-  selectOrder(orderId: number) {
+  selectOrder(orderId: string) {
     this.store.dispatch(selectSingleOrder({ orderId }));
   }
 
-  openAcceptOrderModal(orderId: number) {}
+  openAcceptOrderModal(orderId: string) {}
 
-  openDeclineOrderModal(orderId: number) {
+  openDeclineOrderModal(orderId: string) {
     this.orderToDelete = orderId;
   }
 

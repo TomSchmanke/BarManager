@@ -14,7 +14,7 @@ class CocktailService(
         return cocktailRepository.findAllByBarId(barId)
     }
 
-    fun getCocktail(barId: String, cocktailId: Long): Cocktail {
+    fun getCocktail(barId: String, cocktailId: String): Cocktail {
         println("called GET /bars/$barId/cocktails/$cocktailId")
         return cocktailRepository.findByBarIdAndId(barId, cocktailId)
     }
@@ -24,7 +24,7 @@ class CocktailService(
         return cocktailRepository.insert(cocktail)
     }
 
-    fun deleteCocktail(barId: String, cocktailId: Long): Cocktail {
+    fun deleteCocktail(barId: String, cocktailId: String): Cocktail {
         println("called DELETE /bars/$barId/cocktails/$cocktailId")
         return cocktailRepository.deleteByBarIdAndId(barId, cocktailId)
     }

@@ -2,6 +2,7 @@ package de.fhswf.barmanager.backend.api
 
 import de.fhswf.barmanager.backend.model.Cocktail
 import de.fhswf.barmanager.backend.service.CocktailService
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RequestMapping("/bars/{barId}/cocktails")
 @RestController
 class CocktailController(private val cocktailService: CocktailService) {

@@ -1,7 +1,13 @@
 package de.fhswf.barmanager.backend.model
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document("bar")
 data class Bar(
-    val id: Int,
-    val name: String,
-    val owner: String
+    @Id
+    var id: String?,
+    val barName: String,
+    val ownerName: String,
+    var barCode: String? // max. 6 chars
 )

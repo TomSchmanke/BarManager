@@ -25,23 +25,24 @@ class CocktailController(private val cocktailService: CocktailService) {
 
     @GetMapping("/{cocktailId}")
     fun getSpecificCocktails(@PathVariable barId: String, @PathVariable cocktailId: String): Cocktail {
-        return cocktailService.getCocktail(barId, cocktailId.toLong())
+        return cocktailService.getCocktail(barId, cocktailId)
     }
 
     @PostMapping("/cocktail")
     fun createCocktail(@PathVariable barId: String, @RequestBody cocktail: Cocktail): Cocktail {
+        cocktail.id = null
         cocktail.barId = barId
         return cocktailService.createCocktail(cocktail)
     }
 
     @DeleteMapping("/{cocktailId}")
     fun deleteCocktail(@PathVariable barId: String, @PathVariable cocktailId: String): Cocktail {
-        return cocktailService.deleteCocktail(barId, cocktailId.toLong())
+        return cocktailService.deleteCocktail(barId, cocktailId)
     }
 
     @PutMapping("/{cocktailId}")
     fun updateCocktail(@PathVariable barId: String, @PathVariable cocktailId: String, @RequestBody cocktail: Cocktail): Cocktail {
-        cocktail.id = cocktailId.toLong()
+        cocktail.id = cocktailId
         cocktail.barId = barId
         return cocktailService.updateCocktail(cocktail)
     }

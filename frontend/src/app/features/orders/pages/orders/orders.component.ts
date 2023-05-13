@@ -10,6 +10,6 @@ import { loadOrders } from 'src/app/store/orders/orders.actions';
 export class OrdersComponent {
   constructor(private readonly store: Store) {
     // ToDo: Get barId from bar store
-    this.store.dispatch(loadOrders({ barId: 5 }));
+    this.store.dispatch(loadOrders());
   }
 }

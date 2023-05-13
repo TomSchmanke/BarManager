@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import * as fromOrdersReducer from './orders.reducers';
 
-export const selectOrdersState = createFeatureSelector<fromOrdersReducer.IState>(fromOrdersReducer.featureKey);
+export const selectOrdersState = createFeatureSelector<fromOrdersReducer.OrderState>(fromOrdersReducer.featureKey);
 
 export const selectOrderContent = createSelector(selectOrdersState, state => state.orders.content);
 export const selectOrdersLoadingStatus = createSelector(selectOrdersState, state => state.orders.loading);

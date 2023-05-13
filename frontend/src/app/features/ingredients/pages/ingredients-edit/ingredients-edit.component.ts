@@ -3,11 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingredient } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { first, map } from 'rxjs';
+import { selectSelectedIngredientGroup } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { addIngredient, editIngredient } from 'src/app/store/ingredients/ingredients.actions';
-import {
-  selectSelectedIngredient,
-  selectSelectedIngredientGroup,
-} from 'src/app/store/ingredients/ingredients.selectors';
+import { selectSelectedIngredient } from 'src/app/store/ingredients/ingredients.selectors';
 
 @Component({
   selector: 'app-ingredients-edit',
@@ -28,19 +26,16 @@ export class IngredientsEditComponent {
       description: ['', [Validators.pattern('[a-zA-Z]*')]],
     });
 
-    this.store
-      .select(selectSelectedIngredient)
-      .pipe(first())
-      .subscribe(ingredient => {
-        this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
-        if (this.newOrExisitingIngredient === 'existing') {
-          this.ingredientsEditForm?.setValue({
-            name: ingredient?.name ? ingredient.name : '',
-            amount: ingredient?.amount ? ingredient.amount : 0,
-            description: ingredient?.description ? ingredient.description : '',
-          });
-        }
-      });
+    this.store.select(selectSelectedIngredient).subscribe(ingredient => {
+      this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
+      if (this.newOrExisitingIngredient === 'existing') {
+        this.ingredientsEditForm?.setValue({
+          name: ingredient?.name ? ingredient.name : '',
+          amount: ingredient?.amount ? ingredient.amount : 0,
+          description: ingredient?.description ? ingredient.description : '',
+        });
+      }
+    });
 
     this.store
       .select(selectSelectedIngredientGroup)
@@ -61,9 +56,7 @@ export class IngredientsEditComponent {
       amount: this.ingredientsEditForm?.get('amount')?.value,
     };
     if (this.newOrExisitingIngredient === 'existing') {
-      this.store.dispatch(
-        editIngredient({ ingredientGroupId: this.selectedIngredientGroupId!, ingredient: newIngredient })
-      );
+      this.store.dispatch(editIngredient({ ingredient: newIngredient }));
     } else {
       this.store.dispatch(
         addIngredient({ ingredientGroupId: this.selectedIngredientGroupId!, ingredient: newIngredient })

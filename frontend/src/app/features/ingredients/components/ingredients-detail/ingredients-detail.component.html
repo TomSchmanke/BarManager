@@ -1,0 +1,75 @@
+<ng-container *ngIf="(loading$ | async) === false; else loading">
+  <ng-container *ngIf="(ingredients$ | async) && (ingredients$ | async).length !== 0; else noIngredients">
+    <table class="w-full">
+      <tbody>
+        <tr
+          *ngFor="let ingredient of ingredients$ | async"
+          tabindex="0"
+          class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+          (click)="selectIngredient(ingredient.id)">
+          <td class="pl-5">
+            <p class="text-sm leading-none text-gray-600 ml-2">
+              {{ ingredient.id }}
+            </p>
+          </td>
+
+          <td class="pl-5">
+            <p class="text-sm leading-none text-gray-600 ml-2">
+              {{ ingredient.name }}
+            </p>
+          </td>
+
+          <td class="pl-5">
+            <p class="text-base font-bold leading-none text-gray-700">
+              {{ ingredient.amount }}
+            </p>
+          </td>
+
+          <td class="pl-5 text-center">
+            <button
+              barButton
+              [buttonType]="'edit'"
+              class="mr-2"
+              (click)="selectIngredient(ingredient.id); $event.stopPropagation()"
+              routerLink="/ingredients/edit"
+              role="button">
+              <img src="assets/edit.svg" class="w-8 h-8" />
+            </button>
+
+            <button
+              barButton
+              [buttonType]="'delete'"
+              (click)="openDeleteIngredientModal(ingredient.id); $event.stopPropagation()"
+              role="button">
+              <img src="assets/delete.svg" class="w-8 h-8" />
+            </button>
+
+            <app-delete-modal
+              [ngClass]="{ hidden: ingredientToDelete !== ingredient.id }"
+              [a11yModalId]="'delete-ingredient' + ingredient.name + '-modal'"
+              [nameOfItemToDelete]="ingredient.name + '(s)'"
+              (cancelDialog)="cancelDeleteIngredientModal()"
+              (declineDialog)="cancelDeleteIngredientModal()"
+              (acceptDialog)="confirmDeleteIngredientModal()">
+            </app-delete-modal>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="my-6">
+      <button barButton (click)="addIngredient()">Add new ingredient group</button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+
+<ng-template #noIngredients>
+  <app-not-found-widget
+    headline="No ingredinet found"
+    message="The system was unable to load the ingredients. That could be, because there are no ingredients or because of an error in the system">
+  </app-not-found-widget>
+</ng-template>

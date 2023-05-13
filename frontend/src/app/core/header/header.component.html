@@ -2,6 +2,9 @@
   <div class="flex items-center text-white mr-6">
     <img src="assets/simple-cocktail-white.svg" class="fill-current h-8 w-8 mr-4" />
     <span class="font-semibold text-2xl">Bar-Manager</span>
+    <div *ngIf="barState$ | async as BarCreationResponse; let bar">
+      <span class="font-semibold text-2xl">&nbsp;- {{ bar.barName }}</span>
+    </div>
   </div>
   <div class="block lg:hidden">
     <button (click)="toggleBurgerMenu()">

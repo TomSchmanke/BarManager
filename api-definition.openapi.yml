@@ -5,11 +5,9 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
-security:
-  - NONE: []
 
 servers:
-  - url: https://localhost:8080
+  - url: https://localhost:4010
 
 paths:
   /login/{bar-code}:
@@ -25,6 +23,7 @@ paths:
           required: true
           schema:
             type: string
+      security: []
       responses:
         "200":
           description: bar id, name and owner
@@ -47,6 +46,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/bar-creation-request"
+      security: []
       responses:
         "200":
           description: bar id and name
@@ -68,13 +68,14 @@ paths:
           name: check-if-available
           schema:
             type: boolean
-            default: false
+            default: true
         - in: path
           name: bar-id
           description: Unique id to identify bar
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: bar
@@ -99,6 +100,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: bar
@@ -128,6 +130,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: deletion of order succesful
@@ -154,6 +157,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/order-creation-request"
+      security: []
       responses:
         "201":
           description: bar
@@ -219,6 +223,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/cocktail"
+      security: []
       responses:
         "200":
           description: bar
@@ -246,15 +251,9 @@ paths:
           required: true
           schema:
             type: integer
-      requestBody:
-        description: cocktail body
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/cocktail"
+      security: []
       responses:
-        "201":
+        "200":
           description: deletion succesful
         "404":
           description: Not Found
@@ -271,10 +270,17 @@ paths:
           required: true
           schema:
             type: integer
+      requestBody:
+        description: cocktail body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cocktail"
+      security: []
       responses:
         "201":
           description: cocktail added
-
         "404":
           description: Not Found
 
@@ -291,6 +297,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredients retrived
@@ -323,12 +330,13 @@ paths:
           schema:
             type: integer
       requestBody:
-        description: bar body
+        description: ingredient body
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/ingredient"
+      security: []
       responses:
         "200":
           description: Ingredient updated
@@ -356,12 +364,13 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredient deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/ingredient:
+  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
     post:
       tags:
         - Ingredients
@@ -374,13 +383,27 @@ paths:
           required: true
           schema:
             type: integer
+        - in: path
+          name: ingredient-group-id
+          description: Unique id to identify bar
+          required: true
+          schema:
+            type: integer
+      security: []
+      requestBody:
+        description: ingredient body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ingredient"
       responses:
         "200":
           description: Ingredients retrived
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/order-creation-response"
+                $ref: "#/components/schemas/ingredient"
         "404":
           description: Not Found
   /bar/{bar-id}/ingredient-groups:
@@ -396,6 +419,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: IngredientGroups retrived
@@ -426,6 +450,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: Ingredients retrived
@@ -466,7 +491,8 @@ paths:
                   example: Gin
                 unitOfMeasurement:
                   $ref: "#/components/schemas/unitOfMeasurement"
-                  example: ML
+             
+      security: []
       responses:
         "200":
           description: IngredientGroup updated
@@ -494,6 +520,7 @@ paths:
           required: true
           schema:
             type: integer
+      security: []
       responses:
         "200":
           description: IngredientGroup deleted
@@ -517,15 +544,8 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Gin
-                unitOfMeasurement:
-                  $ref: "#/components/schemas/ingredientGroup"
-                  example: ML
+           $ref: "#/components/schemas/ingredientGroup"
+      security: []
       responses:
         "201":
           description: IngredientGroup added
@@ -536,12 +556,6 @@ paths:
         "404":
           description: Not Found
 components:
-  securitySchemes:
-    NONE:
-      type: apiKey
-      name: key
-      in: cookie
-
   schemas:
     ingredientGroup:
       type: object
@@ -676,7 +690,7 @@ components:
         barId:
           type: integer
           example: 1
-          minLength: 1
+          min: 1
         barName:
           type: string
           example: Bar Name
@@ -707,7 +721,7 @@ components:
         barId:
           type: integer
           example: 1
-          minLength: 1
+          min: 1
         barName:
           type: string
           example: Bar Name

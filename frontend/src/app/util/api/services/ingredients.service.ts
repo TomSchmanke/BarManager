@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Ingredient } from '../models/ingredient';
-import { OrderCreationResponse } from '../models/order-creation-response';
 
 @Injectable({
   providedIn: 'root',
@@ -120,7 +119,7 @@ export class IngredientsService extends BaseService {
     'ingredient-id': number;
 
     /**
-     * bar body
+     * ingredient body
      */
     body: Ingredient
   },
@@ -170,7 +169,7 @@ export class IngredientsService extends BaseService {
     'ingredient-id': number;
 
     /**
-     * bar body
+     * ingredient body
      */
     body: Ingredient
   },
@@ -266,7 +265,7 @@ export class IngredientsService extends BaseService {
   /**
    * Path part for operation postIngredient
    */
-  static readonly PostIngredientPath = '/bar/{bar-id}/ingredient-groups/ingredient';
+  static readonly PostIngredientPath = '/bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient';
 
   /**
    * add ingrdient to a specific bar.
@@ -276,7 +275,7 @@ export class IngredientsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `postIngredient()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   postIngredient$Response(params: {
 
@@ -284,14 +283,26 @@ export class IngredientsService extends BaseService {
      * Unique id to identify bar
      */
     'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'ingredient-group-id': number;
+
+    /**
+     * ingredient body
+     */
+    body: Ingredient
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<OrderCreationResponse>> {
+): Observable<StrictHttpResponse<Ingredient>> {
 
     const rb = new RequestBuilder(this.rootUrl, IngredientsService.PostIngredientPath, 'post');
     if (params) {
       rb.path('bar-id', params['bar-id'], {});
+      rb.path('ingredient-group-id', params['ingredient-group-id'], {});
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -301,7 +312,7 @@ export class IngredientsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<OrderCreationResponse>;
+        return r as StrictHttpResponse<Ingredient>;
       })
     );
   }
@@ -314,7 +325,7 @@ export class IngredientsService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `postIngredient$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   postIngredient(params: {
 
@@ -322,13 +333,23 @@ export class IngredientsService extends BaseService {
      * Unique id to identify bar
      */
     'bar-id': number;
+
+    /**
+     * Unique id to identify bar
+     */
+    'ingredient-group-id': number;
+
+    /**
+     * ingredient body
+     */
+    body: Ingredient
   },
   context?: HttpContext
 
-): Observable<OrderCreationResponse> {
+): Observable<Ingredient> {
 
     return this.postIngredient$Response(params,context).pipe(
-      map((r: StrictHttpResponse<OrderCreationResponse>) => r.body as OrderCreationResponse)
+      map((r: StrictHttpResponse<Ingredient>) => r.body as Ingredient)
     );
   }
 

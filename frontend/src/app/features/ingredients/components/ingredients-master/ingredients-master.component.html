@@ -1,0 +1,75 @@
+<ng-container *ngIf="(loading$ | async) === false; else loading">
+  <ng-container *ngIf="(ingredientGroups$ | async) && (ingredientGroups$ | async).length !== 0; else noIngredients">
+    <table class="w-full">
+      <tbody>
+        <tr
+          *ngFor="let ingredientGroup of ingredientGroups$ | async"
+          tabindex="0"
+          class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
+          (click)="selectIngredientGroup(ingredientGroup.id)">
+          <td class="pl-5">
+            <p class="text-sm leading-none text-gray-600 ml-2">
+              {{ ingredientGroup.id }}
+            </p>
+          </td>
+
+          <td class="pl-5">
+            <p class="text-sm leading-none text-gray-600 ml-2">
+              {{ ingredientGroup.name }}
+            </p>
+          </td>
+
+          <td class="pl-5">
+            <p class="text-base font-bold leading-none text-gray-700">
+              {{ ingredientGroup.unitOfMeasurement }}
+            </p>
+          </td>
+
+          <td class="pl-5 text-center">
+            <button
+              barButton
+              [buttonType]="'edit'"
+              class="mr-2"
+              (click)="selectIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
+              routerLink="/ingredients/group-edit"
+              role="button">
+              <img src="assets/edit.svg" class="w-8 h-8" />
+            </button>
+
+            <button
+              barButton
+              [buttonType]="'delete'"
+              (click)="openDeleteIngredientGroupModal(ingredientGroup.id); $event.stopPropagation()"
+              role="button">
+              <img src="assets/delete.svg" class="w-8 h-8" />
+            </button>
+
+            <app-delete-modal
+              [ngClass]="{ hidden: ingredientGroupToDelete !== ingredientGroup.id }"
+              [a11yModalId]="'delete-ingredient-group' + ingredientGroup.name + '-modal'"
+              [nameOfItemToDelete]="ingredientGroup.name + '(s)'"
+              (cancelDialog)="cancelDeleteIngredientGroupModal()"
+              (declineDialog)="cancelDeleteIngredientGroupModal()"
+              (acceptDialog)="confirmDeleteIngredientGroupModal()">
+            </app-delete-modal>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="my-6">
+      <button barButton (click)="addIngredientGroup()">Add new ingredient group</button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+
+<ng-template #noIngredients>
+  <app-not-found-widget
+    headline="No ingredinet groups found"
+    message="The system was unable to load the ingredient groups. That could be, because there are no ingredient groups or because of an error in the system">
+  </app-not-found-widget>
+</ng-template>

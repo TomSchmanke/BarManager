@@ -15,6 +15,7 @@ import { CocktailsEffects } from './store/recipes/cocktails.effects';
 import * as fromCocktailsReducer from './store/recipes/cocktails.reducers';
 import { OrdersEffects } from './store/orders/orders.effects';
 import * as fromOrdersReducer from './store/orders/orders.reducers';
+import * as fromIngredientsGroupsReducer from './store/ingredient-group/ingredient-group.reducers';
 import { ApiModule } from './util';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IngredientsGroupEffects } from './store/ingredient-group/ingredient-group.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +38,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://localhost:8080/api' }),
+    ApiModule.forRoot({ rootUrl: 'http://localhost:4010' }),
     CoreModule,
     SharedModule,
     DashboardModule,
@@ -47,10 +49,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
     StoreModule.forFeature(fromBarReducer.featureKey, fromBarReducer.reducer),
+    StoreModule.forFeature(fromIngredientsGroupsReducer.featureKey, fromIngredientsGroupsReducer.reducer),
     StoreModule.forFeature(fromIngredientsReducer.featureKey, fromIngredientsReducer.reducer),
     StoreModule.forFeature(fromCocktailsReducer.featureKey, fromCocktailsReducer.reducer),
     StoreModule.forFeature(fromOrdersReducer.featureKey, fromOrdersReducer.reducer),
-    EffectsModule.forFeature([BarEffects, IngredientsEffects, CocktailsEffects, OrdersEffects]),
+    EffectsModule.forFeature([
+      BarEffects,
+      IngredientsEffects,
+      CocktailsEffects,
+      OrdersEffects,
+      IngredientsGroupEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),

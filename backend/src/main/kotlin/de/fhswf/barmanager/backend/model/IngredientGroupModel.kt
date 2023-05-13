@@ -15,7 +15,7 @@ data class IngredientGroup(
     var ingredients: List<Ingredient>?
 )
 
-@Document("ingredient-group")
+@Document("ingredients")
 data class Ingredient(
     @Id
     var id: String?,

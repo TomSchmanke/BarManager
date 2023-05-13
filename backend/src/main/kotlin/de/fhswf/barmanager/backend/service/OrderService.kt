@@ -21,7 +21,6 @@ class OrderService(
 
     fun deleteOrder(barId: String, orderId: String): Order {
         println("called DELETE /bars/$barId/orders/$orderId")
-        // TODO: add logic to reduce used ingredients
         return orderRepository.deleteByBarIdAndId(barId, orderId)
     }
 }

@@ -1,8 +1,8 @@
-import { Ingredient, IngredientGroup, IngredientGroupsService } from '@bar-manager/api';
+import { IngredientGroup } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
 
-import * as IngredientGroupActions from './ingredient-group.actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as IngredientGroupActions from './ingredient-group.actions';
 
 export const featureKey = 'ingredients-groups';
 

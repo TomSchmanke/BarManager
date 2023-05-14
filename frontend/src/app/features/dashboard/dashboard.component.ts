@@ -5,14 +5,11 @@ import { BarCreationRequest } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { addBar, loadBar } from 'src/app/store/bar/bar.actions';
-import { BarState } from 'src/app/store/bar/bar.reducers';
 import {
-  selectBarContent,
   selectBarError,
   selectBarId,
   selectBarLoadedSuccessfully,
   selectBarLoadingStatus,
-  selectBarState,
 } from 'src/app/store/bar/bar.selectors';
 import { loadOrders } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';

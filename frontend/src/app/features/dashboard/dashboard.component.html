@@ -1,59 +1,57 @@
-<div class="sm:px-6 w-full">
-  <ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === false">
-    <div class="w-full container flex" *ngIf="!!(selectCocktailContent$ | async)">
-      <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
-        <h2>Create Bar</h2>
-        <div class="flex gap-4">
-          <span>
-            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Name</label>
-            <input
-              barInput
-              formControlName="barName"
-              type="text"
-              minLength="1"
-              maxLength="20"
-              id="barCode-description"
-              placeholder="Bar name" />
-          </span>
-          <span>
-            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Owner Name</label>
-            <input
-              barInput
-              formControlName="ownerName"
-              type="text"
-              minLength="1"
-              maxLength="20"
-              id="barCode-description"
-              placeholder="Owner Name" />
-          </span>
-        </div>
-        <button class="pt-2" [disabled]="barCreationForm.invalid" barButton>Create Bar</button>
-      </form>
-      <form class="w-1/2" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-        <h2>Join Bar</h2>
-        <div class="flex gap-4">
-          <span>
-            <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Code</label>
-            <input
-              barInput
-              formControlName="barCode"
-              type="text"
-              minLength="6"
-              maxLength="6"
-              id="barCode-description"
-              placeholder="Bar code" />
-            <button barButton [disabled]="loginForm.invalid" type="submit">Join Bar</button>
-          </span>
-        </div>
-      </form>
-    </div>
+<ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === false">
+  <div class="flex items-center justify-betweenw-full" *ngIf="!!(selectCocktailContent$ | async)">
+    <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
+      <h2>Create Bar</h2>
+      <div class="flex gap-4">
+        <span>
+          <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Name</label>
+          <input
+            barInput
+            formControlName="barName"
+            type="text"
+            minLength="1"
+            maxLength="20"
+            id="barCode-description"
+            placeholder="Bar name" />
+        </span>
+        <span>
+          <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Owner Name</label>
+          <input
+            barInput
+            formControlName="ownerName"
+            type="text"
+            minLength="1"
+            maxLength="20"
+            id="barCode-description"
+            placeholder="Owner Name" />
+        </span>
+      </div>
+      <button class="pt-2" [disabled]="barCreationForm.invalid" barButton>Create Bar</button>
+    </form>
+    <form class="w-1/2" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <h2>Join Bar</h2>
+      <div class="flex gap-4">
+        <span>
+          <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Bar Code</label>
+          <input
+            barInput
+            formControlName="barCode"
+            type="text"
+            minLength="6"
+            maxLength="6"
+            id="barCode-description"
+            placeholder="Bar code" />
+          <button barButton [disabled]="loginForm.invalid" type="submit">Join Bar</button>
+        </span>
+      </div>
+    </form>
+  </div>
 
-    <ng-template *ngIf="error$ | async">
-      <app-not-found-widget message="There is a problem loading the bar. Please try again later"></app-not-found-widget>
-    </ng-template>
-  </ng-container>
+  <ng-template *ngIf="error$ | async">
+    <app-not-found-widget message="There is a problem loading the bar. Please try again later"></app-not-found-widget>
+  </ng-template>
+</ng-container>
 
-  <ng-container *ngIf="loading$ | async">
-    <app-loading-spinner></app-loading-spinner>
-  </ng-container>
-</div>
+<ng-container *ngIf="loading$ | async">
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>

@@ -1,10 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, inject } from '@angular/core';
-import { BarCreationResponse, LoginResponse } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BarState } from 'src/app/store/bar/bar.reducers';
-import { selectBarContent, selectBarId, selectBarState } from 'src/app/store/bar/bar.selectors';
+import { selectBarState } from 'src/app/store/bar/bar.selectors';
 
 @Component({
   selector: 'app-header',

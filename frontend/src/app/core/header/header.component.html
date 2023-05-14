@@ -2,13 +2,13 @@
   <div class="flex items-center text-white mr-6">
     <img src="assets/simple-cocktail-white.svg" class="fill-current h-8 w-8 mr-4" />
 
-    <div *ngIf="barState$ | async as BarCreationResponse; let barState">
-      <div *ngIf="barState.barId !== '0'">
-        <span class="font-semibold text-2xl">&nbsp;{{ barState.barName }}</span>
+    <div *ngIf="barState$ | async as BarState; let barState">
+      <div *ngIf="barState.loadedSuccessfully === true">
+        <span class="font-semibold text-2xl">&nbsp;{{ barState.bar.barName }}</span>
         <span class="font-semibold text-2xl"
           >&nbsp;- Bar code:
-          <button [cdkCopyToClipboard]="barState.barCode">
-            {{ barState.barCode }}&nbsp;<span class="material-icons" [matTooltip]="'Copy to clipboard'"
+          <button [cdkCopyToClipboard]="barState.bar.barCode">
+            {{ barState.bar.barCode }}&nbsp;<span class="material-icons" [matTooltip]="'Copy to clipboard'"
               >content_copy</span
             >
           </button>
@@ -21,7 +21,7 @@
       <img src="assets/burger-menu.svg" class="h-12 w-12" />
     </button>
   </div>
-  <div *ngIf="barState$ | async as BarCreationResponse; let bar">
+  <div *ngIf="barState$ | async as BarState; let barState">
     <div class="flex w-auto hidden lg:block">
       <div class="text-lg text-white">
         <a
@@ -31,21 +31,21 @@
           Dashboard
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/orders"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
           Orders
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/ingredients"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
           Ingredients
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/recipes"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4">
@@ -63,21 +63,21 @@
           Dashboard
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/orders"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
           Orders
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/ingredients"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4 mr-6">
           Ingredients
         </a>
         <a
-          [class.disabled]="bar.barId === '0' ? true : null"
+          [class.disabled]="barState.loadedSuccessfully ? false : true"
           routerLink="/recipes"
           routerLinkActive="text-gray-600 underline"
           class="hover:text-gray-600 hover:underline underline-offset-4">
@@ -86,4 +86,13 @@
       </div>
     </div>
   </div>
+  <span *ngIf="barState$ | async as BarState; let barState">
+    <button
+      *ngIf="barState.loadedSuccessfully === true"
+      class="material-icons text-white"
+      [matTooltip]="'Logout'"
+      (click)="refresh()">
+      logout
+    </button>
+  </span>
 </nav>

@@ -1,9 +1,4 @@
 <div class="sm:px-6 w-full">
-  <!-- Headline -->
-  <div class="px-4 md:px-10 py-4 md:py-7">
-    <h2>Dashboard</h2>
-  </div>
-
   <ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === false">
     <div class="w-full container flex" *ngIf="!!(selectCocktailContent$ | async)">
       <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">

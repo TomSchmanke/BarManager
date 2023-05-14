@@ -74,7 +74,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -99,7 +99,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -124,12 +124,12 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: order-id
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -149,7 +149,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: order request body
         required: true
@@ -182,13 +182,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         "200":
           description: bar
@@ -209,13 +209,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: cocktail body
         required: true
@@ -244,13 +244,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: cocktail-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -269,7 +269,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: cocktail body
         required: true
@@ -284,7 +284,7 @@ paths:
         "404":
           description: Not Found
 
-  /bar/{bar-id}/ingredients:
+  /bars/{bar-id}/ingredients:
     get:
       tags:
         - Ingredients
@@ -296,7 +296,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -310,7 +310,7 @@ paths:
         "404":
           description: Not Found
 
-  /bar/{bar-id}/ingredients/{ingredient-id}:
+  /bars/{bar-id}/ingredients/{ingredient-id}:
     put:
       tags:
         - Ingredients
@@ -322,13 +322,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: ingredient body
         required: true
@@ -357,20 +357,20 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
           description: Ingredient deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
+  /bars/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient:
     post:
       tags:
         - Ingredients
@@ -382,13 +382,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       requestBody:
         description: ingredient body
@@ -406,7 +406,7 @@ paths:
                 $ref: "#/components/schemas/ingredient"
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups:
+  /bars/{bar-id}/ingredient-groups:
     get:
       tags:
         - IngredientGroups
@@ -418,7 +418,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -431,7 +431,7 @@ paths:
                   $ref: "#/components/schemas/ingredientGroup"
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/{ingredient-group-id}:
+  /bars/{bar-id}/ingredient-groups/{ingredient-group-id}:
     get:
       tags:
         - IngredientGroups
@@ -443,13 +443,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
@@ -471,13 +471,13 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredient
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: bar body
         required: true
@@ -513,20 +513,20 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: ingredient-group-id
           description: Unique id to identify the ingredientGroup
           required: true
           schema:
-            type: integer
+            type: string
       security: []
       responses:
         "200":
           description: IngredientGroup deleted
         "404":
           description: Not Found
-  /bar/{bar-id}/ingredient-groups/ingredient-group:
+  /bars/{bar-id}/ingredient-groups/ingredient-group:
     post:
       tags:
         - IngredientGroups
@@ -538,7 +538,7 @@ paths:
           description: Unique id to identify bar
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: ingredient-group body
         required: true
@@ -565,8 +565,7 @@ components:
         - unitOfMeasurement
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
           example: 1
         name:
           type: string
@@ -585,8 +584,7 @@ components:
         - ingredientGroup
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
           example: 1
         name:
           type: string
@@ -618,8 +616,7 @@ components:
         - amount
       properties:
         id:
-          type: integer
-          format: int64
+          type: string         
           example: 1
         name:
           type: string
@@ -648,12 +645,10 @@ components:
         - timestamp
       properties:
         orderId:
-          type: integer
-          format: int64
+          type: string
           example: 1
         cocktailId:
-          type: integer
-          format: int64
+          type: string
           example: 1
         cocktailName:
           type: string
@@ -686,11 +681,17 @@ components:
         - barName
         - ownerName
         - barId
+        - barCode
       properties:
         barId:
-          type: integer
+          type: string
           example: 1
           min: 1
+        barCode:
+          type: string
+          example: 1233da
+          minLength: 6
+          maxLength: 6
         barName:
           type: string
           example: Bar Name
@@ -717,9 +718,10 @@ components:
         - barId
         - barName
         - ownerName
+        - barCode
       properties:
         barId:
-          type: integer
+          type: string
           example: 1
           min: 1
         barName:
@@ -727,6 +729,11 @@ components:
           example: Bar Name
           minLength: 1
           maxLength: 20
+        barCode:
+          type: string
+          example: d2ad12
+          minLength: 6
+          maxLength: 6
         ownerName:
           type: string
           example: Tom
@@ -739,8 +746,7 @@ components:
         - customerName
       properties:
         cocktailId:
-          type: integer
-          format: int64
+          type: string          
           example: 1
         customerName:
           type: string
@@ -753,13 +759,12 @@ components:
         - orderId
       properties:
         cocktailId:
-          type: integer
-          format: int64
+          type: string        
           example: 1
         customerName:
           type: string
           example: Tom Awesome
         orderId:
-          type: integer
+          type: string
           format: int64
           example: 1

@@ -5,9 +5,19 @@ import { StandloneBarButtonDirective } from './directives/bar-button/bar-button.
 import { StandloneBarInputDirective } from './directives/bar-input/bar-input.directive';
 import { NotFoundWidgetComponent } from './components/not-found-widget/not-found-widget.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { CountIngredientsGreaterZeroPipe } from './pipes/count-ingredients-greater-zero.pipe';
+import { ReduceIngredientsAmountPipe } from './pipes/reduce-ingredients-amount.pipe';
+import { SortIngredientGroupsByAlphabetPipe } from './pipes/sort-ingredient-groups-by-alphabet.pipe';
 
 @NgModule({
-  declarations: [DeleteModalComponent, NotFoundWidgetComponent, LoadingSpinnerComponent],
+  declarations: [
+    DeleteModalComponent,
+    NotFoundWidgetComponent,
+    LoadingSpinnerComponent,
+    ReduceIngredientsAmountPipe,
+    SortIngredientGroupsByAlphabetPipe,
+    CountIngredientsGreaterZeroPipe,
+  ],
   imports: [CommonModule, StandloneBarButtonDirective, StandloneBarInputDirective],
   exports: [
     DeleteModalComponent,
@@ -15,6 +25,9 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     StandloneBarInputDirective,
     NotFoundWidgetComponent,
     LoadingSpinnerComponent,
+    ReduceIngredientsAmountPipe,
+    SortIngredientGroupsByAlphabetPipe,
+    CountIngredientsGreaterZeroPipe,
   ],
 })
 export class SharedModule {}

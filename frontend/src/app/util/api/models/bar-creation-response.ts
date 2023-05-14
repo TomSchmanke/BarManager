@@ -1,7 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface BarCreationResponse {
-  barId: number;
+  barCode: string;
+  barId: string;
   barName: string;
   ownerName: string;
 }

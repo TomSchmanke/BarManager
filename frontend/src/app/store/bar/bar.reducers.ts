@@ -18,7 +18,7 @@ export interface BarState {
 
 export const initialState: BarState = {
   loading: false,
-  bar: { barId: 0, barName: '', ownerName: '' },
+  bar: { barId: '0', barName: '', ownerName: '', barCode: '000000' },
   cocktails: [],
   orders: [],
 };

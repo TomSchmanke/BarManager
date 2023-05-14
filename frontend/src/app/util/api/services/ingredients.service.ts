@@ -25,7 +25,7 @@ export class IngredientsService extends BaseService {
   /**
    * Path part for operation getIngredients
    */
-  static readonly GetIngredientsPath = '/bar/{bar-id}/ingredients';
+  static readonly GetIngredientsPath = '/bars/{bar-id}/ingredients';
 
   /**
    * Get all ingredients of a specific bar.
@@ -42,7 +42,7 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -80,7 +80,7 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
   },
   context?: HttpContext
 
@@ -94,7 +94,7 @@ export class IngredientsService extends BaseService {
   /**
    * Path part for operation putIngredient
    */
-  static readonly PutIngredientPath = '/bar/{bar-id}/ingredients/{ingredient-id}';
+  static readonly PutIngredientPath = '/bars/{bar-id}/ingredients/{ingredient-id}';
 
   /**
    * Update ingredient of a specific bar.
@@ -111,12 +111,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
 
     /**
      * ingredient body
@@ -161,12 +161,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
 
     /**
      * ingredient body
@@ -185,7 +185,7 @@ export class IngredientsService extends BaseService {
   /**
    * Path part for operation deleteIngredient
    */
-  static readonly DeleteIngredientPath = '/bar/{bar-id}/ingredients/{ingredient-id}';
+  static readonly DeleteIngredientPath = '/bars/{bar-id}/ingredients/{ingredient-id}';
 
   /**
    * delete ingredient of a specific bar.
@@ -202,12 +202,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
   },
   context?: HttpContext
 
@@ -246,12 +246,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify the ingredient
      */
-    'ingredient-id': number;
+    'ingredient-id': string;
   },
   context?: HttpContext
 
@@ -265,7 +265,7 @@ export class IngredientsService extends BaseService {
   /**
    * Path part for operation postIngredient
    */
-  static readonly PostIngredientPath = '/bar/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient';
+  static readonly PostIngredientPath = '/bars/{bar-id}/ingredient-groups/{ingredient-group-id}/ingredient';
 
   /**
    * add ingrdient to a specific bar.
@@ -282,12 +282,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * ingredient body
@@ -332,12 +332,12 @@ export class IngredientsService extends BaseService {
     /**
      * Unique id to identify bar
      */
-    'bar-id': number;
+    'bar-id': string;
 
     /**
      * Unique id to identify bar
      */
-    'ingredient-group-id': number;
+    'ingredient-group-id': string;
 
     /**
      * ingredient body

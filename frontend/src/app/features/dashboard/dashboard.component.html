@@ -5,7 +5,7 @@
   </div>
 
   <ng-container *ngIf="(selectBarLoadingStatus$ | async) === false; else loading">
-    <div class="w-full container flex" *ngIf="barState$ | async">
+    <div class="w-full container flex" *ngIf="!!(selectCocktailContent$ | async)">
       <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
         <h2>Create Bar</h2>
         <div class="flex gap-4">
@@ -18,7 +18,7 @@
               minLength="1"
               maxLength="20"
               id="barCode-description"
-              placeholder="Bar code" />
+              placeholder="Bar name" />
           </span>
           <span>
             <label for="bar-id" class="block mb-2 text-base font-medium text-gray-900">Owner Name</label>
@@ -29,7 +29,7 @@
               minLength="1"
               maxLength="20"
               id="barCode-description"
-              placeholder="Bar code" />
+              placeholder="Owner Name" />
           </span>
         </div>
         <button class="pt-2" [disabled]="barCreationForm.invalid" barButton>Create Bar</button>
@@ -60,31 +60,34 @@
           <div class="pb-4 border-b-2 border-gray-100">
             <div class="pb-4 border-b-2 border-gray-100">
               <table
-                *ngIf="(ingredientGroup$ | async) && (ingredientGroup$ | async).length !== 0; else noIngredientGroups"
+                *ngIf="
+                  (selectCocktailContent$ | async) && (selectCocktailContent$ | async).length !== 0;
+                  else noselectCocktailContents
+                "
                 class="w-full whitespace-nowrap">
                 <tbody>
                   <tr
-                    *ngFor="let ingredientGroup of ingredientGroup$ | async | sortIngredientGroupsByAlphabet"
+                    *ngFor="let selectCocktailContent of selectCocktailContent$ | async"
                     tabindex="0"
                     class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
-                    (click)="selectIngredientGroup(ingredientGroup.id)">
+                    (click)="selectselectCocktailContent(selectCocktailContent.id)">
                     <td class="pl-5">
                       <p class="text-base font-bold leading-none text-gray-700">
-                        {{ ingredientGroup.name }}
+                        {{ selectCocktailContent.name }}
                       </p>
                     </td>
                     <td class="pl-5 text-center">
                       <div class="flex items-center">
                         <img src="assets/cup-measurement.svg" class="w-4 h-4" />
                         <p class="text-sm leading-none text-gray-600 ml-2">
-                          {{ ingredientGroup.ingredients | reduceIngredientsAmount }}
+                          {{ selectCocktailContent.ingredients }}
                         </p>
                       </div>
                     </td>
                     <td class="pl-5 text-center">
                       <div class="flex items-center">
                         <p class="text-sm leading-none text-gray-600 ml-2">
-                          {{ unitOfMeasurement[ingredientGroup.unitOfMeasurement] }}
+                          {{ unitOfMeasurement[selectCocktailContent.unitOfMeasurement] }}
                         </p>
                       </div>
                     </td>
@@ -93,23 +96,23 @@
                         class="py-3 px-3 text-sm focus:outline-none leading-none rounded"
                         [ngClass]="{
                           'text-red-700 bg-red-100':
-                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
-                              ingredientGroup.ingredients.length <
+                            (selectCocktailContent.ingredients | countIngredientsGreaterZero) /
+                              selectCocktailContent.ingredients.length <
                             0.3,
                           'text-orange-700 bg-orange-100':
-                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
-                              ingredientGroup.ingredients.length >=
+                            (selectCocktailContent.ingredients | countIngredientsGreaterZero) /
+                              selectCocktailContent.ingredients.length >=
                               0.3 &&
-                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
-                              ingredientGroup.ingredients.length <=
+                            (selectCocktailContent.ingredients | countIngredientsGreaterZero) /
+                              selectCocktailContent.ingredients.length <=
                               0.7,
                           'text-green-700 bg-green-100':
-                            (ingredientGroup.ingredients | countIngredientsGreaterZero) /
-                              ingredientGroup.ingredients.length >
+                            (selectCocktailContent.ingredients | countIngredientsGreaterZero) /
+                              selectCocktailContent.ingredients.length >
                             0.7
                         }">
-                        {{ ingredientGroup.ingredients | countIngredientsGreaterZero }}/{{
-                          ingredientGroup.ingredients.length
+                        {{ selectCocktailContent.ingredients | countIngredientsGreaterZero }}/{{
+                          selectCocktailContent.ingredients.length
                         }}
                       </span>
                     </td>
@@ -119,26 +122,20 @@
                         [buttonType]="'edit'"
                         class="p-1 mr-2"
                         [routerLink]="'/ingredients/group-edit'"
-                        (click)="editIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
+                        (click)="editselectCocktailContent(selectCocktailContent.id); $event.stopPropagation()"
                         role="button">
                         <img src="assets/edit.svg" class="w-8 h-8" />
                       </button>
                       <button
                         class="p-1 bg-red-200 hover:bg-red-300 focus:ring-2 rounded-md focus:outline-none"
                         [routerLink]="'/ingredients/group-edit'"
-                        (click)="openDeleteIngredientGroupModal(ingredientGroup.id); $event.stopPropagation()"
+                        (click)="
+                          openDeleteselectCocktailContentModal(selectCocktailContent.id); $event.stopPropagation()
+                        "
                         role="button">
                         <img src="assets/delete.svg" class="w-8 h-8" />
                       </button>
                     </td>
-
-                    <app-delete-modal
-                      [ngClass]="{ hidden: ingredientGroupToDeleteId !== ingredientGroup.id }"
-                      [a11yModalId]="'delete-ingredient-group' + ingredientGroup.name + '-modal'"
-                      [nameOfItemToDelete]="ingredientGroup.name + '(s)'"
-                      (cancelDialog)="cancelDeleteIngredientGroup()"
-                      (declineDialog)="cancelDeleteIngredientGroup()"
-                      (acceptDialog)="confirmDeleteIngredientGroup()"></app-delete-modal>
                   </tr>
                 </tbody>
               </table>

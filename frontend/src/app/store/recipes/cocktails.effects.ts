@@ -43,7 +43,7 @@ export class CocktailsEffects {
     )
   );
 
-  private putIngredientGroup$ = createEffect(() =>
+  private putCocktail$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromCocktailActions.editCocktail),
       withLatestFrom(this.store.select(selectBarId)),
@@ -62,7 +62,7 @@ export class CocktailsEffects {
     )
   );
 
-  private deleteIngredientGroup$ = createEffect(() =>
+  private deleteCocktail$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromCocktailActions.deleteCocktail),
       withLatestFrom(this.store.select(selectBarId)),
@@ -75,6 +75,24 @@ export class CocktailsEffects {
           .pipe(
             map(() => fromCocktailActions.deleteCocktailSuccess({ cocktailId: action.cocktailId })),
             catchError(error => of(fromCocktailActions.deleteCocktailFailure({ error })))
+          )
+      )
+    )
+  );
+
+  private postCocktail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromCocktailActions.addCocktail),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.cocktailsService
+          .postCocktail({
+            'bar-id': barId,
+            body: action.cocktail,
+          })
+          .pipe(
+            map(() => fromCocktailActions.addCocktailSuccess({ cocktail: action.cocktail })),
+            catchError(error => of(fromCocktailActions.addCocktailFailure({ error })))
           )
       )
     )

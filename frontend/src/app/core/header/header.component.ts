@@ -3,7 +3,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { BarCreationResponse, LoginResponse } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectBarContent } from 'src/app/store/bar/bar.selectors';
+import { selectBarContent, selectBarId } from 'src/app/store/bar/bar.selectors';
 
 @Component({
   selector: 'app-header',

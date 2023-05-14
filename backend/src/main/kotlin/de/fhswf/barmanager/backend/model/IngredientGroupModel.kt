@@ -1,15 +1,28 @@
 package de.fhswf.barmanager.backend.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document("ingredient-groups")
 data class IngredientGroup(
-    val id: Int,
-    val name: Int,
+    @Id
+    var id: String?,
+    var barId: String?,
+    val name: String,
     val unitOfMeasurement: MeasurementUnit,
-    val ingredients: List<Ingredient>
+    @Transient
+    var ingredients: List<Ingredient>?
 )
 
+@Document("ingredients")
 data class Ingredient(
-    val id: Int,
-    val name: String,
-    val amount: Int,
-    val description: String
+    @Id
+    var id: String?,
+    var barId: String?,
+    var name: String,
+    var amount: Int,
+    var description: String,
+    @JsonIgnore
+    var ingredientGroupId: String?,
 )

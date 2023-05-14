@@ -20,6 +20,7 @@ class CocktailController(private val cocktailService: CocktailService) {
 
     @GetMapping
     fun getAllCocktails(@PathVariable barId: String, @RequestParam checkAvailability: String?): List<Cocktail> {
+        // TODO evaluate checkAvailability
         return cocktailService.getAllCocktails(barId, checkAvailability)
     }
 

@@ -1,0 +1,67 @@
+<ng-container *ngIf="(loading$ | async) === false; else loading">
+  <ng-container *ngIf="(cocktails$ | async) && (cocktails$ | async).length !== 0; else noCocktails">
+    <h2>Cocktails</h2>
+    <div class="my-6">
+      <button barButton (click)="addCocktail()">Add new ingredient group</button>
+    </div>
+
+    <div *ngFor="let cocktail of cocktails$ | async" class="border-t-2 border-gray-200 p-4">
+      <div>
+        <h3 class="inline font-bold pr-1">Cocktail Id:</h3>
+        <span>{{ cocktail.id }}</span>
+      </div>
+      <div>
+        <h3 class="inline font-bold pr-1">Cocktail Name:</h3>
+        <span>{{ cocktail.name }}</span>
+      </div>
+      <h3 class="inline font-bold">Ingredients:</h3>
+      <ol class="list-decimal px-8">
+        <li *ngFor="let recipeIngredient of cocktail.recipeIngredient" class="px-4">
+          <span class="pr-1">{{ recipeIngredient.ingredientGroupName }}</span>
+          <span class="pr-1">{{ recipeIngredient.amount }}</span>
+          <span>{{ recipeIngredient.unitOfMeasurement }}</span>
+        </li>
+      </ol>
+
+      <div class="flex py-2">
+        <button
+          barButton
+          [buttonType]="'edit'"
+          class="mr-2"
+          (click)="selectCocktail(cocktail); $event.stopPropagation()"
+          routerLink="/recipes/edit"
+          role="button">
+          <img src="assets/edit.svg" class="w-8 h-8" />
+        </button>
+
+        <button
+          barButton
+          [buttonType]="'delete'"
+          (click)="openDeleteCocktailModal(cocktail.id); $event.stopPropagation()"
+          role="button">
+          <img src="assets/delete.svg" class="w-8 h-8" />
+        </button>
+
+        <app-delete-modal
+          [ngClass]="{ hidden: cocktailToDelete !== cocktail.id }"
+          [a11yModalId]="'delete-cocktail' + cocktail.name + '-modal'"
+          [nameOfItemToDelete]="cocktail.name + '(s)'"
+          (cancelDialog)="cancelDeleteCocktailModal()"
+          (declineDialog)="cancelDeleteCocktailModal()"
+          (acceptDialog)="confirmDeleteCocktailModal()">
+        </app-delete-modal>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+
+<ng-template #noCocktails>
+  <app-not-found-widget
+    headline="No cocktail found"
+    message="The system was unable to load the cocktails. That could be, because there are no cocktails or because of an error in the system">
+  </app-not-found-widget>
+</ng-template>

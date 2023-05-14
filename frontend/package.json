@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "update-api": "ng-openapi-gen -c ./api-config.json"
+    "update-api": "ng-openapi-gen -c ./api-config.json",
+    "prism": "prism mock ../api-definition.openapi.yml"
   },
   "private": true,
   "dependencies": {

@@ -55,3 +55,6 @@ export const addCocktailFailure = createAction(
   '[cocktails] add single cocktail failure',
   props<{ error: HttpErrorResponse }>()
 );
+
+export const setSelectedCocktail = createAction('[cocktails] setSelectedCocktail', props<{ cocktail: Cocktail }>());
+export const resetSelectedCocktail = createAction('[cocktails] resetSelectedCocktail');

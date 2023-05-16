@@ -1,3 +1,13 @@
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -9,24 +19,15 @@ import { StartModule } from './features/start/start.module';
 import { SharedModule } from './shared/shared.module';
 import { BarEffects } from './store/bar/bar.effects';
 import * as fromBarReducer from './store/bar/bar.reducers';
+import { IngredientsGroupEffects } from './store/ingredient-group/ingredient-group.effects';
+import * as fromIngredientsGroupsReducer from './store/ingredient-group/ingredient-group.reducers';
 import { IngredientsEffects } from './store/ingredients/ingredients.effects';
 import * as fromIngredientsReducer from './store/ingredients/ingredients.reducers';
-import { CocktailsEffects } from './store/recipes/cocktails.effects';
-import * as fromCocktailsReducer from './store/recipes/cocktails.reducers';
 import { OrdersEffects } from './store/orders/orders.effects';
 import * as fromOrdersReducer from './store/orders/orders.reducers';
-import * as fromIngredientsGroupsReducer from './store/ingredient-group/ingredient-group.reducers';
+import { CocktailsEffects } from './store/recipes/cocktails.effects';
+import * as fromCocktailsReducer from './store/recipes/cocktails.reducers';
 import { ApiModule } from './util';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { IngredientsGroupEffects } from './store/ingredient-group/ingredient-group.effects';
 
 @NgModule({
   declarations: [AppComponent],

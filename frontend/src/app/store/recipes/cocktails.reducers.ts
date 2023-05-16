@@ -95,5 +95,16 @@ export const reducer = createReducer(
     ...state,
     error: action.error,
     loading: false,
+  })),
+
+  on(CocktailActions.setSelectedCocktail, (state, action) => ({
+    ...state,
+    selectedCocktail: action.cocktail,
+    loading: false,
+  })),
+  on(CocktailActions.resetSelectedCocktail, state => ({
+    ...state,
+    selectedCocktail: undefined,
+    loading: false,
   }))
 );

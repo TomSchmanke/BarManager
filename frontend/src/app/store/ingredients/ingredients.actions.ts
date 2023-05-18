@@ -3,6 +3,7 @@ import { Ingredient } from '@bar-manager/api';
 import { createAction, props } from '@ngrx/store';
 
 export const loadIngredients = createAction('[ingredients] load ingredients');
+
 export const loadIngredientsSuccess = createAction(
   '[ingredients] load ingredients success',
   props<{ ingredients: Ingredient[] }>()

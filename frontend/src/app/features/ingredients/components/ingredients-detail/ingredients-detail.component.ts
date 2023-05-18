@@ -29,12 +29,7 @@ export class IngredientsDetailComponent implements OnInit {
   selectedIngredientGroup: Observable<IngredientGroup | undefined> = this.store.select(selectSelectedIngredientGroup);
 
   ngOnInit(): void {
-    //ToDo: Need parameter for ingredient group???
-    this.selectedIngredientGroup.subscribe(item => {
-      if (item !== undefined) {
-        this.store.dispatch(loadIngredients());
-      }
-    });
+    this.store.dispatch(loadIngredients());
   }
 
   selectIngredient(ingredientId: string) {

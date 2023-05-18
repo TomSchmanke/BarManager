@@ -6,16 +6,16 @@
           *ngFor="let ingredientGroup of ingredientGroups$ | async"
           tabindex="0"
           class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
-          (click)="selectIngredientGroup(ingredientGroup.id)">
+          (click)="selectIngredientGroup(ingredientGroup.ingredientGroupId)">
           <td class="pl-5">
             <p class="text-sm leading-none text-gray-600 ml-2">
-              {{ ingredientGroup.id }}
+              {{ ingredientGroup.ingredientGroupId }}
             </p>
           </td>
 
           <td class="pl-5">
             <p class="text-sm leading-none text-gray-600 ml-2">
-              {{ ingredientGroup.name }}
+              {{ ingredientGroup.ingredientGroupName }}
             </p>
           </td>
 
@@ -30,7 +30,7 @@
               barButton
               [buttonType]="'edit'"
               class="mr-2"
-              (click)="selectIngredientGroup(ingredientGroup.id); $event.stopPropagation()"
+              (click)="selectIngredientGroup(ingredientGroup.ingredientGroupId); $event.stopPropagation()"
               routerLink="/ingredients/group-edit"
               role="button">
               <img src="assets/edit.svg" class="w-8 h-8" />
@@ -39,15 +39,15 @@
             <button
               barButton
               [buttonType]="'delete'"
-              (click)="openDeleteIngredientGroupModal(ingredientGroup.id); $event.stopPropagation()"
+              (click)="openDeleteIngredientGroupModal(ingredientGroup.ingredientGroupId); $event.stopPropagation()"
               role="button">
               <img src="assets/delete.svg" class="w-8 h-8" />
             </button>
 
             <app-delete-modal
-              [ngClass]="{ hidden: ingredientGroupToDelete !== ingredientGroup.id }"
-              [a11yModalId]="'delete-ingredient-group' + ingredientGroup.name + '-modal'"
-              [nameOfItemToDelete]="ingredientGroup.name + '(s)'"
+              [ngClass]="{ hidden: ingredientGroupToDelete !== ingredientGroup.ingredientGroupId }"
+              [a11yModalId]="'delete-ingredient-group' + ingredientGroup.ingredientGroupName + '-modal'"
+              [nameOfItemToDelete]="ingredientGroup.ingredientGroupName + '(s)'"
               (cancelDialog)="cancelDeleteIngredientGroupModal()"
               (declineDialog)="cancelDeleteIngredientGroupModal()"
               (acceptDialog)="confirmDeleteIngredientGroupModal()">

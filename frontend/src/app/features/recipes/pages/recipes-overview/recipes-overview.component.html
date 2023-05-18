@@ -12,11 +12,11 @@
       </div>
       <div>
         <h3 class="inline font-bold pr-1">Cocktail Name:</h3>
-        <span>{{ cocktail.name }}</span>
+        <span>{{ cocktail.cocktailId }}</span>
       </div>
       <h3 class="inline font-bold">Ingredients:</h3>
       <ol class="list-decimal px-8">
-        <li *ngFor="let recipeIngredient of cocktail.recipeIngredient" class="px-4">
+        <li *ngFor="let recipeIngredient of cocktail.recipeIngredients" class="px-4">
           <span class="pr-1">{{ recipeIngredient.ingredientGroupName }}</span>
           <span class="pr-1">{{ recipeIngredient.amount }}</span>
           <span>{{ recipeIngredient.unitOfMeasurement }}</span>
@@ -37,15 +37,15 @@
         <button
           barButton
           [buttonType]="'delete'"
-          (click)="openDeleteCocktailModal(cocktail.id); $event.stopPropagation()"
+          (click)="openDeleteCocktailModal(cocktail.cocktailId); $event.stopPropagation()"
           role="button">
           <img src="assets/delete.svg" class="w-8 h-8" />
         </button>
 
         <app-delete-modal
-          [ngClass]="{ hidden: cocktailToDelete !== cocktail.id }"
-          [a11yModalId]="'delete-cocktail' + cocktail.name + '-modal'"
-          [nameOfItemToDelete]="cocktail.name + '(s)'"
+          [ngClass]="{ hidden: cocktailToDelete !== cocktail.cocktailId }"
+          [a11yModalId]="'delete-cocktail' + cocktail.cocktailName + '-modal'"
+          [nameOfItemToDelete]="cocktail.cocktailName + '(s)'"
           (cancelDialog)="cancelDeleteCocktailModal()"
           (declineDialog)="cancelDeleteCocktailModal()"
           (acceptDialog)="confirmDeleteCocktailModal()">

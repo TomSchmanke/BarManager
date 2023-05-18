@@ -1,12 +1,14 @@
 package de.fhswf.barmanager.backend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("ingredient-groups")
 data class IngredientGroup(
     @Id
+    @JsonProperty("ingredientGroupId")
     var id: String?,
     var barId: String?,
     val name: String,
@@ -18,6 +20,7 @@ data class IngredientGroup(
 @Document("ingredients")
 data class Ingredient(
     @Id
+    @JsonProperty("ingredientId")
     var id: String?,
     var barId: String?,
     var name: String,

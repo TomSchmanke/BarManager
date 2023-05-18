@@ -12,6 +12,7 @@ data class Cocktail(
     var barId: String? = null,
     @JsonProperty("cocktailName")
     val name: String,
+    @JsonProperty("recipeIngredients")
     val ingredients: List<CocktailIngredient>
 )
 

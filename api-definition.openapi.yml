@@ -589,7 +589,7 @@ components:
         cocktailName:
           type: string
           example: Gin Tonic
-        recipeIngredient:
+        recipeIngredients:
           type: array
           items:
             $ref: "#/components/schemas/recipeIngredient"

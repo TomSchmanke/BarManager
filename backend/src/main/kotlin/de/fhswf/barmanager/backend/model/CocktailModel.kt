@@ -10,6 +10,7 @@ data class Cocktail(
     @JsonProperty("cocktailId")
     var id: String? = null,
     var barId: String? = null,
+    @JsonProperty("cocktailName")
     val name: String,
     val ingredients: List<CocktailIngredient>
 )

@@ -4,13 +4,11 @@
 
   <form [formGroup]="ingredientsEditForm" (ngSubmit)="onSubmit()">
     <div class="my-6">
-      <label for="ingredient-name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
-        >Ingredient name</label
-      >
+      <label for="ingredient-name" class="block mb-2 text-base font-medium text-gray-900">Ingredient name</label>
       <input barInput type="text" id="ingredient-name" formControlName="name" placeholder="Wodka Gorbatschow Citron" />
     </div>
     <div class="my-6">
-      <label for="ingredient-description" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+      <label for="ingredient-description" class="block mb-2 text-base font-medium text-gray-900"
         >Ingredient description</label
       >
       <input
@@ -21,9 +19,7 @@
         placeholder="Healthy sweet alcohol, perfect for dumb persons" />
     </div>
     <div class="my-6">
-      <label for="ingredient-amount" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
-        >Ingredient amount</label
-      >
+      <label for="ingredient-amount" class="block mb-2 text-base font-medium text-gray-900">Ingredient amount</label>
       <input barInput type="number" id="ingredient-amount" formControlName="amount" placeholder="1000" />
     </div>
     <div class="my-6">

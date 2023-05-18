@@ -33,7 +33,7 @@ export class IngredientsGroupEditComponent {
         this.newOrExisitingIngredientGroup = ingredientGroup ? 'existing' : 'new';
         if (this.newOrExisitingIngredientGroup === 'existing') {
           this.ingredientsGroupEditForm?.setValue({
-            name: ingredientGroup?.name ? ingredientGroup.name : '',
+            name: ingredientGroup?.ingredientGroupName ? ingredientGroup.ingredientGroupName : '',
             unitOfMeasurement: ingredientGroup?.unitOfMeasurement
               ? ingredientGroup.unitOfMeasurement
               : UnitOfMeasurement.G,
@@ -45,8 +45,8 @@ export class IngredientsGroupEditComponent {
 
   onSubmit() {
     const newIngredientGroup: IngredientGroup = {
-      id: '0',
-      name: this.ingredientsGroupEditForm?.get('name')?.value,
+      ingredientGroupId: '0',
+      ingredientGroupName: this.ingredientsGroupEditForm?.get('name')?.value,
       unitOfMeasurement: this.ingredientsGroupEditForm?.get('unitOfMeasurement')?.value,
       ingredients: this.selectedIngredientGroupIngredients!,
     };

@@ -45,7 +45,9 @@ export const reducer = createReducer(
   on(IngredientGroupActions.deleteIngredientGroupSuccess, (state, action) => ({
     ...state,
     loading: false,
-    ingredientGroups: state.ingredientGroups.filter(ingredientGroup => ingredientGroup.id !== action.ingredientGroupId),
+    ingredientGroups: state.ingredientGroups.filter(
+      ingredientGroup => ingredientGroup.ingredientGroupId !== action.ingredientGroupId
+    ),
     selectedIngredients: 'all',
   })),
   on(IngredientGroupActions.deleteIngredientGroupFailure, (state, action) => ({
@@ -62,7 +64,9 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     ingredientsGroups: state.ingredientGroups.map((ingredientGroup: IngredientGroup) => {
-      return ingredientGroup.id === action.ingredientGroup.id ? action.ingredientGroup : ingredientGroup;
+      return ingredientGroup.ingredientGroupId === action.ingredientGroup.ingredientGroupId
+        ? action.ingredientGroup
+        : ingredientGroup;
     }),
     selectedIngredients: 'all',
   })),
@@ -74,7 +78,7 @@ export const reducer = createReducer(
 
   on(IngredientGroupActions.selectSingleIngredientGroup, (state, action) => ({
     ...state,
-    selectedIngredientGroup: state.ingredientGroups.find(value => value.id === action.ingredientGroupId),
+    selectedIngredientGroup: state.ingredientGroups.find(value => value.ingredientGroupId === action.ingredientGroupId),
   })),
   on(IngredientGroupActions.resetSelectSingleIngredientGroup, state => ({
     ...state,

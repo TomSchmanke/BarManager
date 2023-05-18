@@ -3,6 +3,6 @@
 export interface Ingredient {
   amount: number;
   description?: string;
-  id: string;
-  name: string;
+  ingredientId: string;
+  ingredientName: string;
 }

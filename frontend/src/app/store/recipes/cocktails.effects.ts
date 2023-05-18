@@ -51,7 +51,7 @@ export class CocktailsEffects {
         this.cocktailsService
           .putCocktail({
             'bar-id': barId,
-            'cocktail-id': action.cocktail.id,
+            'cocktail-id': action.cocktail.cocktailId,
             body: action.cocktail,
           })
           .pipe(

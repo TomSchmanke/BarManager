@@ -51,7 +51,9 @@
     <app-not-found-widget message="There is a problem loading the bar. Please try again later"></app-not-found-widget>
   </ng-template>
 </ng-container>
-
+<ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === true">
+  <app-recipes-overview></app-recipes-overview>
+</ng-container>
 <ng-container *ngIf="loading$ | async">
   <app-loading-spinner></app-loading-spinner>
 </ng-container>

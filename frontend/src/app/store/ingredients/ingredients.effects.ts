@@ -32,7 +32,7 @@ export class IngredientsEffects {
       withLatestFrom(this.store.select(selectBarId)),
       switchMap(([action, barId]) =>
         this.ingredientsService
-          .putIngredient({ 'bar-id': barId, 'ingredient-id': action.ingredient.id, body: action.ingredient })
+          .putIngredient({ 'bar-id': barId, 'ingredient-id': action.ingredient.ingredientId, body: action.ingredient })
           .pipe(
             map(ingredients => fromIngredientsActions.editIngredientSuccess({ ingredient: ingredients })),
             catchError(error => of(fromIngredientsActions.editIngredientFailure({ error })))

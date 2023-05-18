@@ -38,7 +38,7 @@ export const reducer = createReducer(
 
   on(IngredientsActions.selectSingleIngredient, (state, action) => ({
     ...state,
-    selectedIngredient: state.ingredients.find(value => value.id === action.ingredientId),
+    selectedIngredient: state.ingredients.find(value => value.ingredientId === action.ingredientId),
   })),
   on(IngredientsActions.resetSelectSingleIngredient, state => ({
     ...state,
@@ -52,7 +52,7 @@ export const reducer = createReducer(
   on(IngredientsActions.deleteIngredientSuccess, (state, action) => ({
     ...state,
     loading: false,
-    ingredients: state.ingredients.filter(ingredient => ingredient.id !== action.ingredientId),
+    ingredients: state.ingredients.filter(ingredient => ingredient.ingredientId !== action.ingredientId),
     selectedIngredients: 'all',
   })),
   on(IngredientsActions.deleteIngredientFailure, (state, action) => ({
@@ -69,7 +69,7 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     ingredients: state.ingredients.map((ingredient: Ingredient) => {
-      return ingredient.id === action.ingredient.id ? action.ingredient : ingredient;
+      return ingredient.ingredientId === action.ingredient.ingredientId ? action.ingredient : ingredient;
     }),
     selectedIngredients: 'all',
   })),

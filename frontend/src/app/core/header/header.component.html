@@ -1,7 +1,6 @@
-<nav class="flex justify-between flex-wrap bg-red-400 p-6">
+<nav class="flex justify-between flex-wrap bg-red-400 p-6 gap-5">
   <div class="flex items-center text-white mr-6">
     <img src="assets/simple-cocktail-white.svg" class="fill-current h-8 w-8 mr-4" />
-
     <div *ngIf="barState$ | async as BarState; let barState">
       <div *ngIf="barState.loadedSuccessfully === true">
         <span class="font-semibold text-2xl">&nbsp;{{ barState.bar.barName }}</span>

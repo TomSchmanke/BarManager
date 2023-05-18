@@ -30,7 +30,7 @@ export class IngredientsEditComponent {
       this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
       if (this.newOrExisitingIngredient === 'existing') {
         this.ingredientsEditForm?.setValue({
-          name: ingredient?.name ? ingredient.name : '',
+          name: ingredient?.ingredientName ? ingredient.ingredientName : '',
           amount: ingredient?.amount ? ingredient.amount : 0,
           description: ingredient?.description ? ingredient.description : '',
         });
@@ -41,7 +41,7 @@ export class IngredientsEditComponent {
       .select(selectSelectedIngredientGroup)
       .pipe(
         first(),
-        map(ingredient => ingredient?.id)
+        map(ingredient => ingredient?.ingredientGroupId)
       )
       .subscribe(id => {
         this.selectedIngredientGroupId = id;
@@ -50,8 +50,8 @@ export class IngredientsEditComponent {
 
   onSubmit() {
     const newIngredient: Ingredient = {
-      id: '0',
-      name: this.ingredientsEditForm?.get('name')?.value,
+      ingredientId: '0',
+      ingredientName: this.ingredientsEditForm?.get('name')?.value,
       description: this.ingredientsEditForm?.get('description')?.value,
       amount: this.ingredientsEditForm?.get('amount')?.value,
     };

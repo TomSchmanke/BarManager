@@ -30,8 +30,8 @@ export class RecipesEditComponent {
     this.store.select(selectSelectedCocktail).subscribe(cocktail => {
       this.newOrExsistingCocktail = cocktail ? 'existing' : 'new';
       if (this.newOrExsistingCocktail === 'existing') {
-        this.cocktailEditForm?.get('name')?.setValue(cocktail?.name ? cocktail.name : '');
-        cocktail?.recipeIngredient?.forEach(item =>
+        this.cocktailEditForm?.get('name')?.setValue(cocktail?.cocktailName ? cocktail.cocktailName : '');
+        cocktail?.recipeIngredients?.forEach(item =>
           this.addIngredientToCocktailForm(item.ingredientGroupName, item.amount)
         );
       } else {
@@ -54,7 +54,9 @@ export class RecipesEditComponent {
   }
 
   getUnitOfMeasurementToIngredient(ingredientName: string) {
-    const uOM = this.allIngredients?.find(ingredient => ingredient.name === ingredientName)?.unitOfMeasurement;
+    const uOM = this.allIngredients?.find(
+      ingredient => ingredient.ingredientGroupId === ingredientName
+    )?.unitOfMeasurement;
     return uOM ? uOM : UnitOfMeasurement.ML;
   }
 
@@ -71,12 +73,12 @@ export class RecipesEditComponent {
 
   onSubmit() {
     const newCocktail: Cocktail = {
-      id: '0',
-      name: this.cocktailEditForm?.get('name')?.value,
-      recipeIngredient: [],
+      cocktailId: '0',
+      cocktailName: this.cocktailEditForm?.get('name')?.value,
+      recipeIngredients: [],
     };
     (<FormArray>this.cocktailEditForm?.get('ingredients')).controls.forEach(item =>
-      newCocktail.recipeIngredient?.push({
+      newCocktail.recipeIngredients?.push({
         ingredientGroupName: item.value.ingredientGroup,
         amount: item.value.amount,
         unitOfMeasurement: this.getUnitOfMeasurementToIngredient(item.value.ingredientGroup),

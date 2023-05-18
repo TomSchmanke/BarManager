@@ -36,7 +36,7 @@ export class IngredientsGroupEffects {
         this.ingredientGroupsService
           .putIngredientGroup({
             'bar-id': barId,
-            'ingredient-group-id': action.ingredientGroup.id,
+            'ingredient-group-id': action.ingredientGroup.ingredientGroupId,
             body: action.ingredientGroup,
           })
           .pipe(

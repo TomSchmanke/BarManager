@@ -24,34 +24,30 @@ export class OrdersEffects {
     )
   );
 
-  private acceptOrder$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromOrdersActions.acceptSingleOrder),
-        withLatestFrom(this.store.select(selectBarId)),
-        switchMap(([action, barId]) =>
-          this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
-            map(() => fromOrdersActions.acceptSingleOrderSuccess({ orderId: action.orderId })),
-            catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ error: error })))
-          )
+  private acceptOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.acceptSingleOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
+          map(() => fromOrdersActions.acceptSingleOrderSuccess({ orderId: action.orderId })),
+          catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ error: error })))
         )
-      ),
-    { dispatch: false }
+      )
+    )
   );
 
-  private declineOrder$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromOrdersActions.declineSingleOrder),
-        withLatestFrom(this.store.select(selectBarId)),
-        switchMap(([action, barId]) =>
-          this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
-            map(() => fromOrdersActions.declineSingleOrderSuccess({ orderId: action.orderId })),
-            catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ error: error })))
-          )
+  private declineOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.declineSingleOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
+          map(() => fromOrdersActions.declineSingleOrderSuccess({ orderId: action.orderId })),
+          catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ error: error })))
         )
-      ),
-    { dispatch: false }
+      )
+    )
   );
 
   constructor(private actions$: Actions, private ordersService: OrdersService) {}

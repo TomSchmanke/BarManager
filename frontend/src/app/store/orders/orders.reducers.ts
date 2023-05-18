@@ -87,7 +87,6 @@ export const reducer = createReducer(
   on(OrdersActions.acceptSingleOrderSuccess, (state, action) => ({
     ...state,
     orders: {
-      ...state.orders,
       content: state.orders.content.filter(orders => orders.orderId !== action.orderId),
       loading: false,
     },
@@ -99,7 +98,6 @@ export const reducer = createReducer(
   on(OrdersActions.acceptSingleOrderFailure, (state, action) => ({
     ...state,
     orders: {
-      ...state.orders,
       content: [],
       loading: false,
       error: action.error,
@@ -108,7 +106,6 @@ export const reducer = createReducer(
   on(OrdersActions.declineSingleOrderSuccess, (state, action) => ({
     ...state,
     orders: {
-      ...state.orders,
       content: state.orders.content.filter(orders => orders.orderId !== action.orderId),
       loading: false,
     },

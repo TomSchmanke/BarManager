@@ -10,9 +10,12 @@ export const selectSingleOrder = createAction('[orders] select single order', pr
 export const resetSelectSingleOrder = createAction('[orders] reset select single order');
 
 export const acceptSingleOrder = createAction('[orders] accept single order', props<{ orderId: string }>());
-export const acceptSingleOrderSuccess = createAction('[orders] accept single order', props<{ orderId?: string }>());
+export const acceptSingleOrderSuccess = createAction(
+  '[orders] accept single order success',
+  props<{ orderId?: string }>()
+);
 export const acceptSingleOrderFailure = createAction(
-  '[orders] accept single order',
+  '[orders] accept single order failure',
   props<{ error: HttpErrorResponse }>()
 );
 

@@ -22,7 +22,7 @@ export class IngredientsGroupEditComponent {
 
   ngOnInit() {
     this.ingredientsGroupEditForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]*')]],
+      name: ['', [Validators.required]],
       unitOfMeasurement: [0, [Validators.required]],
     });
 

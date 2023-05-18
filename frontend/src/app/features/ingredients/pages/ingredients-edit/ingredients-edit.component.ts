@@ -21,9 +21,9 @@ export class IngredientsEditComponent {
 
   ngOnInit() {
     this.ingredientsEditForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]*')]],
+      name: ['', [Validators.required]],
       amount: [0, [Validators.required, Validators.pattern('[0-9]*')]],
-      description: ['', [Validators.pattern('[a-zA-Z]*')]],
+      description: [''],
     });
 
     this.store.select(selectSelectedIngredient).subscribe(ingredient => {

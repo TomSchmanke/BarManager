@@ -86,12 +86,38 @@ export const reducer = createReducer(
   })),
   on(OrdersActions.acceptSingleOrderSuccess, (state, action) => ({
     ...state,
+    orders: {
+      ...state.orders,
+      content: state.orders.content.filter(orders => orders.orderId !== action.orderId),
+      loading: false,
+    },
     modifyOrder: {
       ...state.modifyOrder,
       loading: false,
     },
   })),
   on(OrdersActions.acceptSingleOrderFailure, (state, action) => ({
+    ...state,
+    orders: {
+      ...state.orders,
+      content: [],
+      loading: false,
+      error: action.error,
+    },
+  })),
+  on(OrdersActions.declineSingleOrderSuccess, (state, action) => ({
+    ...state,
+    orders: {
+      ...state.orders,
+      content: state.orders.content.filter(orders => orders.orderId !== action.orderId),
+      loading: false,
+    },
+    modifyOrder: {
+      ...state.modifyOrder,
+      loading: false,
+    },
+  })),
+  on(OrdersActions.declineSingleOrderFailure, (state, action) => ({
     ...state,
     orders: {
       ...state.orders,

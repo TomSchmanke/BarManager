@@ -3,7 +3,7 @@ import { Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectBarId } from 'src/app/store/bar/bar.selectors';
-import { declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
+import { acceptSingleOrder, declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
 import { selectOrderContent, selectOrdersLoadingStatus } from 'src/app/store/orders/orders.selectors';
 
 @Component({
@@ -21,7 +21,9 @@ export class OrdersOverviewComponent {
     this.store.dispatch(selectSingleOrder({ orderId }));
   }
 
-  openAcceptOrderModal(orderId: string) {}
+  openAcceptOrderModal(orderId: string) {
+    this.store.dispatch(acceptSingleOrder({ orderId: orderId }));
+  }
 
   openDeclineOrderModal(orderId: string) {
     this.orderToDelete = orderId;

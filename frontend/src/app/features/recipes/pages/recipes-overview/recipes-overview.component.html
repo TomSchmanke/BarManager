@@ -2,7 +2,7 @@
   <ng-container *ngIf="(cocktails$ | async) && (cocktails$ | async).length !== 0; else noCocktails">
     <h2>Cocktails</h2>
     <div class="my-6">
-      <button barButton (click)="addCocktail()">Add new ingredient group</button>
+      <button barButton (click)="addCocktail()">Add new cocktail</button>
     </div>
 
     <div *ngFor="let cocktail of cocktails$ | async" class="border-t-2 border-gray-200 p-4">

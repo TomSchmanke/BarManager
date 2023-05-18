@@ -1,9 +1,9 @@
-import { IngredientGroup } from '@bar-manager/api';
+import { IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { createReducer, on } from '@ngrx/store';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import * as IngredientGroupActions from './ingredient-group.actions';
-
+import * as IngredientsActions from '../ingredients/ingredients.actions';
 export const featureKey = 'ingredients-groups';
 
 export interface IngredientGroupState {
@@ -48,7 +48,18 @@ export const reducer = createReducer(
     ingredientGroups: state.ingredientGroups.filter(
       ingredientGroup => ingredientGroup.ingredientGroupId !== action.ingredientGroupId
     ),
-    selectedIngredients: 'all',
+  })),
+  on(IngredientsActions.deleteIngredientSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    selectedIngredientGroup: {
+      ingredientGroupId: state.selectedIngredientGroup?.ingredientGroupId || '',
+      ingredientGroupName: state.selectedIngredientGroup?.ingredientGroupName || '',
+      unitOfMeasurement: state.selectedIngredientGroup?.unitOfMeasurement || UnitOfMeasurement.ML,
+      ingredients: state.selectedIngredientGroup?.ingredients?.filter(
+        ingredient => ingredient.ingredientId !== action.ingredientId
+      ),
+    },
   })),
   on(IngredientGroupActions.deleteIngredientGroupFailure, (state, action) => ({
     ...state,
@@ -68,7 +79,6 @@ export const reducer = createReducer(
         ? action.ingredientGroup
         : ingredientGroup;
     }),
-    selectedIngredients: 'all',
   })),
   on(IngredientGroupActions.editIngredientGroupFailure, (state, action) => ({
     ...state,

@@ -20,17 +20,13 @@ import {
   templateUrl: './ingredients-detail.component.html',
   styleUrls: ['./ingredients-detail.component.css'],
 })
-export class IngredientsDetailComponent implements OnInit {
+export class IngredientsDetailComponent {
   private store = inject(Store);
   private router = inject(Router);
   loading$: Observable<boolean> = this.store.select(selectIngredientsLoadingStatus);
   ingredients$: Observable<Ingredient[]> = this.store.select(selectIngredientsContent);
   ingredientToDelete?: string;
-  selectedIngredientGroup: Observable<IngredientGroup | undefined> = this.store.select(selectSelectedIngredientGroup);
-
-  ngOnInit(): void {
-    this.store.dispatch(loadIngredients());
-  }
+  selectedIngredientGroup$: Observable<IngredientGroup | undefined> = this.store.select(selectSelectedIngredientGroup);
 
   selectIngredient(ingredientId: string) {
     this.store.dispatch(selectSingleIngredient({ ingredientId }));

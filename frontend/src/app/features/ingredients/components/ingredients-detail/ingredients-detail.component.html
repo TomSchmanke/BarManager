@@ -1,10 +1,10 @@
 <ng-container *ngIf="(loading$ | async) === false; else loading">
-  <ng-container *ngIf="(ingredients$ | async) && (ingredients$ | async).length !== 0; else noIngredients">
+  <ng-container *ngIf="selectedIngredientGroup$ | async; let selectedIngredientGroup">
     <table class="w-full">
-      <tbody>
-        <ng-template ngFor let-ingredient [ngForOf]="ingredients$">
+      <div *ngIf="selectedIngredientGroup.ingredients.length > 0; else noIngredients">
+        <tbody>
           <tr
-            *ngIf="ingredient.name"
+            *ngFor="let ingredient of selectedIngredientGroup.ingredients"
             tabindex="0"
             class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-gray-200"
             (click)="selectIngredient(ingredient.ingredientId)">
@@ -55,8 +55,8 @@
               </app-delete-modal>
             </td>
           </tr>
-        </ng-template>
-      </tbody>
+        </tbody>
+      </div>
     </table>
 
     <div class="my-6">
@@ -71,7 +71,7 @@
 
 <ng-template #noIngredients>
   <app-not-found-widget
-    headline="No ingredinet found"
+    headline="No Ingredients found"
     message="The system was unable to load the ingredients. That could be, because there are no ingredients or because of an error in the system">
   </app-not-found-widget>
 </ng-template>

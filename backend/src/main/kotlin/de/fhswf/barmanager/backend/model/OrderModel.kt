@@ -9,9 +9,19 @@ data class Order(
     @Id
     @JsonProperty("orderId")
     var id: String?,
+
+    @JsonProperty("barId")
     var barId: String?,
+
+    @JsonProperty("cocktailId")
     val cocktailId: String,
+
+    @JsonProperty("cocktailName")
     val cocktailName: String,
+
+    @JsonProperty("customerName")
     val customerName: String,
+
+    @JsonProperty("timestamp")
     var timestamp: String?
 )

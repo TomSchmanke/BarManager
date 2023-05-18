@@ -10,9 +10,16 @@ data class IngredientGroup(
     @Id
     @JsonProperty("ingredientGroupId")
     var id: String?,
+
+    @JsonProperty("barId")
     var barId: String?,
+
+    @JsonProperty("ingredientGroupName")
     val name: String,
+
+    @JsonProperty("unitOfMeasurement")
     val unitOfMeasurement: MeasurementUnit,
+
     @Transient
     var ingredients: List<Ingredient>?
 )
@@ -22,10 +29,19 @@ data class Ingredient(
     @Id
     @JsonProperty("ingredientId")
     var id: String?,
+
+    @JsonProperty("barId")
     var barId: String?,
+
+    @JsonProperty("ingredientName")
     var name: String,
+
+    @JsonProperty("amount")
     var amount: Int,
+
+    @JsonProperty("description")
     var description: String,
+
     @JsonIgnore
     var ingredientGroupId: String?,
 )

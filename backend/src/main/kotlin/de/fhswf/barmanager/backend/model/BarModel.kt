@@ -9,7 +9,13 @@ data class Bar(
     @Id
     @JsonProperty("barId")
     var barId: String?,
+
+    @JsonProperty("barName")
     val barName: String,
+
+    @JsonProperty("ownerName")
     val ownerName: String,
+
+    @JsonProperty("barCode")
     var barCode: String? // max. 6 chars
 )

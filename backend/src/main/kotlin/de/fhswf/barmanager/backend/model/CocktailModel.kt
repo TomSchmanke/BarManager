@@ -21,7 +21,12 @@ data class Cocktail(
 )
 
 data class CocktailIngredient(
+    @JsonProperty("unitOfMeasurement")
     val unitOfMeasurement: MeasurementUnit,
+
+    @JsonProperty("ingredientGroupName")
     val ingredientGroup: String,
+
+    @JsonProperty("amount")
     val amount: Int
 )

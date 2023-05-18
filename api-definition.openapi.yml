@@ -560,14 +560,14 @@ components:
     ingredientGroup:
       type: object
       required:
-        - id
-        - name
+        - ingredientGroupId
+        - ingredientName
         - unitOfMeasurement
       properties:
-        id:
+        ingredientGroupId:
           type: string
           example: 1
-        name:
+        ingredientGroupName:
           type: string
           example: Gin
         unitOfMeasurement:
@@ -579,17 +579,17 @@ components:
     cocktail:
       type: object
       required:
-        - id
-        - name
+        - cocktailId
+        - cocktailName
         - ingredientGroup
       properties:
-        id:
+        cocktailId:
           type: string
           example: 1
-        name:
+        cocktailName:
           type: string
           example: Gin Tonic
-        recipeIngredient:
+        recipeIngredients:
           type: array
           items:
             $ref: "#/components/schemas/recipeIngredient"
@@ -611,14 +611,14 @@ components:
     ingredient:
       type: object
       required:
-        - id
-        - name
+        - ingredientId
+        - ingredientName
         - amount
       properties:
-        id:
+        ingredientId:
           type: string         
           example: 1
-        name:
+        ingredientName:
           type: string
           example: Gin de Cologne
         amount:

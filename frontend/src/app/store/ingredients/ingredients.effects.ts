@@ -1,18 +1,20 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { withLatestFrom, switchMap, map, catchError, of } from 'rxjs';
+import { withLatestFrom, switchMap, map, catchError, of, tap } from 'rxjs';
 import { selectBarId } from '../bar/bar.selectors';
 import * as fromIngredientsActions from './ingredients.actions';
 import { IngredientGroupsService, IngredientsService } from '@bar-manager/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { selectIngredientGroups, selectSelectedIngredientGroup } from '../ingredient-group/ingredient-group.selectors';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class IngredientsEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
   private ingredientsService = inject(IngredientsService);
+  private router = inject(Router);
 
   private loadIngredients$ = createEffect(() =>
     this.actions$.pipe(
@@ -58,6 +60,16 @@ export class IngredientsEffects {
           )
       )
     )
+  );
+
+  private updateIngredientSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromIngredientsActions.editIngredientSuccess, fromIngredientsActions.addIngredientSuccess),
+        withLatestFrom(this.store.select(selectBarId)),
+        tap(() => this.router.navigate(['/ingredients']))
+      ),
+    { dispatch: false }
   );
 
   private postIngredient$ = createEffect(() =>

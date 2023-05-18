@@ -2,17 +2,18 @@ import { selectBarId } from '../bar/bar.selectors';
 import * as fromCocktailActions from './cocktails.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CocktailsService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 
 @Injectable()
 export class CocktailsEffects {
   private actions$ = inject(Actions);
   private store = inject(Store);
   private cocktailsService = inject(CocktailsService);
-
+  private router = inject(Router);
   private loadCocktails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromCocktailActions.loadCocktails),
@@ -61,7 +62,15 @@ export class CocktailsEffects {
       )
     )
   );
-
+  private updateCocktailSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromCocktailActions.editCocktailSuccess, fromCocktailActions.addCocktailSuccess),
+        withLatestFrom(this.store.select(selectBarId)),
+        tap(() => this.router.navigate(['/recipes']))
+      ),
+    { dispatch: false }
+  );
   private deleteCocktail$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromCocktailActions.deleteCocktail),

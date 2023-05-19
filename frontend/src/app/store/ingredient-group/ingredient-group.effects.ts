@@ -90,19 +90,24 @@ export class IngredientsGroupEffects {
     this.actions$.pipe(
       ofType(fromIngredientGroupActions.addIngredientGroup),
       withLatestFrom(this.store.select(selectBarId)),
-      switchMap(([action, barId]) =>
-        this.ingredientGroupsService
+      switchMap(([action, barId]) => {
+        const ingredientGroupObj: any = {
+          ingredientGroupName: action.ingredientGroup.ingredientGroupName,
+          ingredients: action.ingredientGroup.ingredients,
+          unitOfMeasurement: action.ingredientGroup.unitOfMeasurement,
+        };
+        return this.ingredientGroupsService
           .postIngredientGroup({
             'bar-id': barId,
-            body: action.ingredientGroup,
+            body: ingredientGroupObj,
           })
           .pipe(
             map(ingredientGroup =>
               fromIngredientGroupActions.addIngredientGroupSuccess({ ingredientGroup: ingredientGroup })
             ),
             catchError(error => of(fromIngredientGroupActions.addIngredientGroupFailure({ error })))
-          )
-      )
+          );
+      })
     )
   );
 }

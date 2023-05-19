@@ -43,16 +43,7 @@
       </button>
     </div>
     <div class="my-6">
-      <button
-        *ngIf="newOrExistingCocktail === 'new'; else editCocktailButtonTemplate"
-        barButton
-        type="submit"
-        [disabled]="cocktailEditForm?.invalid">
-        Add new cocktail
-      </button>
-      <ng-template #editCocktailButtonTemplate>
-        <button barButton type="submit" [disabled]="cocktailEditForm?.invalid">Edit cocktail</button>
-      </ng-template>
+      <button barButton type="submit" [disabled]="cocktailEditForm?.invalid">Add new cocktail</button>
     </div>
   </form>
 </div>

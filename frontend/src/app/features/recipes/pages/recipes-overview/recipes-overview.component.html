@@ -8,11 +8,11 @@
     <div *ngFor="let cocktail of cocktails$ | async" class="border-t-2 border-gray-200 p-4">
       <div>
         <h3 class="inline font-bold pr-1">Cocktail Id:</h3>
-        <span>{{ cocktail.id }}</span>
+        <span>{{ cocktail.cocktailId }}</span>
       </div>
       <div>
         <h3 class="inline font-bold pr-1">Cocktail Name:</h3>
-        <span>{{ cocktail.cocktailId }}</span>
+        <span>{{ cocktail.cocktailName }}</span>
       </div>
       <h3 class="inline font-bold">Ingredients:</h3>
       <ol class="list-decimal px-8">

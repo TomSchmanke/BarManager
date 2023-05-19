@@ -76,18 +76,24 @@ export class IngredientsEffects {
     this.actions$.pipe(
       ofType(fromIngredientsActions.addIngredient),
       withLatestFrom(this.store.select(selectBarId)),
-      switchMap(([action, barId]) =>
-        this.ingredientsService
+      switchMap(([action, barId]) => {
+        const ingredientObj: any = {
+          amount: action.ingredient.amount,
+          description: action.ingredient.description,
+          ingredientName: action.ingredient.ingredientName,
+        };
+        delete ingredientObj['ingredientId'];
+        return this.ingredientsService
           .postIngredient({
             'bar-id': barId,
             'ingredient-group-id': action.ingredientGroupId,
-            body: action.ingredient,
+            body: ingredientObj,
           })
           .pipe(
             map(ingredient => fromIngredientsActions.addIngredientSuccess({ ingredient: ingredient })),
             catchError(error => of(fromIngredientsActions.addIngredientFailure({ error })))
-          )
-      )
+          );
+      })
     )
   );
 }

@@ -48,8 +48,9 @@ export class CocktailsEffects {
     this.actions$.pipe(
       ofType(fromCocktailActions.editCocktail),
       withLatestFrom(this.store.select(selectBarId)),
-      switchMap(([action, barId]) =>
-        this.cocktailsService
+      switchMap(([action, barId]) => {
+        console.log(action.cocktail);
+        return this.cocktailsService
           .putCocktail({
             'bar-id': barId,
             'cocktail-id': action.cocktail.cocktailId,
@@ -58,8 +59,8 @@ export class CocktailsEffects {
           .pipe(
             map(cocktail => fromCocktailActions.editCocktailSuccess({ cocktail: cocktail })),
             catchError((error: HttpErrorResponse) => of(fromCocktailActions.editCocktailFailure({ error })))
-          )
-      )
+          );
+      })
     )
   );
   private updateCocktailSuccess$ = createEffect(

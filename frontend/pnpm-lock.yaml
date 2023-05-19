@@ -43,6 +43,9 @@ dependencies:
   '@ngrx/store-devtools':
     specifier: ^15.4.0
     version: 15.4.0(@ngrx/store@15.4.0)(rxjs@7.8.0)
+  ngx-owl-carousel-o:
+    specifier: ^15.0.1
+    version: 15.0.1(@angular/common@15.2.5)(@angular/core@15.2.5)(rxjs@7.8.0)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.0
@@ -6769,6 +6772,19 @@ packages:
       rxjs: 7.8.0
       typescript: 4.9.5
     dev: true
+
+  /ngx-owl-carousel-o@15.0.1(@angular/common@15.2.5)(@angular/core@15.2.5)(rxjs@7.8.0):
+    resolution: {integrity: sha512-ZKP6Bzi7CXyDa70NDSA20z3s2dtUOsUgHzdN55bKQVe3aXs9tLWU66sDWIWGRxgIK5QVE7WD/HbEO5JeT0gwCw==}
+    peerDependencies:
+      '@angular/common': ' ^15.0.0-rc.0 || ^15.0.0'
+      '@angular/core': ^15.0.0-rc.0 || ^15.0.0
+      rxjs: ^6.0.1 || ^7.0.0
+    dependencies:
+      '@angular/common': 15.2.5(@angular/core@15.2.5)(rxjs@7.8.0)
+      '@angular/core': 15.2.5(rxjs@7.8.0)(zone.js@0.12.0)
+      rxjs: 7.8.0
+      tslib: 2.5.0
+    dev: false
 
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}

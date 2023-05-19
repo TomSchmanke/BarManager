@@ -1,5 +1,5 @@
 <ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === false">
-  <div class="flex items-center justify-betweenw-full" *ngIf="!!(selectCocktailContent$ | async)">
+  <div class="flex items-center justify-betweenw-full gap-4" *ngIf="!!(selectCocktailContent$ | async)">
     <form class="w-1/2" [formGroup]="barCreationForm" (ngSubmit)="onBarCreationSubmit()">
       <h2>Create Bar</h2>
       <div class="flex gap-4">
@@ -52,8 +52,45 @@
   </ng-template>
 </ng-container>
 <ng-container *ngIf="(selectBarLoadedSuccessfully$ | async) === true">
-  <app-recipes-overview></app-recipes-overview>
-</ng-container>
-<ng-container *ngIf="loading$ | async">
-  <app-loading-spinner></app-loading-spinner>
+  <ng-container *ngIf="(cocktailLoading$ | async) === false; else loading">
+    <ng-container
+      *ngIf="(selectCocktailContent$ | async) && (selectCocktailContent$ | async).length !== 0; else noCocktails">
+      <h2>Cocktails</h2>
+      <owl-carousel-o class="flex justify-center" [options]="customOptions">
+        <ng-container *ngFor="let cocktail of selectCocktailContent$ | async">
+          <ng-template carouselSlide [id]="cocktail.cocktailId">
+            <div class="h-64 flex flex-col justify-between">
+              <div>
+                <h3 class="inline font-bold pr-1">Cocktail Name:</h3>
+                <span>{{ cocktail.cocktailName }}</span>
+              </div>
+              <h3 class="inline font-bold">Ingredients:</h3>
+              <ol class="list-decimal px-8">
+                <li *ngFor="let recipeIngredient of cocktail.recipeIngredients" class="px-4">
+                  <span class="pr-1">{{ recipeIngredient.ingredientGroupName }}</span>
+                  <span class="pr-1">{{ recipeIngredient.amount }}</span>
+                  <span>{{ recipeIngredient.unitOfMeasurement }}</span>
+                </li>
+              </ol>
+              <button class="" barButton (click)="placeOrder(cocktail)">Order Cocktail</button>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </ng-container>
+
+    <ng-template #loading>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+
+    <ng-template #noCocktails>
+      <app-not-found-widget
+        headline="No cocktails found"
+        message="The system was unable to load the cocktails. That could be, because there are no cocktails or because of an error in the system">
+      </app-not-found-widget>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="loading$ | async">
+    <app-loading-spinner></app-loading-spinner>
+  </ng-container>
 </ng-container>

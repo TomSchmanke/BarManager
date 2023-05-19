@@ -10,7 +10,6 @@ export const selectCocktails = createSelector(selectCocktailState, state => stat
 export const selectCocktailsLoadingStatus = createSelector(selectCocktailState, state => state.loading);
 export const selectCocktailsError = createSelector(selectCocktailState, state => state.error);
 
-export const selectCocktailContent = createSelector(selectCocktailState, state => state.cocktails);
 export const selectSelectedCocktail = createSelector(selectCocktailState, state => state.selectedCocktail);
 export const selectSelectedCocktailsLoadingStatus = createSelector(selectCocktailState, state => state.loading);
 export const selectSelectedCocktailsError = createSelector(selectCocktailState, state => state.error);

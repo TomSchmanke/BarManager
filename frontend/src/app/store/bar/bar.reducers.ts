@@ -15,18 +15,21 @@ export interface BarState {
   orders: Order[];
   loading: boolean;
   loadedSuccessfully: boolean;
+  loggedInUser: string;
 }
 
 export const initialState: BarState = {
   loading: false,
   loadedSuccessfully: false,
   bar: { barId: '0', barName: '', ownerName: '', barCode: '000000' },
+  loggedInUser: '',
   cocktails: [],
   orders: [],
 };
 
 export const reducer = createReducer(
   initialState,
+  on(BarActions.setLoggedInUser, (state, action) => ({ ...state, loggedInUser: action.loggedInUser })),
   on(BarActions.loadBar, state => ({ ...state, loading: true })),
   on(BarActions.loadBarSuccess, (state, action) => ({
     ...state,

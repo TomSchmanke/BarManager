@@ -5,12 +5,13 @@ import { BarCreationRequest, Cocktail, Order, OrderCreationRequest } from '@bar-
 import { Store } from '@ngrx/store';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
-import { addBar, loadBar } from 'src/app/store/bar/bar.actions';
+import { addBar, loadBar, setLoggedInUser } from 'src/app/store/bar/bar.actions';
 import {
   selectBarError,
   selectBarId,
   selectBarLoadedSuccessfully,
   selectBarLoadingStatus,
+  selectLoggedInUser,
 } from 'src/app/store/bar/bar.selectors';
 import { addOrder, loadOrders } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';
@@ -74,18 +75,21 @@ export class DashboardComponent {
   };
 
   placeOrder(cocktail: Cocktail) {
-    const orderCreationRequest: any = {
-      cocktailId: cocktail.cocktailId,
-      customerName: this.loginForm.controls['customerName'].value,
-      cocktailName: cocktail.cocktailName,
-    };
-    this.store.dispatch(addOrder({ order: orderCreationRequest }));
+    this.store.select(selectLoggedInUser).subscribe(user => {
+      const orderCreationRequest: any = {
+        cocktailId: cocktail.cocktailId,
+        customerName: user,
+        cocktailName: cocktail.cocktailName,
+      };
+      this.store.dispatch(addOrder({ order: orderCreationRequest }));
+    });
   }
   onBarCreationSubmit() {
     this.store.dispatch(addBar({ barCreationRequest: this.barCreationForm.value as BarCreationRequest }));
   }
   onLoginSubmit() {
     this.store.dispatch(loadBar({ barCode: this.loginForm.controls['barCode'].value }));
+    this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
         this.store.dispatch(loadOrders());

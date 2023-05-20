@@ -49,7 +49,6 @@ export class CocktailsEffects {
       ofType(fromCocktailActions.editCocktail),
       withLatestFrom(this.store.select(selectBarId)),
       switchMap(([action, barId]) => {
-        console.log(action.cocktail);
         return this.cocktailsService
           .putCocktail({
             'bar-id': barId,

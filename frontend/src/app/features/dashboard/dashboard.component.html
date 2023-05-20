@@ -68,7 +68,7 @@
       *ngIf="(selectCocktailContent$ | async) && (selectCocktailContent$ | async).length !== 0; else noCocktails">
       <h2>Cocktails</h2>
       <owl-carousel-o class="flex justify-center" [options]="customOptions">
-        <ng-container *ngFor="let cocktail of selectCocktailContent$ | async">
+        <ng-container class="" *ngFor="let cocktail of selectCocktailContent$ | async">
           <ng-template carouselSlide [id]="cocktail.cocktailId">
             <div class="h-64 flex flex-col justify-between">
               <div>
@@ -83,7 +83,7 @@
                   <span>{{ recipeIngredient.unitOfMeasurement }}</span>
                 </li>
               </ol>
-              <button class="" barButton (click)="placeOrder(cocktail)">Order Cocktail</button>
+              <button class="ml-2" barButton (click)="placeOrder(cocktail)">Order Cocktail</button>
             </div>
           </ng-template>
         </ng-container>

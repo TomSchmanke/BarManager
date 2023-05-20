@@ -11,10 +11,14 @@
             {{ order.orderId }}
           </p>
         </td>
-
         <td class="pl-5">
           <p class="text-sm leading-none text-gray-600 ml-2">
-            {{ order.timestamp }}
+            {{ order.customerName }}
+          </p>
+        </td>
+        <td class="pl-5">
+          <p class="text-sm leading-none text-gray-600 ml-2">
+            {{ order.timestamp | date : 'short' }}
           </p>
         </td>
 

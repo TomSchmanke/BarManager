@@ -12,3 +12,5 @@ export const selectBarId = createSelector(selectBarState, state => state.bar.bar
 export const selectBarLoadingStatus = createSelector(selectBarState, state => state.loading);
 
 export const selectBarError = createSelector(selectBarState, state => state.error);
+
+export const selectLoggedInUser = createSelector(selectBarState, state => state.loggedInUser);

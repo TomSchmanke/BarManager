@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BarCreationRequest, Cocktail } from '@bar-manager/api';
+import { BarCreationRequest, Cocktail, Order, OrderCreationRequest } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import {
   selectBarLoadedSuccessfully,
   selectBarLoadingStatus,
 } from 'src/app/store/bar/bar.selectors';
-import { loadOrders } from 'src/app/store/orders/orders.actions';
+import { addOrder, loadOrders } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';
 import {
   selectCocktails,
@@ -42,6 +42,7 @@ export class DashboardComponent {
   public error$: Observable<HttpErrorResponse | undefined> = this.store.select(selectBarError);
   public loginForm: FormGroup = this.formBuilder.group({
     barCode: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
+    customerName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
   });
 
   public customOptions: OwlOptions = {
@@ -73,7 +74,12 @@ export class DashboardComponent {
   };
 
   placeOrder(cocktail: Cocktail) {
-    console.log(cocktail);
+    const orderCreationRequest: any = {
+      cocktailId: cocktail.cocktailId,
+      customerName: this.loginForm.controls['customerName'].value,
+      cocktailName: cocktail.cocktailName,
+    };
+    this.store.dispatch(addOrder({ order: orderCreationRequest }));
   }
   onBarCreationSubmit() {
     this.store.dispatch(addBar({ barCreationRequest: this.barCreationForm.value as BarCreationRequest }));

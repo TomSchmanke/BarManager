@@ -41,9 +41,20 @@
             maxLength="6"
             id="barCode-description"
             placeholder="Bar code" />
-          <button barButton [disabled]="loginForm.invalid" type="submit">Join Bar</button>
+        </span>
+        <span>
+          <label for="customer-name" class="block mb-2 text-base font-medium text-gray-900">Customer name</label>
+          <input
+            barInput
+            formControlName="customerName"
+            type="text"
+            minLength="1"
+            maxLength="20"
+            id="customer-Name-description"
+            placeholder="Customer Name" />
         </span>
       </div>
+      <button barButton [disabled]="loginForm.invalid" type="submit">Join Bar</button>
     </form>
   </div>
 

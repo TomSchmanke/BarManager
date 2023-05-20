@@ -23,6 +23,18 @@ export class OrdersEffects {
       )
     )
   );
+  private addOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.addOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.postOrder({ 'bar-id': barId, body: action.order as any }).pipe(
+          map(order => fromOrdersActions.addOrderSuccess({ order: order })),
+          catchError(error => of(fromOrdersActions.addOrderFailure({ error })))
+        )
+      )
+    )
+  );
 
   private acceptOrder$ = createEffect(() =>
     this.actions$.pipe(

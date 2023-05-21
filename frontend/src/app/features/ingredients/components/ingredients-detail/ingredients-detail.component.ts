@@ -1,9 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ingredient, IngredientGroup } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectSelectedIngredientGroup } from 'src/app/store/ingredient-group/ingredient-group.selectors';
+import { Observable, Subscription } from 'rxjs';
+import { resetSelectSingleIngredientGroup } from 'src/app/store/ingredient-group/ingredient-group.actions';
+import {
+  selectIngredientGroups,
+  selectSelectedIngredientGroup,
+} from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import {
   deleteIngredient,
   loadIngredients,
@@ -20,11 +24,13 @@ import {
   templateUrl: './ingredients-detail.component.html',
   styleUrls: ['./ingredients-detail.component.css'],
 })
-export class IngredientsDetailComponent {
+export class IngredientsDetailComponent implements OnDestroy {
   private store = inject(Store);
   private router = inject(Router);
+
   loading$: Observable<boolean> = this.store.select(selectIngredientsLoadingStatus);
   ingredients$: Observable<Ingredient[]> = this.store.select(selectIngredientsContent);
+
   ingredientToDelete?: string;
   selectedIngredientGroup$: Observable<IngredientGroup | undefined> = this.store.select(selectSelectedIngredientGroup);
 
@@ -45,6 +51,9 @@ export class IngredientsDetailComponent {
     this.ingredientToDelete = undefined;
   }
 
+  ngOnDestroy(): void {
+    this.store.dispatch(resetSelectSingleIngredientGroup());
+  }
   confirmDeleteIngredientModal() {
     this.store.dispatch(deleteIngredient({ ingredientId: this.ingredientToDelete! }));
     this.ingredientToDelete = undefined;

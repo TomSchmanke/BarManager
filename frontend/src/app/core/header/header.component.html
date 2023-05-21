@@ -21,7 +21,7 @@
     </button>
   </div>
   <div *ngIf="barState$ | async as BarState; let barState">
-    <div class="flex w-auto hidden lg:block">
+    <div class="flex w-auto hidden lg:block sticky top-0">
       <div class="text-lg text-white">
         <a
           routerLink="/dashboard"

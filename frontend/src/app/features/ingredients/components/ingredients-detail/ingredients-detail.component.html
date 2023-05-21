@@ -1,5 +1,8 @@
 <ng-container *ngIf="(loading$ | async) === false; else loading">
   <ng-container *ngIf="selectedIngredientGroup$ | async; let selectedIngredientGroup">
+    <div class="my-6">
+      <button barButton (click)="addIngredient()">Add new ingredient</button>
+    </div>
     <table class="w-full">
       <div *ngIf="selectedIngredientGroup.ingredients.length > 0; else noIngredients">
         <tbody>
@@ -58,10 +61,6 @@
         </tbody>
       </div>
     </table>
-
-    <div class="my-6">
-      <button barButton (click)="addIngredient()">Add new ingredient</button>
-    </div>
   </ng-container>
 </ng-container>
 

@@ -46,34 +46,6 @@ export class DashboardComponent {
     customerName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
   });
 
-  public customOptions: OwlOptions = {
-    loop: true,
-    //autoplay: true,
-    autoplayTimeout: 2000,
-    autoplayHoverPause: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 3,
-      },
-      940: {
-        items: 4,
-      },
-    },
-    nav: true,
-  };
-
   placeOrder(cocktail: Cocktail) {
     this.store.select(selectLoggedInUser).subscribe(user => {
       const orderCreationRequest: any = {
@@ -92,7 +64,6 @@ export class DashboardComponent {
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
-        this.store.dispatch(loadOrders());
         this.store.dispatch(loadCocktails({}));
       }
     });

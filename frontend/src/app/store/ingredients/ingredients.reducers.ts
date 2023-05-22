@@ -34,7 +34,6 @@ export const reducer = createReducer(
     error: action.error,
     loading: false,
   })),
-
   on(IngredientsActions.selectSingleIngredient, (state, action) => ({
     ...state,
     selectedIngredient: state.ingredients.find(value => value.ingredientId === action.ingredientId),

@@ -32,7 +32,16 @@
           <input barInput type="number" id="ingredient-amount" formControlName="amount" placeholder="1000" />
         </div>
         <div class="my-6">
-          <button barButton type="submit" [disabled]="ingredientsEditForm?.invalid">Add new ingredient</button>
+          <button
+            *ngIf="newOrExisitingIngredient === 'new'; else notNewTemplate"
+            barButton
+            type="submit"
+            [disabled]="ingredientsEditForm?.invalid">
+            Add new ingredient
+          </button>
+          <ng-template #notNewTemplate>
+            <button barButton type="submit" [disabled]="ingredientsEditForm?.invalid">Edit ingredient</button>
+          </ng-template>
         </div>
       </form>
     </div>

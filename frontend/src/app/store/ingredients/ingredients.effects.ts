@@ -1,13 +1,11 @@
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { IngredientsService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { withLatestFrom, switchMap, map, catchError, of, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { selectBarId } from '../bar/bar.selectors';
 import * as fromIngredientsActions from './ingredients.actions';
-import { IngredientGroupsService, IngredientsService } from '@bar-manager/api';
-import { HttpErrorResponse } from '@angular/common/http';
-import { selectIngredientGroups, selectSelectedIngredientGroup } from '../ingredient-group/ingredient-group.selectors';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class IngredientsEffects {

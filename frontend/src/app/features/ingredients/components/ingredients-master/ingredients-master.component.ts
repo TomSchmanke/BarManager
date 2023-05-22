@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IngredientGroup } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ import {
   selectIngredientGroupLoadingStatus,
   selectIngredientGroups,
 } from 'src/app/store/ingredient-group/ingredient-group.selectors';
+import { loadIngredients } from 'src/app/store/ingredients/ingredients.actions';
 
 @Component({
   selector: 'app-ingredients-master',
@@ -28,6 +29,7 @@ export class IngredientsMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadIngredientGroups());
+    this.store.dispatch(loadIngredients());
   }
 
   selectIngredientGroup(ingredientGroupId: string) {
@@ -35,7 +37,6 @@ export class IngredientsMasterComponent implements OnInit {
   }
 
   addIngredientGroup() {
-    this.store.dispatch(resetSelectSingleIngredientGroup());
     this.router.navigateByUrl('/ingredients/group-edit');
   }
 

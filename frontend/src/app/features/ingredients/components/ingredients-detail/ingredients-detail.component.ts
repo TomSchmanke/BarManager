@@ -24,7 +24,7 @@ import {
   templateUrl: './ingredients-detail.component.html',
   styleUrls: ['./ingredients-detail.component.css'],
 })
-export class IngredientsDetailComponent implements OnDestroy {
+export class IngredientsDetailComponent {
   private store = inject(Store);
   private router = inject(Router);
 
@@ -51,9 +51,6 @@ export class IngredientsDetailComponent implements OnDestroy {
     this.ingredientToDelete = undefined;
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch(resetSelectSingleIngredientGroup());
-  }
   confirmDeleteIngredientModal() {
     this.store.dispatch(deleteIngredient({ ingredientId: this.ingredientToDelete! }));
     this.ingredientToDelete = undefined;

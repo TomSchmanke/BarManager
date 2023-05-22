@@ -16,7 +16,7 @@ export class IngredientsEditComponent {
   newOrExisitingIngredient?: 'new' | 'existing';
   ingredientsEditForm?: FormGroup;
   selectedIngredientGroupId?: string;
-
+  ingredientId?: string;
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -29,6 +29,7 @@ export class IngredientsEditComponent {
     this.store.select(selectSelectedIngredient).subscribe(ingredient => {
       this.newOrExisitingIngredient = ingredient ? 'existing' : 'new';
       if (this.newOrExisitingIngredient === 'existing') {
+        this.ingredientId = ingredient?.ingredientId;
         this.ingredientsEditForm?.setValue({
           name: ingredient?.ingredientName ? ingredient.ingredientName : '',
           amount: ingredient?.amount ? ingredient.amount : 0,
@@ -56,6 +57,7 @@ export class IngredientsEditComponent {
       amount: this.ingredientsEditForm?.get('amount')?.value,
     };
     if (this.newOrExisitingIngredient === 'existing') {
+      newIngredient.ingredientId = this.ingredientId!;
       this.store.dispatch(editIngredient({ ingredient: newIngredient }));
     } else {
       this.store.dispatch(

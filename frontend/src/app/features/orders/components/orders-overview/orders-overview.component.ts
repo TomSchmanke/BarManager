@@ -46,6 +46,7 @@ export class OrdersOverviewComponent {
 
     // Nur die relevanten IngredientGruppen + Ingredients
     combineLatest([ingredientGroupPromise, cocktailPromise]).subscribe(([ingredientGroups, cocktail]) => {
+      this.ingredientGroupsFiltered = [];
       for (const ingredientGroup of ingredientGroups) {
         cocktail!.recipeIngredients!.forEach(recipeIngredient => {
           if (ingredientGroup.ingredientGroupName === recipeIngredient.ingredientGroupName) {

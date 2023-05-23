@@ -76,6 +76,7 @@ export const reducer = createReducer(
 
   on(OrdersActions.acceptSingleOrder, (state, action) => ({
     ...state,
+    selectedOrder: state.orders.content.find(value => value.orderId === action.orderId),
     modifyOrder: {
       ...state.modifyOrder,
       orderId: action.orderId,

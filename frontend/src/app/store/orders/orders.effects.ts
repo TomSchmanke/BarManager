@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { OrdersService } from '@bar-manager/api';
+import { Order, OrdersService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Observable, catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { Observable, catchError, combineLatest, map, of, switchMap, withLatestFrom } from 'rxjs';
 
 import * as fromOrdersActions from './orders.actions';
 import { Store, select } from '@ngrx/store';
 import { selectBarId } from '../bar/bar.selectors';
+import { selectSelectedOrder } from './orders.selectors';
 
 @Injectable()
 export class OrdersEffects {

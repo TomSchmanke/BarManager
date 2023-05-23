@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Ingredient } from '@bar-manager/api';
+import { Ingredient, RecipeIngredient } from '@bar-manager/api';
 import { createAction, props } from '@ngrx/store';
 
 export const loadIngredients = createAction('[ingredients] load ingredients');
@@ -14,6 +14,11 @@ export const loadIngredientsFailure = createAction(
 );
 
 export const editIngredient = createAction('[ingredients] edit ingredient', props<{ ingredient: Ingredient }>());
+
+export const reduceIngredients = createAction(
+  '[ingredients] reduce ingrdient',
+  props<{ ingredients: Array<Ingredient> }>()
+);
 
 export const editIngredientSuccess = createAction(
   '[ingredients] edit ingredient success',

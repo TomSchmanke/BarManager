@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { IngredientsService } from '@bar-manager/api';
+import { Ingredient, IngredientsService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
@@ -70,6 +70,18 @@ export class IngredientsEffects {
     { dispatch: false }
   );
 
+  private reduceIngredient$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromIngredientsActions.reduceIngredients),
+        tap(action => {
+          for (const ingredient of action.ingredients) {
+            this.store.dispatch(fromIngredientsActions.editIngredient({ ingredient: ingredient }));
+          }
+        })
+      ),
+    { dispatch: false }
+  );
   private postIngredient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromIngredientsActions.addIngredient),

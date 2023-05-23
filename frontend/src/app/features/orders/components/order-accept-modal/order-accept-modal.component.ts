@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject } from '@angular/core';
+import { Ingredient, IngredientGroup } from '@bar-manager/api';
 
 @Component({
   selector: 'app-order-accept-modal',
@@ -8,8 +8,9 @@ import { Store } from '@ngrx/store';
 })
 export class OrderAcceptModalComponent {
   @Input() nameOfItemToAccept = '';
-  @Output() cancelDialog: EventEmitter<boolean> = new EventEmitter();
+  @Input() ingredientGroups: IngredientGroup[] = [];
+  @Output()
+  cancelDialog: EventEmitter<boolean> = new EventEmitter();
   @Output() declineDialog: EventEmitter<boolean> = new EventEmitter();
-  @Output() acceptDialog: EventEmitter<boolean> = new EventEmitter();
-
+  @Output() acceptDialog: EventEmitter<Ingredient[]> = new EventEmitter();
 }

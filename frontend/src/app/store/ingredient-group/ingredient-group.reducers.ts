@@ -4,6 +4,7 @@ import { createReducer, on } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as IngredientGroupActions from './ingredient-group.actions';
 import * as IngredientsActions from '../ingredients/ingredients.actions';
+import * as OrdersActions from '../orders/orders.actions';
 export const featureKey = 'ingredients-groups';
 
 export interface IngredientGroupState {

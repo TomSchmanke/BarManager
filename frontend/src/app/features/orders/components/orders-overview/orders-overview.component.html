@@ -41,6 +41,7 @@
           <app-order-accept-modal
             [ngClass]="{ hidden: orderToAccept !== order.orderId }"
             [nameOfItemToAccept]="'order with the order id ' + order.orderId + ' for ' + order.cocktailName"
+            [ingredientGroups]="ingredientGroupsFiltered"
             (cancelDialog)="cancelAcceptOrderModal()"
             (declineDialog)="cancelAcceptOrderModal()"
             (acceptDialog)="confirmAcceptOrderModal()">

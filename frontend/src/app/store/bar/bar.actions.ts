@@ -14,3 +14,5 @@ export const addBarSuccess = createAction(
   props<{ barCreationReponse: BarCreationResponse }>()
 );
 export const addBarFailure = createAction('[bar] add bar failure', props<{ error: HttpErrorResponse }>());
+
+export const setLoggedInUser = createAction('[bar] set logged in user', props<{ loggedInUser: string }>());

@@ -3,8 +3,8 @@
 import { Ingredient } from './ingredient';
 import { UnitOfMeasurement } from './unit-of-measurement';
 export interface IngredientGroup {
-  id: string;
+  ingredientGroupId: string;
+  ingredientGroupName?: string;
   ingredients?: Array<Ingredient>;
-  name: string;
   unitOfMeasurement: UnitOfMeasurement;
 }

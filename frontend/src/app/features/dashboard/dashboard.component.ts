@@ -1,18 +1,25 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BarCreationRequest } from '@bar-manager/api';
+import { BarCreationRequest, Cocktail, Order, OrderCreationRequest } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
-import { addBar, loadBar } from 'src/app/store/bar/bar.actions';
-import { BarState } from 'src/app/store/bar/bar.reducers';
-import { selectBarError, selectBarLoadingStatus, selectBarState } from 'src/app/store/bar/bar.selectors';
-import { loadOrders } from 'src/app/store/orders/orders.actions';
+import { addBar, loadBar, setLoggedInUser } from 'src/app/store/bar/bar.actions';
+import {
+  selectBarError,
+  selectBarId,
+  selectBarLoadedSuccessfully,
+  selectBarLoadingStatus,
+  selectLoggedInUser,
+} from 'src/app/store/bar/bar.selectors';
+import { addOrder, loadOrders } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';
-import { selectCocktailContent, selectCocktailState } from 'src/app/store/recipes/cocktails.selectors';
-import { SortIngredientGroupsByAlphabetPipe } from '../../shared/pipes/sort-ingredient-groups-by-alphabet.pipe';
-import { ReduceIngredientsAmountPipe } from '../../shared/pipes/reduce-ingredients-amount.pipe';
-import { CountIngredientsGreaterZeroPipe } from '../../shared/pipes/count-ingredients-greater-zero.pipe';
+import {
+  selectCocktails,
+  selectCocktailsLoadingStatus,
+  selectSelectedCocktailsLoadingStatus,
+} from 'src/app/store/recipes/cocktails.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,8 +31,11 @@ export class DashboardComponent {
   private formBuilder = inject(FormBuilder);
 
   public selectBarLoadingStatus$: Observable<boolean> = this.store.select(selectBarLoadingStatus);
-  public selectCocktailContent$ = this.store.select(selectCocktailContent);
-  public barState$: Observable<BarState> = this.store.select(selectBarState);
+  public selectCocktailContent$ = this.store.select(selectCocktails);
+  public selectBarId$: Observable<string> = this.store.select(selectBarId);
+  public selectBarLoadedSuccessfully$: Observable<boolean> = this.store.select(selectBarLoadedSuccessfully);
+  public loading$: Observable<boolean> = this.store.select(selectBarLoadingStatus);
+  public cocktailLoading$: Observable<boolean> = this.store.select(selectCocktailsLoadingStatus);
   public barCreationForm: FormGroup = this.formBuilder.group({
     barName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
     ownerName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
@@ -33,16 +43,27 @@ export class DashboardComponent {
   public error$: Observable<HttpErrorResponse | undefined> = this.store.select(selectBarError);
   public loginForm: FormGroup = this.formBuilder.group({
     barCode: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
+    customerName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
   });
 
+  placeOrder(cocktail: Cocktail) {
+    this.store.select(selectLoggedInUser).subscribe(user => {
+      const orderCreationRequest: any = {
+        cocktailId: cocktail.cocktailId,
+        customerName: user,
+        cocktailName: cocktail.cocktailName,
+      };
+      this.store.dispatch(addOrder({ order: orderCreationRequest }));
+    });
+  }
   onBarCreationSubmit() {
     this.store.dispatch(addBar({ barCreationRequest: this.barCreationForm.value as BarCreationRequest }));
   }
   onLoginSubmit() {
     this.store.dispatch(loadBar({ barCode: this.loginForm.controls['barCode'].value }));
-    this.barState$.subscribe((state: BarState) => {
-      if (state.bar && state.bar?.barId) {
-        this.store.dispatch(loadOrders());
+    this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
+    this.selectBarId$.subscribe((barId: string) => {
+      if (barId !== '0') {
         this.store.dispatch(loadCocktails({}));
       }
     });

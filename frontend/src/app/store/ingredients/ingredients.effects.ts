@@ -1,17 +1,18 @@
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Ingredient, IngredientsService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { withLatestFrom, switchMap, map, catchError, of } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { selectBarId } from '../bar/bar.selectors';
 import * as fromIngredientsActions from './ingredients.actions';
-import { IngredientGroupsService, IngredientsService } from '@bar-manager/api';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class IngredientsEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
   private ingredientsService = inject(IngredientsService);
+  private router = inject(Router);
 
   private loadIngredients$ = createEffect(() =>
     this.actions$.pipe(
@@ -32,7 +33,7 @@ export class IngredientsEffects {
       withLatestFrom(this.store.select(selectBarId)),
       switchMap(([action, barId]) =>
         this.ingredientsService
-          .putIngredient({ 'bar-id': barId, 'ingredient-id': action.ingredient.id, body: action.ingredient })
+          .putIngredient({ 'bar-id': barId, 'ingredient-id': action.ingredient.ingredientId, body: action.ingredient })
           .pipe(
             map(ingredients => fromIngredientsActions.editIngredientSuccess({ ingredient: ingredients })),
             catchError(error => of(fromIngredientsActions.editIngredientFailure({ error })))
@@ -59,22 +60,50 @@ export class IngredientsEffects {
     )
   );
 
+  private updateIngredientSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromIngredientsActions.editIngredientSuccess, fromIngredientsActions.addIngredientSuccess),
+        withLatestFrom(this.store.select(selectBarId)),
+        tap(() => this.router.navigate(['/ingredients']))
+      ),
+    { dispatch: false }
+  );
+
+  private reduceIngredient$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromIngredientsActions.reduceIngredients),
+        tap(action => {
+          for (const ingredient of action.ingredients) {
+            this.store.dispatch(fromIngredientsActions.editIngredient({ ingredient: ingredient }));
+          }
+        })
+      ),
+    { dispatch: false }
+  );
   private postIngredient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromIngredientsActions.addIngredient),
       withLatestFrom(this.store.select(selectBarId)),
-      switchMap(([action, barId]) =>
-        this.ingredientsService
+      switchMap(([action, barId]) => {
+        const ingredientObj: any = {
+          amount: action.ingredient.amount,
+          description: action.ingredient.description,
+          ingredientName: action.ingredient.ingredientName,
+        };
+        delete ingredientObj['ingredientId'];
+        return this.ingredientsService
           .postIngredient({
             'bar-id': barId,
             'ingredient-group-id': action.ingredientGroupId,
-            body: action.ingredient,
+            body: ingredientObj,
           })
           .pipe(
             map(ingredient => fromIngredientsActions.addIngredientSuccess({ ingredient: ingredient })),
             catchError(error => of(fromIngredientsActions.addIngredientFailure({ error })))
-          )
-      )
+          );
+      })
     )
   );
 }

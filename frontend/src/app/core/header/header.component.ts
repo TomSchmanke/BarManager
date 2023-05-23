@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, inject } from '@angular/core';
-import { BarCreationResponse, LoginResponse } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectBarContent } from 'src/app/store/bar/bar.selectors';
+import { BarState } from 'src/app/store/bar/bar.reducers';
+import { selectBarState } from 'src/app/store/bar/bar.selectors';
 
 @Component({
   selector: 'app-header',
@@ -23,11 +23,14 @@ import { selectBarContent } from 'src/app/store/bar/bar.selectors';
 export class HeaderComponent {
   showBurgerMenu = false;
   private store = inject(Store);
-  barState$: Observable<LoginResponse | BarCreationResponse | undefined> = this.store.select(selectBarContent);
+  barState$: Observable<BarState> = this.store.select(selectBarState);
   toggleBurgerMenu() {
     this.showBurgerMenu = !this.showBurgerMenu;
   }
 
+  refresh(): void {
+    window.location.reload();
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     if (event.target.innerWidth > 1024) {

@@ -9,16 +9,16 @@ import { addCocktail, editCocktail } from 'src/app/store/recipes/cocktails.actio
 import { selectSelectedCocktail } from 'src/app/store/recipes/cocktails.selectors';
 
 @Component({
-  selector: 'app-recipes-edit',
-  templateUrl: './recipes-edit.component.html',
-  styleUrls: ['./recipes-edit.component.css'],
+  selector: 'app-orders-edit',
+  templateUrl: './orders-edit.component.html',
+  styleUrls: ['./orders-edit.component.css'],
 })
-export class RecipesEditComponent {
+export class OrderEditComponent {
   newOrExistingCocktail?: 'new' | 'existing';
   cocktailEditForm?: FormGroup;
   allIngredients$?: Observable<IngredientGroup[]>;
   allIngredients?: IngredientGroup[];
-  cocktailId!: string;
+
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -30,7 +30,6 @@ export class RecipesEditComponent {
     this.store.select(selectSelectedCocktail).subscribe(cocktail => {
       this.newOrExistingCocktail = cocktail ? 'existing' : 'new';
       if (this.newOrExistingCocktail === 'existing') {
-        this.cocktailId = cocktail!.cocktailId;
         this.cocktailEditForm?.get('name')?.setValue(cocktail?.cocktailName ? cocktail.cocktailName : '');
         cocktail?.recipeIngredients?.forEach(item =>
           this.addIngredientToCocktailForm(item.ingredientGroupName, item.amount)
@@ -73,11 +72,11 @@ export class RecipesEditComponent {
   }
 
   onSubmit() {
-    const newCocktail: any = {
+    const newCocktail: Cocktail = {
+      cocktailId: '0',
       cocktailName: this.cocktailEditForm?.get('name')?.value,
       recipeIngredients: [],
     };
-
     (<FormArray>this.cocktailEditForm?.get('ingredients')).controls.forEach(item =>
       newCocktail.recipeIngredients?.push({
         ingredientGroupName: item.value.ingredientGroup,
@@ -87,7 +86,6 @@ export class RecipesEditComponent {
     );
 
     if (this.newOrExistingCocktail === 'existing') {
-      newCocktail.cocktailId = this.cocktailId;
       this.store.dispatch(editCocktail({ cocktail: newCocktail }));
     } else {
       this.store.dispatch(addCocktail({ cocktail: newCocktail }));

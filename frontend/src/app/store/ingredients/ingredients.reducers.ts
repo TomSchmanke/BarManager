@@ -15,7 +15,6 @@ export interface IngredientState {
 
 export const initialState: IngredientState = {
   ingredients: [],
-  selectedIngredient: undefined,
   loading: false,
 };
 
@@ -35,10 +34,9 @@ export const reducer = createReducer(
     error: action.error,
     loading: false,
   })),
-
   on(IngredientsActions.selectSingleIngredient, (state, action) => ({
     ...state,
-    selectedIngredient: state.ingredients.find(value => value.id === action.ingredientId),
+    selectedIngredient: state.ingredients.find(value => value.ingredientId === action.ingredientId),
   })),
   on(IngredientsActions.resetSelectSingleIngredient, state => ({
     ...state,
@@ -52,8 +50,7 @@ export const reducer = createReducer(
   on(IngredientsActions.deleteIngredientSuccess, (state, action) => ({
     ...state,
     loading: false,
-    ingredients: state.ingredients.filter(ingredient => ingredient.id !== action.ingredientId),
-    selectedIngredients: 'all',
+    ingredients: state.ingredients.filter(ingredient => ingredient.ingredientId !== action.ingredientId),
   })),
   on(IngredientsActions.deleteIngredientFailure, (state, action) => ({
     ...state,
@@ -69,9 +66,8 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     ingredients: state.ingredients.map((ingredient: Ingredient) => {
-      return ingredient.id === action.ingredient.id ? action.ingredient : ingredient;
+      return ingredient.ingredientId === action.ingredient.ingredientId ? action.ingredient : ingredient;
     }),
-    selectedIngredients: 'all',
   })),
   on(IngredientsActions.editIngredientFailure, (state, action) => ({
     ...state,

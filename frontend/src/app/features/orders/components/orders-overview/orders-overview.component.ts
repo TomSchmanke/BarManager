@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Order } from '@bar-manager/api';
+import { Ingredient, Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectBarId } from 'src/app/store/bar/bar.selectors';
-import { declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
+import { reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
+import { acceptSingleOrder, declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
 import { selectOrderContent, selectOrdersLoadingStatus } from 'src/app/store/orders/orders.selectors';
 
 @Component({
@@ -16,12 +17,26 @@ export class OrdersOverviewComponent {
   loading$: Observable<boolean> = this.store.select(selectOrdersLoadingStatus);
   orders$: Observable<Order[]> = this.store.select(selectOrderContent);
   orderToDelete?: string;
+  orderToAccept?: string;
 
   selectOrder(orderId: string) {
     this.store.dispatch(selectSingleOrder({ orderId }));
   }
 
-  openAcceptOrderModal(orderId: string) {}
+  openAcceptOrderModal(orderId: string) {
+    this.orderToAccept = orderId;
+  }
+
+  cancelAcceptOrderModal() {
+    this.orderToAccept = undefined;
+  }
+
+  confirmAcceptOrderModal() {
+    this.store.dispatch(acceptSingleOrder({ orderId: this.orderToAccept! }));
+    const ingredients: Array<Ingredient> = [];
+    this.store.dispatch(reduceIngredients({ ingredients: ingredients }));
+    this.orderToDelete = undefined;
+  }
 
   openDeclineOrderModal(orderId: string) {
     this.orderToDelete = orderId;

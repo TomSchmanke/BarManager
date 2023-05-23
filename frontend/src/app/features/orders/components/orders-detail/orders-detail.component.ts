@@ -23,27 +23,11 @@ export class OrdersDetailComponent {
     this.loading$ = this.store.select(selectSelectedCocktailsLoadingStatus);
     this.currentlySelectedOrder$ = this.store.select(selectSelectedOrder);
     this.currentlySelectedCocktail$ = this.store.select(selectSelectedCocktail);
-
-    // ToDo: Remove mock data
-    this.loading$ = from([true, false]).pipe(delay(3000));
-
-    // ToDo: Get barId from bar store
     this.currentlySelectedOrder$
       .pipe(
         filter(order => order !== undefined),
         switchMap(order => of(this.store.dispatch(loadCocktail({ cocktailId: order!.cocktailId }))))
       )
       .subscribe();
-
-    // ToDo: Remove mock data
-    this.currentlySelectedCocktail$ = of({
-      id: '1',
-      name: 'Mojito',
-      recipeIngredient: [
-        { amount: 60, ingredientGroupName: 'Gin', unitOfMeasurement: UnitOfMeasurement.ML },
-        { amount: 60, ingredientGroupName: 'Gin', unitOfMeasurement: UnitOfMeasurement.ML },
-        { amount: 60, ingredientGroupName: 'Gin', unitOfMeasurement: UnitOfMeasurement.ML },
-      ],
-    });
   }
 }

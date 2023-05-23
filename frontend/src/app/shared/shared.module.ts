@@ -8,6 +8,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { CountIngredientsGreaterZeroPipe } from './pipes/count-ingredients-greater-zero.pipe';
 import { ReduceIngredientsAmountPipe } from './pipes/reduce-ingredients-amount.pipe';
 import { SortIngredientGroupsByAlphabetPipe } from './pipes/sort-ingredient-groups-by-alphabet.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { Ingredient, IngredientGroup, Order } from '@bar-manager/api';
+import { Component, OnInit, inject } from '@angular/core';
+import { Cocktail, Ingredient, IngredientGroup, Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, first } from 'rxjs';
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
@@ -19,13 +19,20 @@ import { selectSelectedCocktail } from 'src/app/store/recipes/cocktails.selector
   templateUrl: './orders-overview.component.html',
   styleUrls: ['./orders-overview.component.css'],
 })
-export class OrdersOverviewComponent {
+export class OrdersOverviewComponent implements OnInit {
   private store = inject(Store);
   loading$: Observable<boolean> = this.store.select(selectOrdersLoadingStatus);
   orders$: Observable<Order[]> = this.store.select(selectOrderContent);
   orderToDelete?: string;
   orderToAccept?: string;
   ingredientGroupsFiltered: IngredientGroup[] = [];
+  cocktail$: Observable<Cocktail | undefined> = this.store.select(selectSelectedCocktail);
+
+  ngOnInit() {
+    this.store.select(selectSelectedOrder).subscribe(order => {
+      this.store.dispatch(loadCocktail({ cocktailId: order!.cocktailId }));
+    });
+  }
 
   selectOrder(orderId: string) {
     this.store.dispatch(selectSingleOrder({ orderId }));
@@ -39,9 +46,6 @@ export class OrdersOverviewComponent {
     const ingredientGroupPromise = this.store.select(selectIngredientGroups);
 
     // Cocktail Informationen
-    this.store.select(selectSelectedOrder).subscribe(order => {
-      this.store.dispatch(loadCocktail({ cocktailId: order!.cocktailId }));
-    });
     const cocktailPromise = this.store.select(selectSelectedCocktail);
 
     // Nur die relevanten IngredientGruppen + Ingredients
@@ -63,10 +67,9 @@ export class OrdersOverviewComponent {
     this.orderToAccept = undefined;
   }
 
-  confirmAcceptOrderModal() {
+  confirmAcceptOrderModal(event: Ingredient[]) {
     this.store.dispatch(acceptSingleOrder({ orderId: this.orderToAccept! }));
-    const ingredients: Array<Ingredient> = [];
-    this.store.dispatch(reduceIngredients({ ingredients: ingredients }));
+    this.store.dispatch(reduceIngredients({ ingredients: event }));
     this.orderToDelete = undefined;
   }
 

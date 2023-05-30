@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Cocktail, Ingredient, IngredientGroup, Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, first } from 'rxjs';
+import { Observable, combineLatest, first, map, subscribeOn, switchMap, take } from 'rxjs';
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
@@ -30,7 +30,9 @@ export class OrdersOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(selectSelectedOrder).subscribe(order => {
-      this.store.dispatch(loadCocktail({ cocktailId: order!.cocktailId }));
+      if (order != null) {
+        this.store.dispatch(loadCocktail({ cocktailId: order.cocktailId }));
+      }
     });
   }
 
@@ -49,18 +51,20 @@ export class OrdersOverviewComponent implements OnInit {
     const cocktailPromise = this.store.select(selectSelectedCocktail);
 
     // Nur die relevanten IngredientGruppen + Ingredients
-    combineLatest([ingredientGroupPromise, cocktailPromise]).subscribe(([ingredientGroups, cocktail]) => {
-      this.ingredientGroupsFiltered = [];
-      for (const ingredientGroup of ingredientGroups) {
-        cocktail!.recipeIngredients!.forEach(recipeIngredient => {
-          if (ingredientGroup.ingredientGroupName === recipeIngredient.ingredientGroupName) {
-            this.ingredientGroupsFiltered.push(ingredientGroup);
-          }
-        });
-      }
+    combineLatest([ingredientGroupPromise, cocktailPromise])
+      .pipe(take(1))
+      .subscribe(([ingredientGroups, cocktail]) => {
+        this.ingredientGroupsFiltered = [];
+        for (const ingredientGroup of ingredientGroups) {
+          cocktail!.recipeIngredients!.forEach(recipeIngredient => {
+            if (ingredientGroup.ingredientGroupName === recipeIngredient.ingredientGroupName) {
+              this.ingredientGroupsFiltered.push(ingredientGroup);
+            }
+          });
+        }
 
-      this.orderToAccept = orderId;
-    });
+        this.orderToAccept = orderId;
+      });
   }
 
   cancelAcceptOrderModal() {

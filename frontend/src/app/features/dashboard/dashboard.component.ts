@@ -13,6 +13,8 @@ import {
   selectBarLoadingStatus,
   selectLoggedInUser,
 } from 'src/app/store/bar/bar.selectors';
+import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
+import { loadIngredients } from 'src/app/store/ingredients/ingredients.actions';
 import { addOrder, loadOrders } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';
 import {
@@ -49,6 +51,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
+        this.store.dispatch(loadIngredientGroups());
+        this.store.dispatch(loadIngredients());
         this.store.dispatch(loadCocktails({ checkAvailability: true }));
       }
     });
@@ -71,6 +75,8 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
+        this.store.dispatch(loadIngredientGroups());
+        this.store.dispatch(loadIngredients());
         this.store.dispatch(loadCocktails({ checkAvailability: true }));
       }
     });

@@ -24,7 +24,7 @@ export class RecipesOverviewComponent {
   cocktailToDelete?: string;
 
   ngOnInit(): void {
-    this.store.dispatch(loadCocktails({ checkIfAvailable: false }));
+    this.store.dispatch(loadCocktails({ checkAvailability: false }));
   }
 
   selectCocktail(cocktail: Cocktail) {

@@ -19,10 +19,12 @@ export class CocktailsEffects {
       ofType(fromCocktailActions.loadCocktails),
       withLatestFrom(this.store.select(selectBarId)),
       switchMap(([action, barId]) =>
-        this.cocktailsService.getCocktails({ 'bar-id': barId }).pipe(
-          map(cocktail => fromCocktailActions.loadCocktailsSuccess({ cocktails: cocktail })),
-          catchError(error => of(fromCocktailActions.loadCocktailsFailure({ error })))
-        )
+        this.cocktailsService
+          .getCocktails({ 'bar-id': barId, checkAvailability: action.checkAvailability || false })
+          .pipe(
+            map(cocktail => fromCocktailActions.loadCocktailsSuccess({ cocktails: cocktail })),
+            catchError(error => of(fromCocktailActions.loadCocktailsFailure({ error })))
+          )
       )
     )
   );

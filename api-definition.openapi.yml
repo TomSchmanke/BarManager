@@ -65,7 +65,7 @@ paths:
       operationId: getCocktails
       parameters:
         - in: query
-          name: check-if-available
+          name: checkAvailability
           schema:
             type: boolean
             default: true

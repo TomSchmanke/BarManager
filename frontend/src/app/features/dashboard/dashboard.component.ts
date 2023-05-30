@@ -64,7 +64,7 @@ export class DashboardComponent {
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
-        this.store.dispatch(loadCocktails({}));
+        this.store.dispatch(loadCocktails({ checkAvailability: true }));
       }
     });
   }

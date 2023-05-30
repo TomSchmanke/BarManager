@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BarCreationRequest, Cocktail, Order, OrderCreationRequest } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
@@ -26,7 +26,7 @@ import {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private store = inject(Store);
   private formBuilder = inject(FormBuilder);
 
@@ -46,6 +46,13 @@ export class DashboardComponent {
     customerName: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
   });
 
+  ngOnInit(): void {
+    this.selectBarId$.subscribe((barId: string) => {
+      if (barId !== '0') {
+        this.store.dispatch(loadCocktails({ checkAvailability: true }));
+      }
+    });
+  }
   placeOrder(cocktail: Cocktail) {
     this.store.select(selectLoggedInUser).subscribe(user => {
       const orderCreationRequest: any = {
@@ -64,7 +71,7 @@ export class DashboardComponent {
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
     this.selectBarId$.subscribe((barId: string) => {
       if (barId !== '0') {
-        this.store.dispatch(loadCocktails({}));
+        this.store.dispatch(loadCocktails({ checkAvailability: true }));
       }
     });
   }

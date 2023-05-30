@@ -20,8 +20,10 @@ class CocktailController(private val cocktailService: CocktailService) {
 
     @GetMapping
     fun getAllCocktails(@PathVariable barId: String, @RequestParam checkAvailability: String?): List<Cocktail> {
-        // TODO evaluate checkAvailability
-        return cocktailService.getAllCocktails(barId, checkAvailability)
+        if (checkAvailability.equals("true", ignoreCase = true)) {
+            return cocktailService.getAllAvailableCocktails(barId)
+        }
+        return cocktailService.getAllCocktails(barId)
     }
 
     @GetMapping("/{cocktailId}")

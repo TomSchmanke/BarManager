@@ -56,7 +56,7 @@ export const reducer = createReducer(
   on(CocktailActions.editCocktailSuccess, (state, action) => ({
     ...state,
     cocktails: state.cocktails.map((cocktail: Cocktail) => {
-      return cocktail.id === action.cocktail.id ? action.cocktail : cocktail;
+      return cocktail.cocktailId === action.cocktail.cocktailId ? action.cocktail : cocktail;
     }),
     loading: false,
   })),
@@ -73,7 +73,7 @@ export const reducer = createReducer(
   on(CocktailActions.deleteCocktailSuccess, (state, action) => ({
     ...state,
     loading: false,
-    ingredients: state.cocktails.filter(cocktails => cocktails.id !== action.cocktailId),
+    ingredients: state.cocktails.filter(cocktails => cocktails.cocktailId !== action.cocktailId),
     selectedIngredients: 'all',
   })),
   on(CocktailActions.deleteCocktailFailure, (state, action) => ({

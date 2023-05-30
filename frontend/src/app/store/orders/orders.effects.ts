@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { OrdersService } from '@bar-manager/api';
+import { Order, OrdersService } from '@bar-manager/api';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Observable, catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { Observable, catchError, combineLatest, map, of, switchMap, withLatestFrom } from 'rxjs';
 
 import * as fromOrdersActions from './orders.actions';
 import { Store, select } from '@ngrx/store';
 import { selectBarId } from '../bar/bar.selectors';
+import { selectSelectedOrder } from './orders.selectors';
 
 @Injectable()
 export class OrdersEffects {
@@ -23,35 +24,43 @@ export class OrdersEffects {
       )
     )
   );
-
-  private acceptOrder$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromOrdersActions.acceptSingleOrder),
-        withLatestFrom(this.store.select(selectBarId)),
-        switchMap(([action, barId]) =>
-          this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
-            map(() => fromOrdersActions.acceptSingleOrderSuccess()),
-            catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ error: error })))
-          )
+  private addOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.addOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.postOrder({ 'bar-id': barId, body: action.order as any }).pipe(
+          map(order => fromOrdersActions.addOrderSuccess({ order: order })),
+          catchError(error => of(fromOrdersActions.addOrderFailure({ error })))
         )
-      ),
-    { dispatch: false }
+      )
+    )
   );
 
-  private declineOrder$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromOrdersActions.declineSingleOrder),
-        withLatestFrom(this.store.select(selectBarId)),
-        switchMap(([action, barId]) =>
-          this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
-            map(() => fromOrdersActions.declineSingleOrderSuccess()),
-            catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ error: error })))
-          )
+  private acceptOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.acceptSingleOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
+          map(() => fromOrdersActions.acceptSingleOrderSuccess({ orderId: action.orderId })),
+          catchError(error => of(fromOrdersActions.acceptSingleOrderFailure({ error: error })))
         )
-      ),
-    { dispatch: false }
+      )
+    )
+  );
+
+  private declineOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrdersActions.declineSingleOrder),
+      withLatestFrom(this.store.select(selectBarId)),
+      switchMap(([action, barId]) =>
+        this.ordersService.deleteOrder({ 'bar-id': barId, 'order-id': action.orderId }).pipe(
+          map(() => fromOrdersActions.declineSingleOrderSuccess({ orderId: action.orderId })),
+          catchError(error => of(fromOrdersActions.declineSingleOrderFailure({ error: error })))
+        )
+      )
+    )
   );
 
   constructor(private actions$: Actions, private ordersService: OrdersService) {}

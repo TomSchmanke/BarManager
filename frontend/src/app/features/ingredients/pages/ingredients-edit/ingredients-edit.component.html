@@ -1,33 +1,51 @@
-<div class="m-8">
+<div class="sm:px-6 w-full">
   <h2 *ngIf="newOrExisitingIngredient === 'existing'">Edit ingredient</h2>
   <h2 *ngIf="newOrExisitingIngredient === 'new'">New ingredient</h2>
 
-  <form [formGroup]="ingredientsEditForm" (ngSubmit)="onSubmit()">
-    <div class="my-6">
-      <label for="ingredient-name" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
-        >Ingredient name</label
-      >
-      <input barInput type="text" id="ingredient-name" formControlName="name" placeholder="Wodka Gorbatschow Citron" />
+  <div class="xl:flex xl:flex-grow xl:w-full">
+    <div class="xl:basis-full m-2 p-2">
+      <form [formGroup]="ingredientsEditForm" (ngSubmit)="onSubmit()">
+        <div class="my-6">
+          <label for="ingredient-name" class="block mb-2 text-base font-medium text-gray-900">Ingredient name</label>
+          <input
+            barInput
+            type="text"
+            id="ingredient-name"
+            formControlName="name"
+            placeholder="Wodka Gorbatschow Citron" />
+        </div>
+        <div class="my-6">
+          <label for="ingredient-description" class="block mb-2 text-base font-medium text-gray-900"
+            >Ingredient description</label
+          >
+          <input
+            barInput
+            type="text"
+            id="ingredient-description"
+            formControlName="description"
+            placeholder="Healthy sweet alcohol, perfect for dumb persons" />
+        </div>
+        <div class="my-6">
+          <label for="ingredient-amount" class="block mb-2 text-base font-medium text-gray-900"
+            >Ingredient amount</label
+          >
+          <input barInput type="number" id="ingredient-amount" formControlName="amount" placeholder="1000" />
+        </div>
+        <div class="my-6">
+          <button
+            *ngIf="newOrExisitingIngredient === 'new'; else notNewTemplate"
+            barButton
+            type="submit"
+            [disabled]="ingredientsEditForm?.invalid">
+            Add new ingredient
+          </button>
+          <ng-template #notNewTemplate>
+            <button barButton type="submit" [disabled]="ingredientsEditForm?.invalid">Edit ingredient</button>
+          </ng-template>
+        </div>
+      </form>
     </div>
-    <div class="my-6">
-      <label for="ingredient-description" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
-        >Ingredient description</label
-      >
-      <input
-        barInput
-        type="text"
-        id="ingredient-description"
-        formControlName="description"
-        placeholder="Healthy sweet alcohol, perfect for dumb persons" />
-    </div>
-    <div class="my-6">
-      <label for="ingredient-amount" class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
-        >Ingredient amount</label
-      >
-      <input barInput type="number" id="ingredient-amount" formControlName="amount" placeholder="1000" />
-    </div>
-    <div class="my-6">
-      <button barButton type="submit" [disabled]="ingredientsEditForm?.invalid">Add new ingredient</button>
-    </div>
-  </form>
+    <div class="bg-gray-200 h-[1px] xl:w-1 xl:h-auto"></div>
+    <div class="xl:basis-full m-2 p-2"></div>
+  </div>
 </div>

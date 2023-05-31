@@ -19,21 +19,40 @@
         <div class="mb-6">
           <div *ngFor="let unit of unitOfMeasurement; index as i" class="flex items-center mb-4">
             <input
+              *ngIf="unit === ingredientsGroupEditForm?.get('unitOfMeasurement')?.value; else nonSelectedRadio"
               id="ingredient-group-measurement-option-{{ i }}"
               type="radio"
-              name="ingredient-group-measurement-option"
-              value="{{ unit }}"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-            <label
-              for="ingredient-group-measurement-option-{{ i }}"
-              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >{{ unit }}</label
-            >
+              formControlName="unitOfMeasurement"
+              [value]="unit"
+              [checked]="true"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" />
+            <ng-template #nonSelectedRadio>
+              <input
+                id="ingredient-group-measurement-option-{{ i }}"
+                type="radio"
+                formControlName="unitOfMeasurement"
+                [value]="unit"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" />
+            </ng-template>
+            <label for="ingredient-group-measurement-option-{{ i }}" class="ml-2 text-sm font-medium text-gray-900">{{
+              unit
+            }}</label>
           </div>
         </div>
         <div class="my-6">
-          <button barButton type="submit" [disabled]="ingredientsGroupEditForm?.invalid">
+          <button
+            *ngIf="newOrExisitingIngredientGroup === 'new'"
+            barButton
+            type="submit"
+            [disabled]="ingredientsGroupEditForm?.invalid">
             Add new ingredient Group
+          </button>
+          <button
+            *ngIf="newOrExisitingIngredientGroup === 'existing'"
+            barButton
+            type="submit"
+            [disabled]="ingredientsGroupEditForm?.invalid">
+            Edit ingredient group
           </button>
         </div>
       </form>

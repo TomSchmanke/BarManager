@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IngredientGroup } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import {
   deleteIngredientGroup,
   loadIngredientGroups,
-  resetSelectSingleIngredientGroup,
   selectSingleIngredientGroup,
 } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import {

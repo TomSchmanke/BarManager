@@ -56,7 +56,7 @@ export class RecipesEditComponent {
 
   getUnitOfMeasurementToIngredient(ingredientName: string) {
     const uOM = this.allIngredients?.find(
-      ingredient => ingredient.ingredientGroupId === ingredientName
+      ingredient => ingredient.ingredientGroupName === ingredientName
     )?.unitOfMeasurement;
     return uOM ? uOM : UnitOfMeasurement.ML;
   }

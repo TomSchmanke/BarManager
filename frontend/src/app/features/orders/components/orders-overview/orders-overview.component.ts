@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, combineLatest, first, map, subscribeOn, switchMap, take } from 'rxjs';
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
-import { reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
+import { loadIngredients, reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
 import { acceptSingleOrder, declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
 import {
   selectOrderContent,
@@ -74,6 +74,8 @@ export class OrdersOverviewComponent implements OnInit {
   confirmAcceptOrderModal(event: Ingredient[]) {
     this.store.dispatch(acceptSingleOrder({ orderId: this.orderToAccept! }));
     this.store.dispatch(reduceIngredients({ ingredients: event }));
+    this.store.dispatch(loadIngredientGroups());
+    this.store.dispatch(loadIngredients());
     this.orderToDelete = undefined;
   }
 

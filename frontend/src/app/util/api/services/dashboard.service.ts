@@ -40,7 +40,7 @@ export class DashboardService extends BaseService {
    * This method doesn't expect any request body.
    */
   getCocktails$Response(params: {
-    'check-if-available'?: boolean;
+    checkAvailability?: boolean;
 
     /**
      * Unique id to identify bar
@@ -53,7 +53,7 @@ export class DashboardService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, DashboardService.GetCocktailsPath, 'get');
     if (params) {
-      rb.query('check-if-available', params['check-if-available'], {});
+      rb.query('checkAvailability', params.checkAvailability, {});
       rb.path('bar-id', params['bar-id'], {});
     }
 
@@ -80,7 +80,7 @@ export class DashboardService extends BaseService {
    * This method doesn't expect any request body.
    */
   getCocktails(params: {
-    'check-if-available'?: boolean;
+    checkAvailability?: boolean;
 
     /**
      * Unique id to identify bar

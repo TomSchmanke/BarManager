@@ -16,8 +16,15 @@ export const loadIngredientsFailure = createAction(
 export const editIngredient = createAction('[ingredients] edit ingredient', props<{ ingredient: Ingredient }>());
 
 export const reduceIngredients = createAction(
-  '[ingredients] reduce ingrdient',
+  '[ingredients] reduce ingredients',
   props<{ ingredients: Array<Ingredient> }>()
+);
+
+export const reduceIngredient = createAction('[ingredients] reduce ingredient', props<{ ingredient: Ingredient }>());
+
+export const reduceIngredientSuccess = createAction(
+  '[ingredients] reduce ingredient success',
+  props<{ ingredient: Ingredient }>()
 );
 
 export const editIngredientSuccess = createAction(

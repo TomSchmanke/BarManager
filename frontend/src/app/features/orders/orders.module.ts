@@ -6,9 +6,10 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { OrdersOverviewComponent } from './components/orders-overview/orders-overview.component';
 import { OrdersDetailComponent } from './components/orders-detail/orders-detail.component';
 import { OrderAcceptModalComponent } from './components/order-accept-modal/order-accept-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [OrdersComponent, OrdersOverviewComponent, OrdersDetailComponent, OrderAcceptModalComponent],
-  imports: [CommonModule, SharedModule, OrdersRoutingModule],
+  imports: [CommonModule, SharedModule, OrdersRoutingModule, ReactiveFormsModule],
 })
 export class OrdersModule {}

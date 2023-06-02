@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cocktail, IngredientGroup, UnitOfMeasurement } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { addCocktail, editCocktail } from 'src/app/store/recipes/cocktails.actions';
@@ -13,12 +13,12 @@ import { selectSelectedCocktail } from 'src/app/store/recipes/cocktails.selector
   templateUrl: './orders-edit.component.html',
   styleUrls: ['./orders-edit.component.css'],
 })
-export class OrderEditComponent {
+export class OrderEditComponent implements OnInit, OnDestroy {
   newOrExistingCocktail?: 'new' | 'existing';
   cocktailEditForm?: FormGroup;
   allIngredients$?: Observable<IngredientGroup[]>;
   allIngredients?: IngredientGroup[];
-
+  private subscriptions = new Subscription();
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -27,23 +27,27 @@ export class OrderEditComponent {
       ingredients: this.formBuilder.array([]),
     });
 
-    this.store.select(selectSelectedCocktail).subscribe(cocktail => {
-      this.newOrExistingCocktail = cocktail ? 'existing' : 'new';
-      if (this.newOrExistingCocktail === 'existing') {
-        this.cocktailEditForm?.get('name')?.setValue(cocktail?.cocktailName ? cocktail.cocktailName : '');
-        cocktail?.recipeIngredients?.forEach(item =>
-          this.addIngredientToCocktailForm(item.ingredientGroupName, item.amount)
-        );
-      } else {
-        this.addIngredientToCocktailForm();
-      }
-    });
+    this.subscriptions.add(
+      this.store.select(selectSelectedCocktail).subscribe(cocktail => {
+        this.newOrExistingCocktail = cocktail ? 'existing' : 'new';
+        if (this.newOrExistingCocktail === 'existing') {
+          this.cocktailEditForm?.get('name')?.setValue(cocktail?.cocktailName ? cocktail.cocktailName : '');
+          cocktail?.recipeIngredients?.forEach(item =>
+            this.addIngredientToCocktailForm(item.ingredientGroupName, item.amount)
+          );
+        } else {
+          this.addIngredientToCocktailForm();
+        }
+      })
+    );
 
     this.store.dispatch(loadIngredientGroups());
     this.allIngredients$ = this.store.select(selectIngredientGroups);
-    this.allIngredients$.subscribe(result => (this.allIngredients = result));
+    this.subscriptions.add(this.allIngredients$.subscribe(result => (this.allIngredients = result)));
   }
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
   addIngredientToCocktailForm(initialGroup = '', initalAmount = 0) {
     (<FormArray>this.cocktailEditForm?.get('ingredients')).push(
       this.formBuilder.group({

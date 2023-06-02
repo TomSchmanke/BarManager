@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Cocktail, Ingredient, IngredientGroup, Order } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, first, map, subscribeOn, switchMap, take } from 'rxjs';
+import { Observable, Subscription, combineLatest, first, map, subscribeOn, switchMap, take } from 'rxjs';
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { loadIngredients, reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
@@ -19,7 +19,7 @@ import { selectSelectedCocktail } from 'src/app/store/recipes/cocktails.selector
   templateUrl: './orders-overview.component.html',
   styleUrls: ['./orders-overview.component.css'],
 })
-export class OrdersOverviewComponent implements OnInit {
+export class OrdersOverviewComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   loading$: Observable<boolean> = this.store.select(selectOrdersLoadingStatus);
   orders$: Observable<Order[]> = this.store.select(selectOrderContent);
@@ -27,13 +27,16 @@ export class OrdersOverviewComponent implements OnInit {
   orderToAccept?: string;
   ingredientGroupsFiltered: IngredientGroup[] = [];
   cocktail$: Observable<Cocktail | undefined> = this.store.select(selectSelectedCocktail);
+  private subscriptions = new Subscription();
 
   ngOnInit() {
-    this.store.select(selectSelectedOrder).subscribe(order => {
-      if (order != null) {
-        this.store.dispatch(loadCocktail({ cocktailId: order.cocktailId }));
-      }
-    });
+    this.subscriptions.add(
+      this.store.select(selectSelectedOrder).subscribe(order => {
+        if (order != null) {
+          this.store.dispatch(loadCocktail({ cocktailId: order.cocktailId }));
+        }
+      })
+    );
   }
 
   selectOrder(orderId: string) {
@@ -51,22 +54,26 @@ export class OrdersOverviewComponent implements OnInit {
     const cocktailPromise = this.store.select(selectSelectedCocktail);
 
     // Nur die relevanten IngredientGruppen + Ingredients
-    combineLatest([ingredientGroupPromise, cocktailPromise])
-      .pipe(take(1))
-      .subscribe(([ingredientGroups, cocktail]) => {
-        this.ingredientGroupsFiltered = [];
-        for (const ingredientGroup of ingredientGroups) {
-          cocktail!.recipeIngredients!.forEach(recipeIngredient => {
-            if (ingredientGroup.ingredientGroupName === recipeIngredient.ingredientGroupName) {
-              this.ingredientGroupsFiltered.push(ingredientGroup);
-            }
-          });
-        }
+    this.subscriptions.add(
+      combineLatest([ingredientGroupPromise, cocktailPromise])
+        .pipe(take(1))
+        .subscribe(([ingredientGroups, cocktail]) => {
+          this.ingredientGroupsFiltered = [];
+          for (const ingredientGroup of ingredientGroups) {
+            cocktail!.recipeIngredients!.forEach(recipeIngredient => {
+              if (ingredientGroup.ingredientGroupName === recipeIngredient.ingredientGroupName) {
+                this.ingredientGroupsFiltered.push(ingredientGroup);
+              }
+            });
+          }
 
-        this.orderToAccept = orderId;
-      });
+          this.orderToAccept = orderId;
+        })
+    );
   }
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
   cancelAcceptOrderModal() {
     this.orderToAccept = undefined;
   }

@@ -41,6 +41,7 @@ export class RecipesOverviewComponent implements OnInit {
 
   confirmDeleteCocktailModal() {
     this.store.dispatch(deleteCocktail({ cocktailId: this.cocktailToDelete! }));
+    this.store.dispatch(loadCocktails({ checkAvailability: false }));
     this.cocktailToDelete = undefined;
   }
 

@@ -96,7 +96,7 @@ class CocktailService(
     }
 
     fun amountOfGroupIsHigherThanCocktailIngredient(cocktailAmount: Int, ingredientGroup: IngredientGroup): Boolean {
-        return cocktailAmount < ingredientGroup.ingredients!!.sumOf { it.amount }
+        return cocktailAmount <= ingredientGroup.ingredients!!.sumOf { it.amount }
     }
 
     fun oneIngredientIsHigherThanCocktailIngredient(cocktailAmount: Int, ingredientGroup: IngredientGroup): Boolean {
@@ -106,6 +106,6 @@ class CocktailService(
                 highestAmountInGroup = ingredient.amount
             }
         }
-        return cocktailAmount < highestAmountInGroup
+        return cocktailAmount <= highestAmountInGroup
     }
 }

@@ -5,13 +5,18 @@ import { Observable, Subscription, combineLatest, first, map, subscribeOn, switc
 import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import { selectIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.selectors';
 import { loadIngredients, reduceIngredients } from 'src/app/store/ingredients/ingredients.actions';
-import { acceptSingleOrder, declineSingleOrder, selectSingleOrder } from 'src/app/store/orders/orders.actions';
+import {
+  acceptSingleOrder,
+  declineSingleOrder,
+  resetSelectSingleOrder,
+  selectSingleOrder,
+} from 'src/app/store/orders/orders.actions';
 import {
   selectOrderContent,
   selectOrdersLoadingStatus,
   selectSelectedOrder,
 } from 'src/app/store/orders/orders.selectors';
-import { loadCocktail } from 'src/app/store/recipes/cocktails.actions';
+import { loadCocktail, resetSelectedCocktail } from 'src/app/store/recipes/cocktails.actions';
 import { selectSelectedCocktail } from 'src/app/store/recipes/cocktails.selectors';
 
 @Component({
@@ -30,6 +35,7 @@ export class OrdersOverviewComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   ngOnInit() {
+    this.store.dispatch(resetSelectSingleOrder());
     this.subscriptions.add(
       this.store.select(selectSelectedOrder).subscribe(order => {
         if (order != null) {
@@ -81,6 +87,7 @@ export class OrdersOverviewComponent implements OnInit, OnDestroy {
   confirmAcceptOrderModal(event: Ingredient[]) {
     this.store.dispatch(acceptSingleOrder({ orderId: this.orderToAccept! }));
     this.store.dispatch(reduceIngredients({ ingredients: event }));
+    this.store.dispatch(resetSelectedCocktail());
     this.orderToDelete = undefined;
   }
 
@@ -94,6 +101,7 @@ export class OrdersOverviewComponent implements OnInit, OnDestroy {
 
   confirmDeclineOrderModal() {
     this.store.dispatch(declineSingleOrder({ orderId: this.orderToDelete! }));
+    this.store.dispatch(resetSelectedCocktail());
     this.orderToDelete = undefined;
   }
 }

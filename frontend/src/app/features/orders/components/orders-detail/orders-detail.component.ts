@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Cocktail, Order, UnitOfMeasurement } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, delay, filter, from, of, switchMap } from 'rxjs';
@@ -14,16 +14,15 @@ import {
   templateUrl: './orders-detail.component.html',
   styleUrls: ['./orders-detail.component.css'],
 })
-export class OrdersDetailComponent {
-  loading$: Observable<boolean>;
-  currentlySelectedOrder$: Observable<Order | undefined>;
-  currentlySelectedCocktail$: Observable<Cocktail | undefined>;
+export class OrdersDetailComponent implements OnInit {
+  private store = inject(Store);
+  loading$: Observable<boolean> = this.store.select(selectSelectedCocktailsLoadingStatus);
+  currentlySelectedOrder$: Observable<Order | undefined> = this.store.select(selectSelectedOrder);
+  currentlySelectedCocktail$: Observable<Cocktail | undefined> = this.store.select(selectSelectedCocktail);
   private subscriptions = new Subscription();
-  constructor(private store: Store) {
+
+  ngOnInit(): void {
     this.store.dispatch(resetSelectedCocktail());
-    this.loading$ = this.store.select(selectSelectedCocktailsLoadingStatus);
-    this.currentlySelectedOrder$ = this.store.select(selectSelectedOrder);
-    this.currentlySelectedCocktail$ = this.store.select(selectSelectedCocktail);
     this.subscriptions.add(
       this.currentlySelectedOrder$
         .pipe(

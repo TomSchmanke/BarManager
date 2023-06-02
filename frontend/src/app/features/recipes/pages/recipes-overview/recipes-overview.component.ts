@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cocktail } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   deleteCocktail,
   loadCocktails,
@@ -16,7 +16,7 @@ import { selectCocktails, selectCocktailsLoadingStatus } from 'src/app/store/rec
   templateUrl: './recipes-overview.component.html',
   styleUrls: ['./recipes-overview.component.css'],
 })
-export class RecipesOverviewComponent {
+export class RecipesOverviewComponent implements OnInit {
   private store = inject(Store);
   private router = inject(Router);
   loading$: Observable<boolean> = this.store.select(selectCocktailsLoadingStatus);

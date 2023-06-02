@@ -1,6 +1,11 @@
 <!--Overlay Effect-->
-<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" [attr.id]="a11yModalId">
-  <div class="relative top-20 m-auto bg-white rounded-lg shadow w-fit">
+<div
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
+  [ngClass]="a11yModalId.includes('delete-cocktail') ? 'bg-transparent ' : ''"
+  [attr.id]="a11yModalId">
+  <div
+    class="relative top-20 m-auto bg-white rounded-lg shadow w-fit"
+    [ngClass]="a11yModalId.includes('delete-cocktail') ? 'no-top' : ''">
     <button
       type="button"
       class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"

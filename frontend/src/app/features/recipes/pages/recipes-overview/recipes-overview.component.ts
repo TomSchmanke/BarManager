@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cocktail } from '@bar-manager/api';
 import { Store } from '@ngrx/store';

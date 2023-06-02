@@ -31,14 +31,14 @@ export class IngredientsEffects {
     this.actions$.pipe(
       ofType(fromIngredientsActions.editIngredient),
       withLatestFrom(this.store.select(selectBarId)),
-      mergeMap(([action, barId]) =>
-        this.ingredientsService
+      mergeMap(([action, barId]) => {
+        return this.ingredientsService
           .putIngredient({ 'bar-id': barId, 'ingredient-id': action.ingredient.ingredientId, body: action.ingredient })
           .pipe(
             map(ingredients => fromIngredientsActions.editIngredientSuccess({ ingredient: ingredients })),
             catchError(error => of(fromIngredientsActions.editIngredientFailure({ error })))
-          )
-      )
+          );
+      })
     )
   );
 
@@ -84,7 +84,7 @@ export class IngredientsEffects {
 
   private reduceIngredient$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromIngredientsActions.editIngredient),
+      ofType(fromIngredientsActions.reduceIngredient),
       withLatestFrom(this.store.select(selectBarId)),
       mergeMap(([action, barId]) =>
         this.ingredientsService

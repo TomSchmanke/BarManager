@@ -38,20 +38,21 @@
                 role="button">
                 <img src="assets/delete.svg" class="w-8 h-8" />
               </button>
-
-              <app-delete-modal
-                [ngClass]="{ hidden: cocktailToDelete !== cocktail.cocktailId }"
-                [a11yModalId]="'delete-cocktail' + cocktail.cocktailName + '-modal'"
-                [nameOfItemToDelete]="cocktail.cocktailName + '(s)'"
-                (cancelDialog)="cancelDeleteCocktailModal()"
-                (declineDialog)="cancelDeleteCocktailModal()"
-                (acceptDialog)="confirmDeleteCocktailModal()">
-              </app-delete-modal>
+              <div #modal [ngClass]="{ hidden: cocktailToDelete !== cocktail.cocktailId }">
+                <app-delete-modal
+                  [a11yModalId]="'delete-cocktail' + cocktail.cocktailName + '-modal'"
+                  [nameOfItemToDelete]="cocktail.cocktailName + '(s)'"
+                  (cancelDialog)="cancelDeleteCocktailModal()"
+                  (declineDialog)="cancelDeleteCocktailModal()"
+                  (acceptDialog)="confirmDeleteCocktailModal()">
+                </app-delete-modal>
+              </div>
             </div>
           </div>
         </ng-template>
       </ng-container>
     </owl-carousel-o>
+    <ng-container [ngTemplateOutlet]="modal"></ng-container>
   </ng-container>
 </ng-container>
 

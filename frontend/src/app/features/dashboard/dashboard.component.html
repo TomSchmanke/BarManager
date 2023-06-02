@@ -67,7 +67,7 @@
     <ng-container
       *ngIf="(selectCocktailContent$ | async) && (selectCocktailContent$ | async).length !== 0; else noCocktails">
       <h2>Cocktails</h2>
-      <owl-carousel-o class="flex justify-center">
+      <owl-carousel-o class="flex justify-center h-96">
         <ng-container class="" *ngFor="let cocktail of selectCocktailContent$ | async">
           <ng-template carouselSlide [id]="cocktail.cocktailId">
             <div class="h-64 flex flex-col justify-between">

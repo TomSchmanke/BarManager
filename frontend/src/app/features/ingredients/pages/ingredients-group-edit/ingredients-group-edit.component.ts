@@ -22,6 +22,7 @@ export class IngredientsGroupEditComponent {
 
   ngOnInit() {
     this.ingredientsGroupEditForm = this.formBuilder.group({
+      id: [undefined],
       name: ['', [Validators.required]],
       unitOfMeasurement: [0, [Validators.required]],
     });
@@ -33,11 +34,13 @@ export class IngredientsGroupEditComponent {
         this.newOrExisitingIngredientGroup = ingredientGroup ? 'existing' : 'new';
         if (this.newOrExisitingIngredientGroup === 'existing') {
           this.ingredientsGroupEditForm?.setValue({
+            id: ingredientGroup?.ingredientGroupId,
             name: ingredientGroup?.ingredientGroupName ? ingredientGroup.ingredientGroupName : '',
             unitOfMeasurement: ingredientGroup?.unitOfMeasurement
               ? ingredientGroup.unitOfMeasurement
               : UnitOfMeasurement.G,
           });
+
           this.selectedIngredientGroupIngredients = ingredientGroup?.ingredients;
         }
       });
@@ -45,7 +48,7 @@ export class IngredientsGroupEditComponent {
 
   onSubmit() {
     const newIngredientGroup: IngredientGroup = {
-      ingredientGroupId: '0',
+      ingredientGroupId: this.ingredientsGroupEditForm?.get('id')?.value,
       ingredientGroupName: this.ingredientsGroupEditForm?.get('name')?.value,
       unitOfMeasurement: this.ingredientsGroupEditForm?.get('unitOfMeasurement')?.value,
       ingredients: this.selectedIngredientGroupIngredients!,

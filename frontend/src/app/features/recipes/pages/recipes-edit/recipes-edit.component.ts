@@ -56,7 +56,7 @@ export class RecipesEditComponent {
 
   getUnitOfMeasurementToIngredient(ingredientName: string) {
     const uOM = this.allIngredients?.find(
-      ingredient => ingredient.ingredientGroupId === ingredientName
+      ingredient => ingredient.ingredientGroupName === ingredientName
     )?.unitOfMeasurement;
     return uOM ? uOM : UnitOfMeasurement.ML;
   }
@@ -69,7 +69,7 @@ export class RecipesEditComponent {
     (<FormArray>this.cocktailEditForm?.get('ingredients'))
       .at(index)
       .get('ingredientGroup')
-      ?.setValue(event.target.value);
+      ?.setValue(event.target.value.substring(event.target.value.indexOf(' ') + 1, event.target.value.length));
   }
 
   onSubmit() {

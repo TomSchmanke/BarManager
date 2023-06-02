@@ -19,7 +19,7 @@ export class IngredientsEditComponent {
   ingredientId?: string;
   constructor(private store: Store, private formBuilder: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.ingredientsEditForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       amount: [0, [Validators.required, Validators.pattern('[0-9]*')]],

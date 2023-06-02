@@ -21,7 +21,7 @@
               id="ingredient-name-{{ i }}"
               formControlName="ingredientGroup"
               (change)="changeIngredientGroup(i, $event)"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
               <option value="">Choose Ingredient</option>
               <option
                 *ngFor="let ingredientGroup of allIngredients$ | async"
@@ -41,7 +41,9 @@
                 formControlName="amount"
                 placeholder="1000" />
               <span class="mx-4 py-2 px-4 font-bold border-2">{{
-                getUnitOfMeasurementToIngredient(ingredient.ingredientGroupName)
+                getUnitOfMeasurementToIngredient(
+                  cocktailEditForm?.controls['ingredients'].at(i).controls.ingredientGroup.value
+                )
               }}</span>
             </div>
           </div>

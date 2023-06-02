@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import {
   deleteIngredientGroup,
   loadIngredientGroups,
+  resetSelectSingleIngredientGroup,
   selectSingleIngredientGroup,
 } from 'src/app/store/ingredient-group/ingredient-group.actions';
 import {
@@ -36,6 +37,7 @@ export class IngredientsMasterComponent implements OnInit {
   }
 
   addIngredientGroup() {
+    this.store.dispatch(resetSelectSingleIngredientGroup());
     this.router.navigateByUrl('/ingredients/group-edit');
   }
 

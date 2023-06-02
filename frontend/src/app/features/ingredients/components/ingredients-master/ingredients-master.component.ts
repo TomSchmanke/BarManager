@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IngredientGroup } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
@@ -37,6 +37,7 @@ export class IngredientsMasterComponent implements OnInit {
   }
 
   addIngredientGroup() {
+    this.store.dispatch(resetSelectSingleIngredientGroup());
     this.router.navigateByUrl('/ingredients/group-edit');
   }
 

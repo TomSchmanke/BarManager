@@ -49,11 +49,12 @@ export class OrderAcceptModalComponent implements OnInit, OnChanges {
     (<FormArray>this.ingredientsSelectForm?.get('selectedIngredients'))
       .at(index)
       .get('selectedIngredient')
-      ?.setValue(event.target.value.slice(3, event.target.value.length));
+      ?.setValue(event.target.value.substring(event.target.value.indexOf(' ') + 1, event.target.value.length));
   }
 
   onSubmit() {
     const newIngredients: Ingredient[] = [];
+
     (<FormArray>this.ingredientsSelectForm?.get('selectedIngredients')).controls.forEach((item, index) => {
       const selectedIngredient = this.ingredientGroups[index].ingredients!.find(
         ingredient => ingredient.ingredientName === item.value.selectedIngredient

@@ -1,10 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BarCreationRequest, Cocktail, Order, OrderCreationRequest } from '@bar-manager/api';
+import { BarCreationRequest, Cocktail } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { addBar, loadBar, setLoggedInUser } from 'src/app/store/bar/bar.actions';
 import {
   selectBarError,
@@ -13,22 +12,21 @@ import {
   selectBarLoadingStatus,
   selectLoggedInUser,
 } from 'src/app/store/bar/bar.selectors';
-import { addOrder, loadOrders } from 'src/app/store/orders/orders.actions';
+import { loadIngredientGroups } from 'src/app/store/ingredient-group/ingredient-group.actions';
+import { loadIngredients } from 'src/app/store/ingredients/ingredients.actions';
+import { addOrder } from 'src/app/store/orders/orders.actions';
 import { loadCocktails } from 'src/app/store/recipes/cocktails.actions';
-import {
-  selectCocktails,
-  selectCocktailsLoadingStatus,
-  selectSelectedCocktailsLoadingStatus,
-} from 'src/app/store/recipes/cocktails.selectors';
+import { selectCocktails, selectCocktailsLoadingStatus } from 'src/app/store/recipes/cocktails.selectors';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private formBuilder = inject(FormBuilder);
+  private subscriptions = new Subscription();
 
   public selectBarLoadingStatus$: Observable<boolean> = this.store.select(selectBarLoadingStatus);
   public selectCocktailContent$ = this.store.select(selectCocktails);
@@ -47,21 +45,28 @@ export class DashboardComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.selectBarId$.subscribe((barId: string) => {
-      if (barId !== '0') {
-        this.store.dispatch(loadCocktails({ checkAvailability: true }));
-      }
-    });
+    this.subscriptions.add(
+      this.selectBarId$.subscribe((barId: string) => {
+        if (barId !== '0') {
+          this.store.dispatch(loadIngredientGroups());
+          this.store.dispatch(loadIngredients());
+          this.store.dispatch(loadCocktails({ checkAvailability: true }));
+        }
+      })
+    );
   }
+
   placeOrder(cocktail: Cocktail) {
-    this.store.select(selectLoggedInUser).subscribe(user => {
-      const orderCreationRequest: any = {
-        cocktailId: cocktail.cocktailId,
-        customerName: user,
-        cocktailName: cocktail.cocktailName,
-      };
-      this.store.dispatch(addOrder({ order: orderCreationRequest }));
-    });
+    this.subscriptions.add(
+      this.store.select(selectLoggedInUser).subscribe(user => {
+        const orderCreationRequest: any = {
+          cocktailId: cocktail.cocktailId,
+          customerName: user,
+          cocktailName: cocktail.cocktailName,
+        };
+        this.store.dispatch(addOrder({ order: orderCreationRequest }));
+      })
+    );
   }
   onBarCreationSubmit() {
     this.store.dispatch(addBar({ barCreationRequest: this.barCreationForm.value as BarCreationRequest }));
@@ -69,10 +74,9 @@ export class DashboardComponent implements OnInit {
   onLoginSubmit() {
     this.store.dispatch(loadBar({ barCode: this.loginForm.controls['barCode'].value }));
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
-    this.selectBarId$.subscribe((barId: string) => {
-      if (barId !== '0') {
-        this.store.dispatch(loadCocktails({ checkAvailability: true }));
-      }
-    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

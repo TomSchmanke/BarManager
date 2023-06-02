@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cocktail } from '@bar-manager/api';
 import { Store } from '@ngrx/store';
@@ -16,9 +16,10 @@ import { selectCocktails, selectCocktailsLoadingStatus } from 'src/app/store/rec
   templateUrl: './recipes-overview.component.html',
   styleUrls: ['./recipes-overview.component.css'],
 })
-export class RecipesOverviewComponent {
+export class RecipesOverviewComponent implements OnInit {
   private store = inject(Store);
   private router = inject(Router);
+  private cd = inject(ChangeDetectorRef);
   loading$: Observable<boolean> = this.store.select(selectCocktailsLoadingStatus);
   cocktails$: Observable<Cocktail[]> = this.store.select(selectCocktails);
   cocktailToDelete?: string;
@@ -42,6 +43,7 @@ export class RecipesOverviewComponent {
   confirmDeleteCocktailModal() {
     this.store.dispatch(deleteCocktail({ cocktailId: this.cocktailToDelete! }));
     this.cocktailToDelete = undefined;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => this.router.navigate(['/recipes']));
   }
 
   addCocktail() {

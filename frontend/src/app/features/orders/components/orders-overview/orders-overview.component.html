@@ -33,7 +33,7 @@
             barButton
             [buttonType]="'edit'"
             class="mr-2"
-            (click)="openAcceptOrderModal(order.orderId); $event.stopPropagation()"
+            (click)="openAcceptOrderModal(order.orderId); $event.stopPropagation(); selectOrder(order.orderId)"
             role="button">
             <img src="assets/accept.svg" class="w-8 h-8" />
           </button>

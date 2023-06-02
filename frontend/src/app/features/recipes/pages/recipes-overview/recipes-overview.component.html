@@ -38,7 +38,6 @@
                 role="button">
                 <img src="assets/delete.svg" class="w-8 h-8" />
               </button>
-
               <app-delete-modal
                 [ngClass]="{ hidden: cocktailToDelete !== cocktail.cocktailId }"
                 [a11yModalId]="'delete-cocktail' + cocktail.cocktailName + '-modal'"

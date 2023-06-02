@@ -57,14 +57,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   placeOrder(cocktail: Cocktail) {
-    this.store.select(selectLoggedInUser).subscribe(user => {
-      const orderCreationRequest: any = {
-        cocktailId: cocktail.cocktailId,
-        customerName: user,
-        cocktailName: cocktail.cocktailName,
-      };
-      this.store.dispatch(addOrder({ order: orderCreationRequest }));
-    });
+    this.subscriptions.add(
+      this.store.select(selectLoggedInUser).subscribe(user => {
+        const orderCreationRequest: any = {
+          cocktailId: cocktail.cocktailId,
+          customerName: user,
+          cocktailName: cocktail.cocktailName,
+        };
+        this.store.dispatch(addOrder({ order: orderCreationRequest }));
+      })
+    );
   }
   onBarCreationSubmit() {
     this.store.dispatch(addBar({ barCreationRequest: this.barCreationForm.value as BarCreationRequest }));

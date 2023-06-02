@@ -74,8 +74,6 @@ export class OrdersOverviewComponent implements OnInit {
   confirmAcceptOrderModal(event: Ingredient[]) {
     this.store.dispatch(acceptSingleOrder({ orderId: this.orderToAccept! }));
     this.store.dispatch(reduceIngredients({ ingredients: event }));
-    this.store.dispatch(loadIngredientGroups());
-    this.store.dispatch(loadIngredients());
     this.orderToDelete = undefined;
   }
 

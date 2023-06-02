@@ -68,12 +68,5 @@ export class DashboardComponent implements OnInit {
   onLoginSubmit() {
     this.store.dispatch(loadBar({ barCode: this.loginForm.controls['barCode'].value }));
     this.store.dispatch(setLoggedInUser({ loggedInUser: this.loginForm.controls['customerName'].value }));
-    this.selectBarId$.subscribe((barId: string) => {
-      if (barId !== '0') {
-        this.store.dispatch(loadIngredientGroups());
-        this.store.dispatch(loadIngredients());
-        this.store.dispatch(loadCocktails({ checkAvailability: true }));
-      }
-    });
   }
 }

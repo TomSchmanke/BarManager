@@ -84,7 +84,7 @@ export class IngredientsEffects {
 
   private reduceIngredient$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromIngredientsActions.editIngredient),
+      ofType(fromIngredientsActions.reduceIngredient),
       withLatestFrom(this.store.select(selectBarId)),
       mergeMap(([action, barId]) =>
         this.ingredientsService

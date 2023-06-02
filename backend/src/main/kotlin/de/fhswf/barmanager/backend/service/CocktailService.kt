@@ -4,12 +4,14 @@ import de.fhswf.barmanager.backend.model.Cocktail
 import de.fhswf.barmanager.backend.model.IngredientGroup
 import de.fhswf.barmanager.backend.repository.CocktailRepository
 import de.fhswf.barmanager.backend.repository.IngredientGroupsRepository
+import de.fhswf.barmanager.backend.repository.IngredientRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CocktailService(
     val cocktailRepository: CocktailRepository,
-    val ingredientGroupsRepository: IngredientGroupsRepository
+    val ingredientGroupsRepository: IngredientGroupsRepository,
+    val ingredientRepository: IngredientRepository
 ) {
 
     fun getAllCocktails(barId: String): List<Cocktail> {
@@ -21,6 +23,9 @@ class CocktailService(
         println("called GET /bars/$barId/cocktails checkAvailability: true")
         val allCocktails = cocktailRepository.findAllByBarId(barId)
         val ingredientGroups = ingredientGroupsRepository.findAllByBarId(barId)
+        for (ingredientGroup in ingredientGroups) {
+            ingredientGroup.ingredients = ingredientRepository.findAllByBarIdAndIngredientGroupId(barId, ingredientGroup.id!!)
+        }
         return getAvailableCocktails(allCocktails, ingredientGroups)
     }
 
@@ -91,7 +96,7 @@ class CocktailService(
     }
 
     fun amountOfGroupIsHigherThanCocktailIngredient(cocktailAmount: Int, ingredientGroup: IngredientGroup): Boolean {
-        return cocktailAmount < ingredientGroup.ingredients!!.sumOf { it.amount }
+        return cocktailAmount <= ingredientGroup.ingredients!!.sumOf { it.amount }
     }
 
     fun oneIngredientIsHigherThanCocktailIngredient(cocktailAmount: Int, ingredientGroup: IngredientGroup): Boolean {
@@ -101,6 +106,6 @@ class CocktailService(
                 highestAmountInGroup = ingredient.amount
             }
         }
-        return cocktailAmount < highestAmountInGroup
+        return cocktailAmount <= highestAmountInGroup
     }
 }
